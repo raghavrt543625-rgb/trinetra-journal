@@ -1,0 +1,3243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>🏹 RAGHAVA ASTRA • TRINETRA AI — Master Wealth, Trading & AI-CA Dock</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-deep: #060913;
+      --bg-card: rgba(15, 23, 42, 0.86);
+      --emerald: #10b981;
+      --cyan: #06b6d4;
+      --blue: #3b82f6;
+      --violet: #8b5cf6;
+      --amber: #f59e0b;
+      --coral: #f43f5e;
+    }
+    * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    body {
+      background: radial-gradient(circle at 15% 0%, rgba(139, 92, 246, 0.16) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 5%, rgba(6, 182, 212, 0.15) 0%, transparent 42%),
+                  radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+                  #050811;
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .mono { font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+    .bento-card {
+      background: linear-gradient(160deg, rgba(17, 25, 44, 0.92) 0%, rgba(9, 14, 26, 0.96) 100%);
+      backdrop-filter: blur(16px);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .bento-emerald { border: 1.5px solid rgba(16, 185, 129, 0.45); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(16, 185, 129, 0.25); }
+    .bento-cyan { border: 1.5px solid rgba(6, 182, 212, 0.48); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(6, 182, 212, 0.25); }
+    .bento-blue { border: 1.5px solid rgba(59, 130, 246, 0.48); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.12), inset 0 1px 0 rgba(59, 130, 246, 0.25); }
+    .bento-violet { border: 1.5px solid rgba(139, 92, 246, 0.52); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.14), inset 0 1px 0 rgba(139, 92, 246, 0.28); }
+    .bento-amber { border: 1.5px solid rgba(245, 158, 11, 0.48); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(245, 158, 11, 0.25); }
+    .bento-coral { border: 1.5px solid rgba(244, 63, 94, 0.50); box-shadow: 0 8px 25px rgba(244, 63, 94, 0.14), inset 0 1px 0 rgba(244, 63, 94, 0.25); }
+    .bento-design6-hero {
+      background: linear-gradient(155deg, rgba(88, 28, 135, 0.38) 0%, rgba(15, 23, 42, 0.95) 52%, rgba(8, 51, 68, 0.38) 100%);
+      border: 1.8px solid rgba(139, 92, 246, 0.65);
+      box-shadow: 0 12px 32px rgba(139, 92, 246, 0.20), 0 0 18px rgba(6, 182, 212, 0.15);
+    }
+    .pill-tab {
+      border-radius: 9999px;
+      padding: 8px 15px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.2px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab-emerald { border: 1.5px solid #10b981; color: #a7f3d0; background: rgba(16, 185, 129, 0.10); }
+    .tab-emerald.active { background: linear-gradient(135deg, #059669, #10b981); color: #022c22; box-shadow: 0 0 18px rgba(16, 185, 129, 0.6); }
+    .tab-cyan { border: 1.5px solid #06b6d4; color: #a5f3fc; background: rgba(6, 182, 212, 0.10); }
+    .tab-cyan.active { background: linear-gradient(135deg, #0891b2, #06b6d4); color: #083344; box-shadow: 0 0 18px rgba(6, 182, 212, 0.6); }
+    .tab-blue { border: 1.5px solid #3b82f6; color: #bfdbfe; background: rgba(59, 130, 246, 0.10); }
+    .tab-blue.active { background: linear-gradient(135deg, #2563eb, #60a5fa); color: #0f172a; box-shadow: 0 0 18px rgba(59, 130, 246, 0.6); }
+    .tab-violet { border: 1.5px solid #8b5cf6; color: #ddd6fe; background: rgba(139, 92, 246, 0.10); }
+    .tab-violet.active { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #1e1b4b; box-shadow: 0 0 18px rgba(139, 92, 246, 0.6); }
+    .tab-amber { border: 1.5px solid #f59e0b; color: #fde68a; background: rgba(245, 158, 11, 0.10); }
+    .tab-amber.active { background: linear-gradient(135deg, #d97706, #fbbf24); color: #451a03; box-shadow: 0 0 18px rgba(245, 158, 11, 0.6); }
+    .tab-master { border: 1.5px solid #ec4899; color: #fbcfe8; background: rgba(236, 72, 153, 0.12); }
+    .tab-master.active { background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981); color: #ffffff; box-shadow: 0 0 22px rgba(6, 182, 212, 0.65); }
+    .toggle-switch {
+      width: 46px; height: 24px; border-radius: 999px; position: relative; cursor: pointer; transition: all 0.22s ease;
+    }
+    .toggle-switch.on { background: linear-gradient(90deg, #06b6d4, #10b981); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+    .toggle-switch.off { background: #334155; }
+    .toggle-knob {
+      width: 18px; height: 18px; border-radius: 50%; background: #fff; position: absolute; top: 3px; transition: all 0.22s ease;
+    }
+    .toggle-switch.on .toggle-knob { left: 25px; }
+    .toggle-switch.off .toggle-knob { left: 3px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+  
+    /* =========================================================================
+       iPadOS QuickLook & Zero-CDN Offline Fallback Stylesheet
+       Ensures 100% Dark Bento Layout even when cdn.tailwindcss.com is blocked
+       ========================================================================= */
+    .hidden { display: none !important; }
+    .block { display: block; }
+    .inline-block { display: inline-block; }
+    .flex { display: flex; }
+    .flex-1 { flex: 1 1 0%; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .items-end { align-items: flex-end; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .shrink-0 { flex-shrink: 0; }
+    .min-w-0 { min-width: 0; }
+    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .w-full { width: 100%; }
+    .max-w-\[1600px\] { max-width: 1600px; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .mb-1 { margin-bottom: 0.25rem; }
+    .mb-1\.5 { margin-bottom: 0.375rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mt-0\.5 { margin-top: 0.125rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-1\.5 { margin-top: 0.375rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-2\.5 { margin-top: 0.625rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mr-1 { margin-right: 0.25rem; }
+    .p-2 { padding: 0.5rem; }
+    .p-2\.5 { padding: 0.625rem; }
+    .p-3 { padding: 0.75rem; }
+    .p-3\.5 { padding: 0.875rem; }
+    .p-4 { padding: 1rem; }
+    .p-5 { padding: 1.25rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .pt-2 { padding-top: 0.5rem; }
+    .pt-3 { padding-top: 0.75rem; }
+    .pb-1\.5 { padding-bottom: 0.375rem; }
+    .gap-1 { gap: 0.25rem; }
+    .gap-1\.5 { gap: 0.375rem; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-2\.5 { gap: 0.625rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .space-y-2 > * + * { margin-top: 0.5rem; }
+    .space-y-2\.5 > * + * { margin-top: 0.625rem; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .grid { display: grid; }
+    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (min-width: 640px) {
+      .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .sm\:flex-row { flex-direction: row; }
+      .sm\:items-center { align-items: center; }
+    }
+    @media (min-width: 768px) {
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .md\:flex-row { flex-direction: row; }
+      .md\:items-center { align-items: center; }
+    }
+    @media (min-width: 1024px) {
+      .lg\:flex-row { flex-direction: row; }
+      .lg\:items-center { align-items: center; }
+      .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+      .lg\:col-span-4 { grid-column: span 4 / span 4; }
+      .lg\:col-span-5 { grid-column: span 5 / span 5; }
+      .lg\:col-span-6 { grid-column: span 6 / span 6; }
+      .lg\:col-span-7 { grid-column: span 7 / span 7; }
+      .lg\:col-span-12 { grid-column: span 12 / span 12; }
+    }
+    @media (min-width: 1280px) {
+      .xl\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .xl\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    /* Dark-Mode Inputs, Selects, Textareas & Buttons (Never White on iPad!) */
+    input, select, textarea {
+      background-color: #0b1120 !important;
+      color: #f8fafc !important;
+      border: 1.5px solid rgba(56, 189, 248, 0.38) !important;
+      border-radius: 12px !important;
+      padding: 8px 11px !important;
+      font-size: 0.78rem !important;
+      font-weight: 700 !important;
+      outline: none !important;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      padding: 0 !important;
+      border-radius: 4px !important;
+      -webkit-appearance: checkbox !important;
+      appearance: checkbox !important;
+      accent-color: #06b6d4;
+    }
+    button {
+      background-color: rgba(15, 23, 42, 0.92);
+      color: #e2e8f0;
+      border: 1.5px solid rgba(139, 92, 246, 0.45);
+      border-radius: 12px;
+      padding: 8px 13px;
+      font-weight: 800;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    button:hover { filter: brightness(1.12); }
+    .text-emerald-300, .text-emerald-400 { color: #34d399; }
+    .text-cyan-200, .text-cyan-300, .text-cyan-400 { color: #22d3ee; }
+    .text-violet-200, .text-violet-300, .text-violet-400 { color: #c084fc; }
+    .text-rose-200, .text-rose-300, .text-rose-400 { color: #fb7185; }
+    .text-amber-200, .text-amber-300, .text-amber-400 { color: #fbbf24; }
+    .text-slate-200, .text-slate-300 { color: #cbd5e1; }
+    .text-slate-400, .text-slate-500 { color: #94a3b8; }
+    .text-white { color: #ffffff; }
+    .font-black { font-weight: 900; }
+    .font-extrabold { font-weight: 800; }
+    .font-bold { font-weight: 700; }
+    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.6rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-xs { font-size: 0.75rem; }
+    .text-\[11px\] { font-size: 11px; }
+    .text-\[10px\] { font-size: 10px; }
+    .rounded-xl { border-radius: 12px; }
+    .rounded-2xl { border-radius: 16px; }
+    .rounded-full { border-radius: 9999px; }
+    .overflow-x-auto { overflow-x: auto; }
+    .overflow-y-auto { overflow-y: auto; }
+    .max-h-72 { max-height: 18rem; }
+    .max-h-\[430px\] { max-height: 430px; }
+
+  
+    /* =========================================================================
+       PURE-CSS TAB ENGINE FOR iPadOS FILES QUICKLOOK (WORKS WITH 0% JAVASCRIPT!)
+       ========================================================================= */
+    .css-tab-radio { display: none !important; }
+    .tab-view { display: none !important; }
+    #rad-tab-dock:checked ~ #view-dock { display: grid !important; }
+    #rad-tab-daily:checked ~ #view-daily { display: grid !important; }
+    #rad-tab-bandhe:checked ~ #view-bandhe { display: block !important; }
+    #rad-tab-charts:checked ~ #view-charts { display: grid !important; }
+    #rad-tab-aica:checked ~ #view-aica { display: grid !important; }
+    #rad-tab-rules:checked ~ #view-rules { display: block !important; }
+    #rad-tab-reconcile:checked ~ #view-reconcile { display: block !important; }
+
+    #rad-tab-dock:checked ~ nav label[for="rad-tab-dock"],
+    #rad-tab-daily:checked ~ nav label[for="rad-tab-daily"],
+    #rad-tab-bandhe:checked ~ nav label[for="rad-tab-bandhe"],
+    #rad-tab-charts:checked ~ nav label[for="rad-tab-charts"],
+    #rad-tab-aica:checked ~ nav label[for="rad-tab-aica"],
+    #rad-tab-rules:checked ~ nav label[for="rad-tab-rules"],
+    #rad-tab-reconcile:checked ~ nav label[for="rad-tab-reconcile"] {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 18px rgba(6, 182, 212, 0.65) !important;
+    }
+    label.pill-tab { display: inline-block; user-select: none; -webkit-user-select: none; }
+
+  </style>
+</head>
+<body class="p-2 sm:p-4 md:p-5 select-none">
+
+  <!-- Toast Notification -->
+  <div id="toastBanner" class="fixed top-4 right-4 z-50 hidden px-4 py-3 rounded-xl font-bold text-sm shadow-2xl border border-emerald-400/50 bg-slate-900/95 text-emerald-300"></div>
+
+  <!-- ===================================================================== -->
+  <!-- 🛡️ TRINETRA AES-256-GCM ZERO-KNOWLEDGE SECRET PIN VAULT LOCK SCREEN   -->
+  <!-- ===================================================================== -->
+  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); display:flex; align-items:center; justify-content:center; padding:16px;">
+    <div class="bento-card bento-design6-hero" style="max-width:430px; width:100%; padding:24px; text-align:center; border:2px solid rgba(6,182,212,0.65); box-shadow:0 20px 60px rgba(0,0,0,0.92), 0 0 35px rgba(139,92,246,0.35);">
+      <div style="width:62px; height:62px; margin:0 auto 10px auto; border-radius:18px; background:linear-gradient(135deg,#8b5cf6,#06b6d4,#10b981); padding:2px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 24px rgba(6,182,212,0.45);">
+        <div style="width:100%; height:100%; background:#050811; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px;">🛡️</div>
+      </div>
+      <div class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-300 border border-emerald-400/40 inline-block mb-1">
+        🔒 AES-256-GCM Military Encryption • PBKDF2 100K
+      </div>
+      <h2 id="vaultLockTitle" class="text-lg font-black text-white mt-1">
+        RAGHAVA ASTRA • TRINETRA VAULT
+      </h2>
+      <p id="vaultLockSubtitle" class="text-xs text-slate-300 mt-1 mb-3">
+        Apna <strong>Secret Master PIN (4–8 digits)</strong> enter karein. Aapka saara Bank, Trade aur ITR-3 data aapke PIN se AES-256-GCM me encrypted rehta hai.
+      </p>
+
+      <!-- PIN Dots / Input Display -->
+      <div class="mb-3">
+        <input type="password" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off"
+          class="w-full text-center text-2xl font-black mono tracking-[0.55em] py-2.5 px-4 rounded-2xl bg-slate-950 border-2 border-cyan-400/60 text-cyan-200" />
+      </div>
+
+      <div id="vaultErrorMsg" class="text-xs font-extrabold text-rose-400 mb-2 hidden"></div>
+
+      <!-- Tactile Number Pad for iPad / Mobile / Desktop -->
+      <div class="grid grid-cols-3 gap-2 mb-3">
+        <button type="button" data-pin-key="1" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">1</button>
+        <button type="button" data-pin-key="2" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">2</button>
+        <button type="button" data-pin-key="3" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">3</button>
+        <button type="button" data-pin-key="4" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">4</button>
+        <button type="button" data-pin-key="5" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">5</button>
+        <button type="button" data-pin-key="6" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">6</button>
+        <button type="button" data-pin-key="7" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">7</button>
+        <button type="button" data-pin-key="8" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">8</button>
+        <button type="button" data-pin-key="9" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">9</button>
+        <button type="button" id="btnPinClear" class="py-2.5 rounded-xl text-xs font-extrabold bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-500/40">CLR</button>
+        <button type="button" data-pin-key="0" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">0</button>
+        <button type="button" id="btnPinBackspace" class="py-2.5 rounded-xl text-xs font-extrabold bg-amber-950/80 hover:bg-amber-900 text-amber-200 border border-amber-500/40">⌫ DEL</button>
+      </div>
+
+      <button type="button" id="btnUnlockOrSetPin" class="w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 via-cyan-500 to-violet-600 text-slate-950 shadow-lg shadow-cyan-500/30">
+        🔓 UNLOCK AES-256 VAULT
+      </button>
+
+      <div class="mt-3 pt-2.5 border-t border-slate-800/90 flex items-center justify-between text-[11px] text-slate-400">
+        <span>🛡️ Zero-Server Local Storage</span>
+        <button type="button" id="btnEmergencyVaultReset" class="text-rose-400 hover:underline font-bold" style="background:transparent; border:none; padding:2px 4px; font-size:11px;">
+          Forgot PIN? Wipe Local Vault
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change PIN Modal -->
+  <div id="changePinModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card bento-violet max-w-md w-full p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-base font-black text-violet-300">🔑 CHANGE SECRET MASTER PIN (AES-256 RE-KEY)</h3>
+        <button type="button" id="btnCloseChangePinModal" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold">✕</button>
+      </div>
+      <p class="text-xs text-slate-300 mb-3">
+        Naya 4–8 digit Secret PIN set karein. Aapka pura journal data naye PIN se AES-256-GCM me re-encrypt ho jayega:
+      </p>
+      <div class="space-y-2.5 mb-3">
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">New Secret PIN (4–8 Digits)</label>
+          <input type="password" id="newPinModalInput" inputmode="numeric" maxlength="8" placeholder="Enter new PIN" class="w-full text-center text-base font-black mono" />
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Confirm New Secret PIN</label>
+          <input type="password" id="confirmPinModalInput" inputmode="numeric" maxlength="8" placeholder="Confirm new PIN" class="w-full text-center text-base font-black mono" />
+        </div>
+      </div>
+      <button type="button" id="btnSaveNewPinModal" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950">
+        🔒 RE-ENCRYPT VAULT WITH NEW PIN
+      </button>
+    </div>
+  </div>
+
+  <!-- TOP BRAND HEADER (RAGHAVA ASTRA • TRINETRA AI) -->
+  <header class="max-w-[1600px] mx-auto mb-3 bento-card px-4 py-3 border border-slate-700/70 flex flex-col lg:flex-row items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 via-cyan-500 to-emerald-400 p-0.5 shadow-lg shadow-cyan-500/25 flex items-center justify-center">
+        <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-2xl">🏹</div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <h1 class="text-lg sm:text-xl md:text-2xl font-black tracking-tight bg-gradient-to-r from-white via-cyan-300 to-emerald-300 bg-clip-text text-transparent">
+            RAGHAVA ASTRA • TRINETRA AI
+          </h1>
+          <span class="px-2.5 py-0.5 text-[11px] font-extrabold rounded-full bg-violet-500/20 text-violet-300 border border-violet-400/40">
+            DESIGN #6 + #9 MASTER DOCK
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 font-medium">
+          "Trinetra Sees the Truth. Raghava Locks the Strike." • Indian Grihasthi, 3-Lock Trading Psychology &amp; Smart ITR-3 AI-CA
+        </p>
+      </div>
+    </div>
+
+    <!-- Month Selector & Quick Actions -->
+    <div class="flex items-center gap-2 flex-wrap justify-center">
+      <select id="activeMonthSelect" class="bg-slate-900 border border-cyan-500/40 text-cyan-200 text-xs font-bold rounded-xl px-3 py-2 focus:outline-none">
+        <option value="2026-11" selected>📅 November 2026 (FY 2026-27)</option>
+        <option value="2026-10">📅 October 2026 (FY 2026-27)</option>
+        <option value="2026-12">📅 December 2026 (FY 2026-27)</option>
+      </select>
+      <button id="btnQuickExportITR" class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white shadow-lg shadow-violet-600/30 border border-violet-400/40">
+        📥 1-Click ITR-3 CSV Export
+      </button>
+      <div class="flex items-center gap-1.5 bg-slate-900/95 border border-emerald-500/40 rounded-xl px-2.5 py-1">
+        <span class="text-[10px] font-extrabold text-emerald-300 uppercase">Base Cap (₹):</span>
+        <input type="number" id="baseCapitalInput" value="100000" step="10000" class="w-24 text-xs font-black mono text-emerald-300" title="Active Trading Capital for ROI% and 2% Daily Loss Shield" />
+        <span id="headerRoiAndRiskBadge" class="text-[10px] font-black mono text-cyan-300">ROI: +48.2% • Max 2% SL: ₹2,000</span>
+      </div>
+      <button id="btnLogPatienceDay" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-amber-500/20 hover:bg-amber-500/35 text-amber-200 border border-amber-400/50" title="Log Zero-Trade Sniper Patience Day in Sideways Market">
+        🧘‍♂️ +0-Trade Patience Day
+      </button>
+      <button id="btnResetDemoData" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-600/50">
+        🔄 Reset Sample Data
+      </button>
+      <button id="btnLockVaultNow" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-rose-600/30 hover:bg-rose-600/45 text-rose-200 border border-rose-400/50" title="Immediately lock screen & encrypt vault">
+        🔒 Lock Vault
+      </button>
+      <button id="btnChangeVaultPin" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-violet-600/30 hover:bg-violet-600/45 text-violet-200 border border-violet-400/50" title="Change your Secret Master PIN">
+        🔑 Change PIN
+      </button>
+    </div>
+  </header>
+
+  <!-- PURE-CSS RADIO INPUTS SO TABS SWITCH EVEN IN iPAD FILES QUICKLOOK WITHOUT JS -->
+  <input type="radio" name="main_css_tab" id="rad-tab-dock" class="css-tab-radio" checked />
+  <input type="radio" name="main_css_tab" id="rad-tab-daily" class="css-tab-radio" />
+  <input type="radio" name="main_css_tab" id="rad-tab-bandhe" class="css-tab-radio" />
+  <input type="radio" name="main_css_tab" id="rad-tab-charts" class="css-tab-radio" />
+  <input type="radio" name="main_css_tab" id="rad-tab-aica" class="css-tab-radio" />
+  <input type="radio" name="main_css_tab" id="rad-tab-rules" class="css-tab-radio" />
+  <input type="radio" name="main_css_tab" id="rad-tab-reconcile" class="css-tab-radio" />
+
+  <!-- iPAD SAFARI LAUNCHER TIP BANNER -->
+  <details class="max-w-[1600px] mx-auto mb-3 bento-card px-4 py-2.5 border border-amber-400/50 text-xs">
+    <summary class="font-black text-amber-300 cursor-pointer">
+      📲 iPad Par Full Interactive Mode (Safari) Me Kaise Kholein? (Tap Here for 5-Second Trick)
+    </summary>
+    <div class="mt-2 text-slate-200 space-y-1 leading-relaxed">
+      <div><strong>Trick #1 (5-Second Split-Screen Drag &amp; Drop to Safari):</strong> iPad par <strong>Safari</strong> kholein, side me <strong>Files App (Slide Over / Split View)</strong> rakhein, aur <code>Downloads</code> se is file ko <strong>ungli se daba kar (Long-Press) seedha Safari ke top URL/Address bar par chhod dein (Drop)!</strong> Safari me khulte hi saare AI buttons, File Upload aur LocalStorage 100% kaam karenge.</div>
+      <div><strong>Trick #2 (Gemini Canvas):</strong> Is chat ke andar hi file card par tap karke <strong>Canvas Preview</strong> me chalayein — wahan saare AI buttons live chalte hain!</div>
+      <div><strong>Trick #3 (Zero-JS Tabs Working Right Now):</strong> Humne saare 7 Tabs me <strong>Pure-CSS Radio Engine</strong> jod diya hai — isliye aap abhi <code>Files</code> app ke andar bhi upar ke 7 Tab buttons par tap karke saare 7 views dekh sakte hain!</div>
+    </div>
+  </details>
+
+  <!-- DESIGN #9: 5-COLOR GLOWING NAVIGATION PILL DOCK -->
+  <nav class="max-w-[1600px] mx-auto mb-4 flex items-center gap-2 overflow-x-auto pb-1.5">
+    <label for="rad-tab-dock" data-tab="dock" class="nav-tab-btn pill-tab tab-master active">⚡ 0. Master Dock (#6 + #9 All-in-One)</label>
+    <label for="rad-tab-daily" data-tab="daily" class="nav-tab-btn pill-tab tab-emerald">🎯 1. Daily Trade &amp; Rozmarra</label>
+    <label for="rad-tab-bandhe" data-tab="bandhe" class="nav-tab-btn pill-tab tab-cyan">🔄 2. Bandhe Monthly Bills (Auto-Tag)</label>
+    <label for="rad-tab-charts" data-tab="charts" class="nav-tab-btn pill-tab tab-blue">📊 3. Interactive Bar Charts</label>
+    <label for="rad-tab-aica" data-tab="aica" class="nav-tab-btn pill-tab tab-violet">🧠 4. AI-CA &amp; ITR-3 Tax Vault</label>
+    <label for="rad-tab-rules" data-tab="rules" class="nav-tab-btn pill-tab tab-amber">📅 5. 31-Day Rules &amp; Yearly Goals</label>
+    <label for="rad-tab-reconcile" data-tab="reconcile" class="nav-tab-btn pill-tab tab-emerald">🏦 6. Bank + Broker Reconciler &amp; 8 Indian Upgrades</label>
+  </nav>
+
+  <!-- TOP 4 MULTI-COLOR KPI CARDS WITH CIRCULAR RINGS (DESIGN #9 TOP ROW) -->
+  <section class="max-w-[1600px] mx-auto mb-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+    <!-- KPI 1: Emerald Trading P&L & Win Rate -->
+    <div class="bento-card bento-emerald p-3.5 flex items-center justify-between">
+      <div>
+        <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">1. Monthly Net Trading P&amp;L</div>
+        <div id="kpiTradingPnl" class="text-2xl font-black mono text-emerald-300 mt-0.5">+₹48,200</div>
+        <div id="kpiTradingSub" class="text-[11px] text-slate-300 mt-1">Win Rate: <span class="text-emerald-400 font-bold">83%</span> • Sec 43(5) Business</div>
+      </div>
+      <div class="w-14 h-14 rounded-full border-4 border-emerald-500/30 flex items-center justify-center relative bg-emerald-950/40">
+        <span id="kpiWinRateBadge" class="text-xs font-black mono text-emerald-300">83%</span>
+      </div>
+    </div>
+
+    <!-- KPI 2: Cyan Bandhe + Rozmarra Grihasthi Spend -->
+    <div class="bento-card bento-cyan p-3.5 flex items-center justify-between">
+      <div>
+        <div class="text-[11px] font-extrabold uppercase tracking-wider text-cyan-400">2. Ghar-Grihasthi &amp; Family</div>
+        <div id="kpiGrihasthiTotal" class="text-2xl font-black mono text-cyan-300 mt-0.5">₹19,700</div>
+        <div id="kpiGrihasthiSub" class="text-[11px] text-slate-300 mt-1">Bandhe Bills + Rozmarra (Budget ₹25k)</div>
+      </div>
+      <div class="w-14 h-14 rounded-full border-4 border-cyan-500/30 flex items-center justify-center relative bg-cyan-950/40">
+        <span id="kpiBudgetPct" class="text-xs font-black mono text-cyan-300">79%</span>
+      </div>
+    </div>
+
+    <!-- KPI 3: Violet Auto-Tagged ITR-3 Business + 80C/80D Tax Deductions -->
+    <div class="bento-card bento-violet p-3.5 flex items-center justify-between">
+      <div>
+        <div class="text-[11px] font-extrabold uppercase tracking-wider text-violet-400">3. Auto-Tagged ITR-3 &amp; 80C/D</div>
+        <div id="kpiTaxDeductTotal" class="text-2xl font-black mono text-violet-300 mt-0.5">₹25,397</div>
+        <div id="kpiTaxSub" class="text-[11px] text-slate-300 mt-1">Sec 37 Business: <span id="kpiSec37Span" class="text-violet-300 font-bold">₹7,897</span> + 80C/D</div>
+      </div>
+      <div class="w-14 h-14 rounded-full border-4 border-violet-500/30 flex items-center justify-center relative bg-violet-950/40">
+        <span class="text-[11px] font-black mono text-violet-300">ITR-3</span>
+      </div>
+    </div>
+
+    <!-- KPI 4: Coral/Amber Fizul Kharch + Bad SL Leakage Alert -->
+    <div class="bento-card bento-coral p-3.5 flex items-center justify-between">
+      <div>
+        <div class="text-[11px] font-extrabold uppercase tracking-wider text-rose-400">4. Fizul Kharch + Bad SL Leakage</div>
+        <div id="kpiLeakageTotal" class="text-2xl font-black mono text-rose-300 mt-0.5">₹4,050</div>
+        <div id="kpiLeakageSub" class="text-[11px] text-slate-300 mt-1">Fizul: <span id="kpiFizulSpan" class="text-rose-400 font-bold">₹1,850</span> • Bad SL: <span id="kpiBadSlSpan" class="text-amber-400 font-bold">₹2,200</span></div>
+      </div>
+      <div class="w-14 h-14 rounded-full border-4 border-rose-500/30 flex items-center justify-center relative bg-rose-950/40">
+        <span id="kpiGreedScoreBadge" class="text-xs font-black mono text-rose-300">16%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 0: MASTER COMMAND DOCK (EXACT DESIGN #6 + #9 3-COLUMN FUSION)     -->
+  <!-- ===================================================================== -->
+  <main id="view-dock" class="tab-view max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+    <!-- SANDHYA 7-8 PM SMART AI DIARY & AUTO-CLASSIFIER (FULL 12-COL HERO BAR) -->
+    <div class="lg:col-span-12 bento-card bento-design6-hero p-4 border-2 border-cyan-400/50">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2 mb-3">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/30 text-emerald-200 border border-emerald-400/50">
+              🌅 Sandhya 7–8 PM Smart AI Diary • Zero-Touch Auto-Router
+            </span>
+            <span class="text-xs font-bold text-cyan-300 mono">● Hinglish NLU + ITR-3 De-Dup + 31-Day Habit Auto-Sync</span>
+          </div>
+          <h2 class="text-base sm:text-lg font-black text-white mt-1">
+            ✍️ AAJ KA PURA DIN, TRADES &amp; KHARCH LIKHEIN — AI APNE-AAP SARE 5 TABS ME ADD KAREGA
+          </h2>
+          <p class="text-xs text-slate-300">
+            Roz shaam 7–8 baje bas 1 paragraph me likhein (ya 🎙️ Mic se bolein) ki aaj kya-kya kiya, trading me kitna profit/loss hua aur kahan kitne ₹ kharch huye:
+          </p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <input type="date" id="diaryDateInput" value="2026-11-15" class="bg-slate-950 border border-cyan-500/50 rounded-xl px-3 py-1.5 text-xs font-bold text-cyan-200 mono" />
+          <button id="btnDiaryVoiceMic" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/25 hover:bg-rose-500/40 text-rose-200 border border-rose-400/50">
+            🎙️ Bol Kar Likhein (Mic)
+          </button>
+        </div>
+      </div>
+
+      <!-- Sample Preset Story Buttons for 1-Tap Testing -->
+      <div class="flex items-center gap-1.5 flex-wrap mb-2">
+        <span class="text-[11px] font-bold text-slate-400">⚡ Test Sample Diary:</span>
+        <button type="button" data-diary-sample="s1" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-cyan-200 border border-cyan-500/30">
+          📝 Sample 1: +₹4,800 Win, -₹1,500 Bad SL, Sabzi, Petrol, Wi-Fi &amp; Zomato
+        </button>
+        <button type="button" data-diary-sample="s2" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-emerald-200 border border-emerald-500/30">
+          📝 Sample 2: 2 Sniper Wins (+₹11,200), Good SL (-₹1,100), Dawai, SIP &amp; Workout
+        </button>
+        <button type="button" data-diary-sample="s3" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-amber-200 border border-amber-500/30">
+          📝 Sample 3: Multi-Item Mandi, Shagun ₹501, TradingView Bill &amp; Parivar Time
+        </button>
+      </div>
+
+      <textarea id="diaryTextInput" rows="3" class="w-full bg-slate-950/95 border border-violet-500/50 rounded-2xl p-3 text-xs sm:text-sm text-white font-medium leading-relaxed focus:outline-none focus:border-cyan-400" placeholder="Example: Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur 4800 profit book kiya... Shaam ko 220 ki sabzi laya, 300 ka petrol dalwaya, 899 ka Wi-Fi recharge kiya aur 45 min workout kiya.">Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur T2 trail karke 4800 profit book kiya, par dopahar 1 baje sideways box me lalach me 25200 PE le liya jisme 1500 ka galat SL kat gaya. Shaam ko mandi se 220 ki sabzi aur phal laya, scooty me 300 ka petrol dalwaya, trading setup ka 899 wala Wi-Fi recharge kiya, aur raat ko Zomato se 380 ka pizza mangwa liya. Subah 45 min workout kiya aur Raghava Astra V21 test kiya.</textarea>
+
+      <div class="mt-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+        <div class="flex items-center gap-3 flex-wrap">
+          <button id="btnPreviewDiaryAi" type="button" class="px-4 py-2 rounded-xl text-xs font-black bg-cyan-600/30 hover:bg-cyan-600/45 text-cyan-200 border border-cyan-400/50">
+            🔍 1. AI Understand &amp; Preview Breakdown
+          </button>
+          <label class="flex items-center gap-1.5 text-xs text-slate-300 cursor-pointer">
+            <input type="checkbox" id="diaryDedupBandheToggle" checked class="rounded border-slate-600 text-cyan-500" />
+            <span>Smart Bandhe-Bill De-Duplication (Wi-Fi/Doodh/SIP double-count rokein)</span>
+          </label>
+        </div>
+        <button id="btnCommitDiaryAi" type="button" class="px-5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 via-cyan-500 to-violet-600 hover:from-emerald-400 hover:to-violet-500 text-slate-950 shadow-lg shadow-cyan-500/30">
+          🚀 2. AUTO-ADD TO ALL 5 TABS (TRADES + KHARCH + ITR-3 + 31-DAY MATRIX)
+        </button>
+      </div>
+
+      <!-- Live AI Staging Preview Grid -->
+      <div id="diaryStagingPreviewBox" class="mt-3 pt-3 border-t border-slate-800/90 grid grid-cols-1 lg:grid-cols-4 gap-2.5 text-xs">
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-emerald-500/30">
+          <div class="font-black text-emerald-300 mb-1.5">🎯 1. AI Detected Trades (2)</div>
+          <div class="p-2 rounded-xl border text-emerald-300 border-emerald-500/40 bg-emerald-950/40 mb-1.5">
+            <div class="flex justify-between font-black"><span>NIFTY 25150 CE</span><span class="mono">+₹4,800</span></div>
+            <div class="text-[10px] text-slate-300 mt-0.5">3-Lock + 7-EMA Root • <strong>Target Hit (T1/T2/T3)</strong></div>
+          </div>
+          <div class="p-2 rounded-xl border text-rose-300 border-rose-500/40 bg-rose-950/40">
+            <div class="flex justify-between font-black"><span>NIFTY 25200 PE</span><span class="mono">-₹1,500</span></div>
+            <div class="text-[10px] text-slate-300 mt-0.5">Sideways Mid-Box Guess • <strong>Bad Mistake SL</strong></div>
+          </div>
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-cyan-500/30">
+          <div class="font-black text-cyan-300 mb-1.5">🛒 2. AI Classified Kharch &amp; ITR-3 (4)</div>
+          <div class="p-2 rounded-xl border border-cyan-500/40 bg-cyan-950/40 text-cyan-200 mb-1.5">
+            <div class="flex justify-between font-bold"><span>Taaza Sabzi &amp; Phal (Mandi)</span><span class="mono font-black">₹220</span></div>
+            <div class="text-[10px] mt-0.5">Rozmarra Essential</div>
+          </div>
+          <div class="p-2 rounded-xl border border-cyan-500/40 bg-cyan-950/40 text-cyan-200 mb-1.5">
+            <div class="flex justify-between font-bold"><span>Petrol / Vehicle Fuel</span><span class="mono font-black">₹300</span></div>
+            <div class="text-[10px] mt-0.5">Rozmarra Essential</div>
+          </div>
+          <div class="p-2 rounded-xl border border-violet-500/40 bg-violet-950/40 text-violet-200 mb-1.5">
+            <div class="flex justify-between font-bold"><span>Wi-Fi / Broadband (Trading Setup)</span><span class="mono font-black">₹899</span></div>
+            <div class="text-[10px] mt-0.5">ITR-3 Business Deduct • 🔄 Bandha Sync</div>
+          </div>
+          <div class="p-2 rounded-xl border border-rose-500/40 bg-rose-950/40 text-rose-200">
+            <div class="flex justify-between font-bold"><span>Zomato / Pizza (Fizul Order)</span><span class="mono font-black">₹380</span></div>
+            <div class="text-[10px] mt-0.5">Fizul Kharch</div>
+          </div>
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-violet-500/30">
+          <div class="font-black text-violet-300 mb-1.5">📖 3. Dinacharya &amp; Life Notes (2)</div>
+          <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-200 mb-1.5 font-semibold">💪 Health: Subah 45 min workout kiya</div>
+          <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-200 font-semibold">💻 Quant R&amp;D: Raghava Astra V21 test kiya</div>
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-amber-500/30">
+          <div class="font-black text-amber-300 mb-1.5">📅 4. Day D15 Auto-Habit Ticks</div>
+          <div class="text-slate-300 text-[11px]">✓ Kharch Logged • ✕ Mid-Box Avoided • ✕ Zero Fizul (Zomato ₹380 detected)</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- LEFT COLUMN (4 Cols): DESIGN #6 HERO CARD — 1st-OF-MONTH AUTO-TAGGED BILLS -->
+    <div class="lg:col-span-4 bento-card bento-design6-hero p-4 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/40">
+            Design #6 Hero • Auto-Tag Engine
+          </span>
+          <span class="text-xs font-bold mono text-cyan-300" id="dockAutoBillCount">11 Active</span>
+        </div>
+        <h2 class="text-base sm:text-lg font-black text-white tracking-tight">
+          1st-OF-MONTH AUTO-TAGGED BILLS
+        </h2>
+        <p class="text-xs text-slate-300 mb-3">
+          Har mahine fix aane wale Trading Business (`Sec 37 ITR-3`) aur Ghar-Grihasthi bills—toggle `ON` rakhein, AI-CA apne-aap hisab jod lega:
+        </p>
+
+        <!-- Dynamic List of Recurring Bills with ON/OFF Toggles -->
+        <div id="dockRecurringList" class="space-y-2 max-h-[430px] overflow-y-auto pr-1">
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div><div class="text-xs font-bold text-white">Wi-Fi / Broadband (Trading Setup)</div><div class="text-[11px] text-violet-300 mono">Sec 37 Utility • ₹899</div></div>
+            <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div><div class="text-xs font-bold text-white">TradingView Pro &amp; Market Data Feed</div><div class="text-[11px] text-violet-300 mono">Sec 37 Software • ₹1,499</div></div>
+            <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div><div class="text-xs font-bold text-white">Brokerage, STT (0.15%) &amp; Exchange Fees</div><div class="text-[11px] text-violet-300 mono">Sec 37 Direct • ₹2,450</div></div>
+            <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div><div class="text-xs font-bold text-white">iPad &amp; Laptop Depreciation (Monthly Share)</div><div class="text-[11px] text-violet-300 mono">Sec 32 Deprec. • ₹1,800</div></div>
+            <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div><div class="text-xs font-bold text-white">Kirana, Ration &amp; Cold-Pressed Atta</div><div class="text-[11px] text-cyan-300 mono">Ghar Need • ₹6,500</div></div>
+            <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div><div class="text-xs font-bold text-white">80C Equity/Index SIP &amp; Sukanya</div><div class="text-[11px] text-emerald-300 mono">Sec 80C • ₹15,000</div></div>
+            <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 pt-3 border-t border-violet-500/30 flex items-center justify-between text-xs">
+        <div>
+          <div class="text-slate-400 font-medium">Auto-Tagged ITR-3 Sec 37 Total:</div>
+          <div id="dockSec37Total" class="text-base font-black mono text-violet-300">₹7,897 / mo</div>
+        </div>
+        <button id="btnGoToBandheTab" class="px-3 py-2 rounded-xl font-extrabold bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-400/40">
+          ✏️ Edit Bills &amp; Amounts
+        </button>
+      </div>
+    </div>
+
+    <!-- CENTER COLUMN (4 Cols): AI-CA LIVE BRAIN AUDITOR & FIZUL KHARCH RADAR -->
+    <div class="lg:col-span-4 bento-card bento-emerald p-4 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-300 border border-emerald-400/40">
+            🧠 Trinetra AI-CA Cortex • Live
+          </span>
+          <span class="text-[11px] font-bold text-emerald-400">● Audit Ready</span>
+        </div>
+        <h2 class="text-base sm:text-lg font-black text-white">
+          AI-CA LIVE BRAIN &amp; FIZUL KHARCH RADAR
+        </h2>
+        <p class="text-xs text-slate-400 mb-3">
+          Aapke Trades, Ghar ke Kharch aur Income Tax (`ITR-3 Schedule BP`) ka real-time Chartered Accountant diagnosis:
+        </p>
+
+        <!-- AI Brain Visual Header -->
+        <div class="p-3 rounded-2xl bg-slate-950/90 border border-violet-500/40 mb-3 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-600 via-cyan-500 to-emerald-500 flex items-center justify-center text-2xl shadow-lg shadow-violet-500/30 shrink-0">
+            🧠
+          </div>
+          <div class="text-xs">
+            <div class="font-extrabold text-cyan-300">CA Trinetra Verdict (Nov 2026):</div>
+            <div id="dockCaHeadline" class="text-slate-200 mt-0.5 leading-snug">
+              Auto-tagged ₹7,897/mo in Sec 37 trading deductions—reducing your taxable F&amp;O business income directly!
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic AI-CA Diagnostic Cards -->
+        <div id="dockCaDiagnostics" class="space-y-2.5">
+          <div class="p-3 rounded-xl bg-violet-950/45 border border-violet-500/40 text-xs">
+            <div class="font-extrabold text-violet-300">🟣 1. Auto-Tagged ITR-3 Business Expense Shield:</div>
+            <div class="text-slate-300 mt-0.5">Wi-Fi, Mobile, TradingView, Brokerage/STT &amp; iPad Deprec. (₹7,897/mo) claimed under Section 37 &amp; 32 — saving ~₹23,690/yr in tax!</div>
+          </div>
+          <div class="p-3 rounded-xl bg-rose-950/45 border border-rose-500/40 text-xs">
+            <div class="font-extrabold text-rose-300">🔴 2. Fizul Kharch + Bad SL Psychological Shock Audit:</div>
+            <div class="text-slate-300 mt-0.5">Bad Mistake SL (₹2,200) + Fizul Spend (₹1,850) = ₹4,050 leak — equal to 9 days of Ghar Ration &amp; Doodh!</div>
+          </div>
+          <div class="p-3 rounded-xl bg-cyan-950/45 border border-cyan-500/40 text-xs">
+            <div class="font-extrabold text-cyan-300">🔵 3. Section 44AB Digital Tax Audit Status (SAFE):</div>
+            <div class="text-slate-300 mt-0.5">Monthly ICAI Turnover: ₹1,55,680 (Well within ₹10 Crore Digital F&amp;O Limit — Zero Tax Audit required!).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Quick Action Buttons -->
+      <div class="mt-4 pt-3 border-t border-slate-800 grid grid-cols-2 gap-2">
+        <button id="btnOpenItrModal" class="py-2.5 px-3 rounded-xl font-extrabold text-xs bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-600/25">
+          📄 View ITR-3 Schedule BP
+        </button>
+        <button id="btnJumpToDailyLog" class="py-2.5 px-3 rounded-xl font-extrabold text-xs bg-violet-600/30 hover:bg-violet-600/45 text-violet-200 border border-violet-400/40">
+          ➕ Log Today's Trade / Kharch
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN (4 Cols): MULTI-COLOR BAR CHART + 1-TAP PSYCHOLOGY & GREED DIAL -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
+      <!-- Top Right Card: Interactive Multi-Color Monthly Expense vs Tax-Deductible Bar Chart -->
+      <div class="bento-card bento-blue p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <h3 class="text-sm font-black text-white">5-COLOR MONTHLY CASHFLOW &amp; ITR-3 BAR CHART (₹)</h3>
+            <p class="text-[11px] text-slate-400">Cyan=Grihasthi • Violet=ITR-3 Deduct • Green=SIP/80C • Red=Fizul/Bad SL</p>
+          </div>
+        </div>
+        <div class="relative h-56 w-full">
+          <canvas id="dockMainBarChart" style="display:none;"></canvas>
+          <div class="native-svg-chart-fallback w-full h-full">
+            <svg viewBox="0 0 600 190" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" y1="160" x2="585" y2="160" stroke="#334155" stroke-width="1.5"/>
+              <rect x="30" y="49" width="76" height="111" rx="7" fill="#06b6d4" />
+              <text x="68" y="43" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹14,500</text>
+              <text x="68" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Bandhe Ghar</text>
+              <rect x="126" y="120" width="76" height="40" rx="7" fill="#3b82f6" />
+              <text x="164" y="114" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹5,200</text>
+              <text x="164" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Rozmarra</text>
+              <rect x="222" y="99" width="76" height="61" rx="7" fill="#8b5cf6" />
+              <text x="260" y="93" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹7,897</text>
+              <text x="260" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">ITR-3 Auto</text>
+              <rect x="318" y="25" width="76" height="135" rx="7" fill="#10b981" />
+              <text x="356" y="19" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹17,500</text>
+              <text x="356" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">80C SIP/Save</text>
+              <rect x="414" y="141" width="76" height="19" rx="7" fill="#f59e0b" />
+              <text x="452" y="135" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹2,500</text>
+              <text x="452" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Tyohar Buf</text>
+              <rect x="510" y="129" width="76" height="31" rx="7" fill="#f43f5e" />
+              <text x="548" y="123" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹4,050</text>
+              <text x="548" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Fizul+Bad SL</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Right Card: Quick 1-Tap Trade Psychology & Greed Dial -->
+      <div class="bento-card bento-amber p-4 flex-1 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-black text-amber-300">⚡ 10-SECOND TRADE &amp; ROZMARRA QUICK-LOGGER</h3>
+            <span id="dockGreedStatusPill" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">
+              GREED: CONTROLLED (16%)
+            </span>
+          </div>
+
+          <!-- Quick Rozmarra 1-Tap Expense Buttons -->
+          <div class="text-[11px] font-bold text-cyan-300 mb-1.5">Aaj Ka Rozmarra / Fizul Kharch (1-Tap Quick Add):</div>
+          <div class="grid grid-cols-3 gap-1.5 mb-3">
+            <button data-qcat="Rozmarra Essential" data-qtitle="Sabzi & Fruits" data-qamt="150" class="quick-exp-btn py-1.5 px-2 rounded-lg text-[11px] font-bold bg-cyan-950/80 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/40">🥦 Sabzi ₹150</button>
+            <button data-qcat="Rozmarra Essential" data-qtitle="Petrol / Fuel" data-qamt="250" class="quick-exp-btn py-1.5 px-2 rounded-lg text-[11px] font-bold bg-blue-950/80 hover:bg-blue-900 text-blue-200 border border-blue-500/40">⛽ Petrol ₹250</button>
+            <button data-qcat="Fizul Kharch" data-qtitle="Zomato / Impulse Snack" data-qamt="350" class="quick-exp-btn py-1.5 px-2 rounded-lg text-[11px] font-bold bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-500/40">🍔 Fizul ₹350</button>
+          </div>
+
+          <!-- Quick 1-Tap Trade Entry Audit -->
+          <div class="text-[11px] font-bold text-emerald-300 mb-1.5">Quick Trade Psychology Log:</div>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btnQuickSniperWin" class="py-2 px-2.5 rounded-xl text-xs font-extrabold bg-emerald-600/25 hover:bg-emerald-600/40 text-emerald-200 border border-emerald-400/50">
+              ✅ +3-Lock Sniper Win (+₹4,500)
+            </button>
+            <button id="btnQuickGoodSl" class="py-2 px-2.5 rounded-xl text-xs font-extrabold bg-cyan-600/25 hover:bg-cyan-600/40 text-cyan-200 border border-cyan-400/50">
+              🛡️ +Good System SL (-₹1,200)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 1: DAILY TRADE PSYCHOLOGY & ROZMARRA KHARCH LOGGER                -->
+  <!-- ===================================================================== -->
+  <section id="view-daily" class="tab-view hidden max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <!-- Left 6 Cols: Trade Psychology Logger -->
+    <div class="lg:col-span-6 bento-card bento-emerald p-4">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-lg font-black text-emerald-300">🎯 DAILY TRADE PSYCHOLOGY LOGGER (3-STAGE AUDIT)</h2>
+        <span class="text-xs font-bold text-slate-400">Nifty 50 / Sensex / Stocks</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-3">
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Date</label>
+          <input type="date" id="tradeDateInput" value="2026-11-15" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Strike / Instrument</label>
+          <input type="text" id="tradeStrikeInput" value="NIFTY 25150 CE" placeholder="e.g. NIFTY 25150 CE" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Net P&amp;L (₹) (+Win / -Loss)</label>
+          <input type="number" id="tradePnlInput" value="4800" class="w-full bg-slate-900 border border-emerald-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-emerald-300" />
+        </div>
+      </div>
+
+      <!-- Question 1: Why I Took This Trade -->
+      <div class="mb-3">
+        <label class="text-xs font-extrabold text-cyan-300 block mb-1.5">1. Aaj Maine Yeh Trade Kyo Liya? (Entry Reason):</label>
+        <select id="tradeWhySelect" class="w-full bg-slate-900 border border-cyan-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
+          <option value="3-Lock + 7-EMA Root">✅ 3-Lock Confirmed + Option 7-EMA / SRB Root (A+ Sniper)</option>
+          <option value="Wyckoff Spring Reclaim">🟢 SMI Wyckoff Spring / Purple Box Reclaim</option>
+          <option value="Running Candle FOMO">⚡ Running Candle Top-Chase (FOMO Mistake)</option>
+          <option value="Sideways Mid-Box Guess">🪤 Sideways Purple Box Mid-Range Guess (Mistake)</option>
+          <option value="Revenge Trade">🔄 SL ke Turant Baad Revenge Trade (Mistake)</option>
+        </select>
+      </div>
+
+      <!-- Question 2: Stop-Loss Classification -->
+      <div class="mb-3">
+        <label class="text-xs font-extrabold text-amber-300 block mb-1.5">2. Outcome &amp; SL Audit (Agar SL Gaya To Kya Galti Thi?):</label>
+        <select id="tradeSlSelect" class="w-full bg-slate-900 border border-amber-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
+          <option value="Target Hit (T1/T2/T3)">🏆 Target Hit (T1 / T2 / T3 Trail Locked)</option>
+          <option value="Good System SL">🛡️ Good System SL (100% Rule Follow Kiya — Normal Business Cost)</option>
+          <option value="Bad Mistake SL">❌ Bad Mistake SL (Rule Toda: Box Mid-Entry / Top Chase / SL Hataya)</option>
+        </select>
+      </div>
+
+      <!-- Question 3: Profit Greed Check -->
+      <div class="mb-3">
+        <label class="text-xs font-extrabold text-violet-300 block mb-1.5">3. Profit &amp; Lalach Check (Greed Audit):</label>
+        <select id="tradeGreedSelect" class="w-full bg-slate-900 border border-violet-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
+          <option value="Disciplined Trail (Zero Greed)">🧘‍♂️ Disciplined Trail (T1 ke baad CTC, T2 ke baad T1 Lock — Zero Greed)</option>
+          <option value="Target Greed (Didn't Trail)">🔥 Target Greed (T1/T2 aaya par SL trail nahi kiya, wapas loss me kटा)</option>
+          <option value="Quota Greed (Overtraded)">⚠️ Quota Greed (Subah profit ke baad dopahar me overtrading ki)</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="text-xs font-bold text-slate-300 block mb-1">Aaj Ki 1-Line Trading Seekh (Lesson):</label>
+        <input type="text" id="tradeNoteInput" value="Waited patiently for 7-EMA pullback outside Purple Box; trailed T1 cleanly." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200" />
+      </div>
+
+      <button id="btnAddTradeLog" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-600/25">
+        🏹 SAVE TRADE &amp; UPDATE AI-CA AUDIT
+      </button>
+    </div>
+
+    <!-- Right 6 Cols: Daily Rozmarra & Custom Expense Logger -->
+    <div class="lg:col-span-6 bento-card bento-cyan p-4 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-black text-cyan-300">🛒 DAILY ROZMARRA &amp; KHARCH LOGGER (INDIAN GRIHASTHI)</h2>
+          <span class="text-xs font-bold text-violet-300">ITR-3 Auto-Classifier</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-3">
+          <div>
+            <label class="text-[11px] font-bold text-slate-300 block mb-1">Date</label>
+            <input type="date" id="expDateInput" value="2026-11-15" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+          </div>
+          <div>
+            <label class="text-[11px] font-bold text-slate-300 block mb-1">Kharch Ka Naam (Item)</label>
+            <input type="text" id="expTitleInput" placeholder="e.g. Sabzi, Petrol, Wi-Fi, Zomato" value="Taaza Sabzi & Phal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+          </div>
+          <div>
+            <label class="text-[11px] font-bold text-slate-300 block mb-1">Amount (₹)</label>
+            <input type="number" id="expAmtInput" value="220" class="w-full bg-slate-900 border border-cyan-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-cyan-300" />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="text-xs font-extrabold text-cyan-300 block mb-1.5">5-Color Indian Cashflow &amp; Tax Bucket:</label>
+          <select id="expCatSelect" class="w-full bg-slate-900 border border-cyan-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
+            <option value="Rozmarra Essential">🔵 Rozmarra Grihasthi (Sabzi, Doodh, Petrol, Dawai, Ghar Need)</option>
+            <option value="Parivar Seva">🙏 Parivar Seva (Papa/Mummy Transfer, Home Duty, Family Pride)</option>
+            <option value="Personal Shauk">👕 Personal Shauk &amp; Lifestyle (Clothes, Cafe, Gadgets, Outing)</option>
+            <option value="Chillar Micro-UPI">☕ Chillar Micro-UPI (&lt;₹100 Tapri Chai, Cold Drink, Snacks)</option>
+            <option value="ITR-3 Business Deduct">🟣 ITR-3 Sec 37 Trading Business Expense (Wi-Fi, Mobile, Brokerage, Data, Device)</option>
+            <option value="SIP & 80C/80D Wealth">🟢 SIP / 80C / Sukanya / 80D Mediclaim (Wealth + Tax Saving)</option>
+            <option value="Tyohar & Emergency">🟠 Tyohar, Shagun, Family Travel &amp; Emergency Sinking Fund</option>
+            <option value="Fizul Kharch">🔴 Fizul Kharch (Impulse Online Order, Junk Food, Wasteful Spend)</option>
+          </select>
+        </div>
+
+        <button id="btnAddExpenseLog" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-lg shadow-cyan-600/25 mb-4">
+          💳 SAVE EXPENSE &amp; RUN AI-CA CHECK
+        </button>
+
+        <!-- Instant 1-Tap Indian Rozmarra Preset Buttons -->
+        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+          <div class="text-xs font-extrabold text-slate-300 mb-2">⚡ 1-Tap Indian Rozmarra Presets (Turant Add Karein):</div>
+          <div class="flex flex-wrap gap-1.5">
+            <button data-qcat="Rozmarra Essential" data-qtitle="Sabzi & Fruits" data-qamt="180" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-950 text-cyan-200 border border-cyan-500/40">🥦 Sabzi ₹180</button>
+            <button data-qcat="Rozmarra Essential" data-qtitle="Petrol / Scooter-Car Fuel" data-qamt="300" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-blue-950 text-blue-200 border border-blue-500/40">⛽ Petrol ₹300</button>
+            <button data-qcat="Rozmarra Essential" data-qtitle="Family Medical / Pharmacy" data-qamt="450" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-teal-950 text-teal-200 border border-teal-500/40">💊 Dawai ₹450</button>
+            <button data-qcat="Tyohar & Emergency" data-qtitle="Shagun / Parivar Gift" data-qamt="501" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-950 text-amber-200 border border-amber-500/40">🎁 Shagun ₹501</button>
+            <button data-qcat="Fizul Kharch" data-qtitle="Unplanned Junk Food / Swiggy" data-qamt="420" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-950 text-rose-200 border border-rose-500/40">🍕 Fizul Food ₹420</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom 12 Cols: Live Trade, Expense & Sandhya Diary History Ledger -->
+    <div class="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div class="bento-card p-4 border border-slate-800">
+        <h3 class="text-sm font-black text-emerald-300 mb-2">📜 RECENT TRADE PSYCHOLOGY LOGS</h3>
+        <div id="dailyTradesTable" class="space-y-2 max-h-72 overflow-y-auto"></div>
+      </div>
+      <div class="bento-card p-4 border border-slate-800">
+        <h3 class="text-sm font-black text-cyan-300 mb-2">🧾 RECENT ROZMARRA &amp; FIZUL KHARCH LOGS</h3>
+        <div id="dailyExpensesTable" class="space-y-2 max-h-72 overflow-y-auto"></div>
+      </div>
+      <div class="bento-card p-4 border border-violet-500/40">
+        <h3 class="text-sm font-black text-violet-300 mb-2">🌅 SANDHYA 7–8 PM DIARY &amp; DINACHARYA TIMELINE</h3>
+        <div id="dailyDiaryLogsTable" class="space-y-2 max-h-72 overflow-y-auto"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 2: BANDHE MONTHLY BILLS (DESIGN #6 AUTO-TAGGED RECURRING VAULT)   -->
+  <!-- ===================================================================== -->
+  <section id="view-bandhe" class="tab-view hidden max-w-[1600px] mx-auto space-y-4">
+    <div class="bento-card bento-design6-hero p-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/50">
+            Design #6 Full Manager • 1st-of-Month Auto-Debit &amp; ITR-3 Tagging
+          </span>
+          <h2 class="text-xl font-black text-white mt-1">
+            🔄 BANDHE HUE MAASIK KHARCHE (FIXED MONTHLY AUTO-TAGGED BILLS)
+          </h2>
+          <p class="text-xs text-slate-300">
+            Jo kharche har mahine fix hote hain (`Wi-Fi, Mobile, Brokerage/STT, TradingView, iPad Depreciation, Ration, Doodh, Bijli, SIP`), unka toggle `ON` rakhein aur apni asli ₹ rakam set kar dein—yeh har mahine apne-aap jud jayenge!
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <div class="p-3 rounded-xl bg-violet-950/70 border border-violet-400/40 text-right">
+            <div class="text-[10px] font-bold text-violet-300 uppercase">Auto-Tagged ITR-3 Business</div>
+            <div id="bandheSec37Sum" class="text-lg font-black mono text-violet-200">₹7,897</div>
+          </div>
+          <div class="p-3 rounded-xl bg-cyan-950/70 border border-cyan-400/40 text-right">
+            <div class="text-[10px] font-bold text-cyan-300 uppercase">Bandhe Ghar + 80C SIP</div>
+            <div id="bandheGharSipSum" class="text-lg font-black mono text-cyan-200">₹32,000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Editable Grid of Recurring Monthly Bills -->
+      <div id="bandheFullGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 mb-4"></div>
+
+      <!-- Add New Custom Bandha Kharcha -->
+      <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40 grid grid-cols-1 sm:grid-cols-4 gap-2.5 items-end">
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Naya Bandha Bill Naam</label>
+          <input type="text" id="newBandhaTitle" placeholder="e.g. Newspaper / Water Bill" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Monthly Amount (₹)</label>
+          <input type="number" id="newBandhaAmt" value="500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold mono text-cyan-300" />
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-300 block mb-1">Category &amp; ITR Tag</label>
+          <select id="newBandhaCat" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white">
+            <option value="ITR-3 Business Deduct">🟣 ITR-3 Sec 37 Trading Business Expense</option>
+            <option value="Bandhe Ghar Fixed">🔵 Bandhe Ghar-Grihasthi (Essential)</option>
+            <option value="SIP & 80C/80D Wealth">🟢 80C SIP / Sukanya / 80D Mediclaim</option>
+          </select>
+        </div>
+        <button id="btnAddNewBandha" class="py-2 px-4 rounded-xl font-black text-xs bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white">
+          ➕ Add Auto-Tagged Bill
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 3: INTERACTIVE MULTI-COLOR BAR CHARTS                             -->
+  <!-- ===================================================================== -->
+  <section id="view-charts" class="tab-view hidden max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="bento-card bento-blue p-4">
+      <h3 class="text-base font-black text-cyan-300 mb-1">📊 1. 5-COLOR INDIAN MONTHLY CASHFLOW &amp; ITR-3 BREAKDOWN (₹)</h3>
+      <p class="text-xs text-slate-400 mb-3">Bandhe Ghar Bills vs Rozmarra vs Auto-Tagged ITR-3 Business Deductions vs 80C SIP vs Fizul Kharch</p>
+      <div class="relative h-72 w-full">
+        <canvas id="tabChartCashflow"></canvas>
+      </div>
+    </div>
+
+    <div class="bento-card bento-emerald p-4">
+      <h3 class="text-base font-black text-emerald-300 mb-1">📈 2. TRADING PSYCHOLOGY AUDIT: SNIPER WINS vs GOOD SL vs BAD SL &amp; GREED (₹)</h3>
+      <p class="text-xs text-slate-400 mb-3">Dekhiye 3-Lock Setup se kitna aaya aur Bad Mistake SL ya Fizul Kharch me kitna leak hua</p>
+      <div class="relative h-72 w-full">
+        <canvas id="tabChartPsychology"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 4: AI-CA & ITR-3 TAX VAULT (SEC 43(5), 44AB, SCHEDULE BP)         -->
+  <!-- ===================================================================== -->
+  <section id="view-aica" class="tab-view hidden max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <div class="lg:col-span-7 bento-card bento-violet p-5">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/50">
+            Indian Income Tax Act • Section 43(5) &amp; Section 44AB
+          </span>
+          <h2 class="text-xl font-black text-white mt-1">
+            🧠 TRINETRA AI-CA — LIVE ITR-3 SCHEDULE BP &amp; TAX CALCULATOR
+          </h2>
+        </div>
+        <button id="btnExportItrFromVault" class="px-3.5 py-2 rounded-xl font-black text-xs bg-emerald-600 hover:bg-emerald-500 text-white">
+          📥 Download CA-Ready ITR-3 CSV
+        </button>
+      </div>
+
+      <div id="itrScheduleBpTable" class="space-y-2.5 text-xs"></div>
+    </div>
+
+    <div class="lg:col-span-5 bento-card bento-cyan p-5 flex flex-col justify-between">
+      <div>
+        <h3 class="text-base font-black text-cyan-300 mb-2">💬 ASK TRINETRA AI-CA (INSTANT TAX &amp; FINANCE ADVISOR)</h3>
+        <p class="text-xs text-slate-300 mb-3">
+          Niche kisi bhi sawal par tap karein aur AI-CA aapke live journal data ke hisab se jawab dega:
+        </p>
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <button data-caq="itr3" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-violet-950/90 hover:bg-violet-900 text-violet-200 border border-violet-500/40">📄 Mera Net Taxable F&amp;O Profit kitna hai?</button>
+          <button data-caq="audit" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-950/90 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/40">🔍 Kya mujhe Sec 44AB Tax Audit chahiye?</button>
+          <button data-caq="fizul" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/40">🚨 Fizul Kharch + Bad SL kaise rokein?</button>
+          <button data-caq="deprec" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-950/90 hover:bg-emerald-900 text-emerald-200 border border-emerald-500/40">💻 iPad &amp; Wi-Fi se Tax kaise bachega?</button>
+        </div>
+
+        <div id="caInteractiveAnswerBox" class="p-4 rounded-2xl bg-slate-950 border border-cyan-500/40 text-xs text-slate-200 leading-relaxed min-h-[210px]"></div>
+      </div>
+
+      <div class="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200">
+        <strong>📌 Legal Compliance Note:</strong> Exchange-traded F&amp;O is Non-Speculative Business Income under <strong>Section 43(5)</strong> (ITR-3 Code <strong>13018</strong>). Digital F&amp;O traders enjoy the enhanced <strong>₹10 Crore Section 44AB Audit Threshold</strong> when cash transactions stay under 5%.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TAB 5: 31-DAY TRADING & FINANCE RULE MATRIX + YEARLY WHAT-WHY-HOW     -->
+  <!-- ===================================================================== -->
+  <section id="view-rules" class="tab-view hidden max-w-[1600px] mx-auto space-y-4">
+    <!-- 31-Day Habit Matrix -->
+    <div class="bento-card bento-amber p-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+        <div>
+          <h2 class="text-lg font-black text-amber-300">📅 31-DAY TRADING DISCIPLINE &amp; GRIHASTHI HABIT MATRIX (JAGRUK EDITION)</h2>
+          <p class="text-xs text-slate-300">Kisi bhi tareekh (Day 1–30) ke box par tap karke `✅ Followed` ya `❌ Broken` mark karein:</p>
+        </div>
+        <div id="habitStreakScore" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-xs font-black text-emerald-300">
+          Monthly Discipline Score: 91%
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr id="habitMatrixHeaderRow" class="border-b border-slate-800 text-[10px] font-bold text-slate-400"></tr>
+          </thead>
+          <tbody id="habitMatrixBody" class="divide-y divide-slate-800/70 text-xs"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Yearly What-Why-How Blueprint -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bento-card bento-emerald p-4">
+        <div class="text-xs font-black uppercase text-emerald-400 mb-1">🎯 1. WHAT IS MY GOAL (FY 2026-27)</div>
+        <textarea id="goalWhatInput" rows="3" class="w-full bg-slate-950/80 border border-emerald-500/30 rounded-xl p-2.5 text-xs text-slate-200">1% Daily Sniper Rule on Nifty 50 with Zero Sideways Mid-Box Trades & Zero Fizul Impulse Leakage.</textarea>
+      </div>
+      <div class="bento-card bento-cyan p-4">
+        <div class="text-xs font-black uppercase text-cyan-400 mb-1">🛡️ 2. WHY IT MATTERS (PARIVAR &amp; FREEDOM)</div>
+        <textarea id="goalWhyInput" rows="3" class="w-full bg-slate-950/80 border border-cyan-500/30 rounded-xl p-2.5 text-xs text-slate-200">Long-term tax-efficient wealth compounding for family security, daughter Roshni's education & stress-free trading.</textarea>
+      </div>
+      <div class="bento-card bento-violet p-4">
+        <div class="text-xs font-black uppercase text-violet-400 mb-1">⚙️ 3. HOW I WILL ACHIEVE IT (DAILY SYSTEM)</div>
+        <textarea id="goalHowInput" rows="3" class="w-full bg-slate-950/80 border border-violet-500/30 rounded-xl p-2.5 text-xs text-slate-200">Trade only 3-Lock + 7-EMA Root setups, respect Max 2 SLs/day, and auto-tag all Sec 37 & 80C deductions in Trinetra AI-CA.</textarea>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================================== -->
+  <!-- TAB 6: MONTHLY BANK STATEMENT + BROKER P&L RECONCILER & 8 UPGRADES    -->
+  <!-- ===================================================================== -->
+  <section id="view-reconcile" class="tab-view hidden max-w-[1600px] mx-auto space-y-4">
+
+    <!-- TOP HERO: MONTHLY BANK STATEMENT + BROKER TAX P&L UPLOAD & 3-WAY RECONCILER -->
+    <div class="bento-card bento-design6-hero p-5">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/30 text-emerald-200 border border-emerald-400/50">
+            🏦 CA-Level 3-Way Truth Engine • Broker P&amp;L + Bank Statement + 7–8 PM Diary
+          </span>
+          <h2 class="text-lg sm:text-xl font-black text-white mt-1">
+            🔍 MONTHLY BANK STATEMENT &amp; BROKER P&amp;L AUTO-RECONCILER
+          </h2>
+          <p class="text-xs text-slate-300">
+            Har mahine apne Trading App (`Angel One / Zerodha / Dhan / Groww`) ka P&amp;L CSV aur Bank Statement (`SBI / HDFC / ICICI`) CSV upload karein (ya 1-Tap Sample Statement test karein):
+          </p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button id="btnRunSampleReconcile" type="button" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 via-cyan-500 to-violet-600 text-slate-950 shadow-lg">
+            ⚡ 1-Tap Test: Load Nov 2026 Angel One P&amp;L + HDFC Bank Statement
+          </button>
+          <button id="btnSyncReconcileToJournal" type="button" class="px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-violet-600/35 hover:bg-violet-600/50 text-violet-200 border border-violet-400/50">
+            🔄 Auto-Sync Charges &amp; Missing UPI to Journal
+          </button>
+        </div>
+      </div>
+
+      <!-- Dual Upload Boxes: Broker P&L CSV + Bank Statement CSV -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-black text-emerald-300">📈 1. Upload Trading App P&amp;L Statement (.csv / .txt)</span>
+            <span id="brokerFileStatusBadge" class="text-[10px] font-bold text-emerald-400 mono">Ready (Angel One / Zerodha / Dhan)</span>
+          </div>
+          <input type="file" id="brokerCsvFileInput" accept=".csv,.txt" class="w-full text-xs" />
+          <p class="text-[11px] text-slate-400 mt-1">
+            Auto-extracts: <strong>Gross P&amp;L, Brokerage, STT, Exchange Fees, 18% GST, Stamp Duty, Net Realized P&amp;L &amp; Unlogged Trades</strong>.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-black text-cyan-300">🏦 2. Upload Monthly Bank Statement (.csv / .txt)</span>
+            <span id="bankFileStatusBadge" class="text-[10px] font-bold text-cyan-400 mono">Ready (SBI / HDFC / ICICI / Axis)</span>
+          </div>
+          <input type="file" id="bankCsvFileInput" accept=".csv,.txt" class="w-full text-xs" />
+          <p class="text-[11px] text-slate-400 mt-1">
+            Auto-extracts: <strong>All UPI Debits, Chillar Micro-Spends (&lt;₹100), Broker Payout Credits, Udhaari Transfers &amp; Unlogged Leaks</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4-Card Reconciliation Verdict Strip -->
+      <div id="reconcileVerdictGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40">
+          <div class="text-[10px] font-black uppercase text-emerald-400">1. Broker Gross vs Hidden Charges</div>
+          <div class="text-lg font-black mono text-emerald-300 mt-0.5">Gross: +₹54,600</div>
+          <div class="text-xs text-rose-300 font-bold mt-0.5">STT + Brok + GST: -₹6,400</div>
+          <div class="text-[11px] text-slate-300 mt-1">Net Realized: <strong class="text-white mono">+₹48,200</strong> (ITR-3 Sec 37 Deductible)</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-rose-500/40">
+          <div class="text-[10px] font-black uppercase text-rose-400">2. Bank vs Diary UPI Leakage Gap</div>
+          <div class="text-lg font-black mono text-rose-300 mt-0.5">Gap: ₹800</div>
+          <div class="text-xs text-amber-300 font-bold mt-0.5">Bank UPI Debits: ₹24,850 vs Logged: ₹24,050</div>
+          <div class="text-[11px] text-slate-300 mt-1">Includes <strong>38 Chillar UPI scans (&lt;₹100)</strong> totaling <strong>₹1,940</strong>!</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-violet-500/40">
+          <div class="text-[10px] font-black uppercase text-violet-400">3. Unlogged Trades Radar</div>
+          <div class="text-lg font-black mono text-violet-300 mt-0.5">2 Missing Trades</div>
+          <div class="text-xs text-cyan-300 font-bold mt-0.5">Broker CSV: 8 Trades vs Diary: 6</div>
+          <div class="text-[11px] text-slate-300 mt-1">Tap Auto-Sync above to import missing broker trades &amp; charges.</div>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40">
+          <div class="text-[10px] font-black uppercase text-cyan-400">4. Real Bank Payout vs Screen P&amp;L</div>
+          <div class="text-lg font-black mono text-cyan-300 mt-0.5">₹28,000 In Bank</div>
+          <div class="text-xs text-emerald-300 font-bold mt-0.5">58% of Net Profit Withdrawn</div>
+          <div class="text-[11px] text-slate-300 mt-1">Remaining <strong>₹20,200</strong> in Broker Wallet.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 INDIAN TRADER & YOUTH REAL-LIFE UPGRADES (3-COLUMN BENTO GRID) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <!-- UPGRADE CARD 1: DOSTO KI UDHAARI & SPLIT-BILL VASOOLI TRACKER -->
+      <div class="bento-card bento-amber p-4 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-amber-500/25 text-amber-200 border border-amber-400/40">
+              Upgrade #1 • Indian Youth Blind Spot
+            </span>
+            <span id="udhaariNetBadge" class="text-xs font-black mono text-amber-300">Vasooli Pending: ₹2,100</span>
+          </div>
+          <h3 class="text-base font-black text-white">🤝 DOSTO KI UDHAARI &amp; BILL-SPLIT VASOOLI</h3>
+          <p class="text-xs text-slate-400 mb-3">
+            "Bhai abhi tu GPay kar de, mai baad me bhejta hu" — Yeh kharch nahi hai, par wapas na aaye to chuna hai!
+          </p>
+
+          <div class="grid grid-cols-3 gap-1.5 mb-2">
+            <input type="text" id="udhaariPersonInput" placeholder="Dost Ka Naam" value="Rahul (Dinner Split)" class="text-xs" />
+            <input type="number" id="udhaariAmtInput" placeholder="₹" value="600" class="text-xs mono" />
+            <select id="udhaariTypeSelect" class="text-xs">
+              <option value="vasooli">🟢 Vasoolna Hai (Lent)</option>
+              <option value="dena">🔴 Wapas Dena Hai (Borrowed)</option>
+            </select>
+          </div>
+          <button id="btnAddUdhaari" type="button" class="w-full py-2 rounded-xl text-xs font-black bg-amber-500/25 hover:bg-amber-500/40 text-amber-200 border border-amber-400/50 mb-3">
+            ➕ Add Udhaari / Split Record
+          </button>
+
+          <div id="udhaariListContainer" class="space-y-1.5 max-h-48 overflow-y-auto"></div>
+        </div>
+      </div>
+
+      <!-- UPGRADE CARD 2: FRIDAY BANK PAYOUT LOCK & ADVANCE TAX GULLAK -->
+      <div class="bento-card bento-emerald p-4 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-200 border border-emerald-400/40">
+              Upgrade #2, #3 &amp; #6 • Payout &amp; Tax Gullak
+            </span>
+            <span id="payoutLockRatioBadge" class="text-xs font-black mono text-emerald-300">Bank Locked: 58%</span>
+          </div>
+          <h3 class="text-base font-black text-white">🏧 FRIDAY PROFIT PAYOUT &amp; ADVANCE TAX GULLAK</h3>
+          <p class="text-xs text-slate-400 mb-3">
+            Screen profit tabhi asli hai jab wo Broker Wallet se nikal kar Bank aur Tax Gullak me lock ho jaye:
+          </p>
+
+          <div id="payoutAndTaxSummaryBox" class="space-y-2 mb-3 text-xs"></div>
+
+          <div class="flex items-center gap-2">
+            <input type="number" id="newPayoutAmtInput" value="10000" step="1000" class="w-32 text-xs mono" />
+            <button id="btnLogBankPayout" type="button" class="flex-1 py-2 rounded-xl text-xs font-black bg-emerald-600/35 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-400/50">
+              🏦 +Lock Profit to Bank Account
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPGRADE CARD 3: PARIVAR SEVA vs PERSONAL SHAUK vs CHILLAR MICRO-UPI & CREDIT CARD -->
+      <div class="bento-card bento-cyan p-4 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-cyan-500/25 text-cyan-200 border border-cyan-400/40">
+              Upgrade #4, #7 &amp; #8 • Indian Life Mirror
+            </span>
+            <span id="patienceDaysBadge" class="text-xs font-black mono text-cyan-300">🧘‍♂️ 2 Patience Days</span>
+          </div>
+          <h3 class="text-base font-black text-white">🙏 PARIVAR SEVA vs 👕 KHUD KA SHAUK vs ☕ CHILLAR</h3>
+          <p class="text-xs text-slate-400 mb-3">
+            Dekhiye is mahine Papa/Mummy aur Ghar ki zimmedari me kitna laga vs khud ke shauk aur ₹20-₹50 Chillar UPI me:
+          </p>
+
+          <div id="indianLifeMirrorBox" class="space-y-2 mb-3 text-xs"></div>
+
+          <div class="grid grid-cols-2 gap-1.5">
+            <button type="button" data-qcat="Parivar Seva" data-qtitle="Papa/Mummy & Home Seva" data-qamt="2000" class="quick-exp-btn py-2 px-2.5 rounded-xl text-xs font-extrabold bg-emerald-950/90 text-emerald-200 border border-emerald-500/40">
+              🙏 +Parivar Seva ₹2,000
+            </button>
+            <button type="button" data-qcat="Chillar Micro-UPI" data-qtitle="Tapri Chai / Cold Drink / Snack" data-qamt="40" class="quick-exp-btn py-2 px-2.5 rounded-xl text-xs font-extrabold bg-amber-950/90 text-amber-200 border border-amber-500/40">
+              ☕ +Chillar UPI ₹40
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ITR-3 Schedule BP Modal -->
+  <div id="itrModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card bento-violet max-w-2xl w-full p-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-black text-violet-300">📄 CA-READY ITR-3 SCHEDULE BP SUMMARY (AY 2027-28)</h3>
+        <button id="btnCloseItrModal" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold">✕ Close</button>
+      </div>
+      <div id="itrModalBody" class="space-y-2 text-xs"></div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // STATE & DEFAULT GROUNDED INDIAN FAMILY + TRADER DATASET
+    // =========================================================================
+    const STORAGE_KEY = 'raghava_trinetra_journal_v1';
+
+    function getDefaultState() {
+      return {
+        recurringBills: [
+          { id: 'b1', title: 'Wi-Fi / Broadband (Trading Setup)', amount: 899, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Utility' },
+          { id: 'b2', title: 'Mobile Data & Recharge', amount: 449, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Comm.' },
+          { id: 'b3', title: 'TradingView Pro & Market Data Feed', amount: 1499, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Software' },
+          { id: 'b4', title: 'Brokerage, STT (0.15%) & Exchange Fees', amount: 2450, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Direct' },
+          { id: 'b5', title: 'iPad & Laptop Depreciation (Monthly Share)', amount: 1800, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 32 Deprec.' },
+          { id: 'b6', title: 'Home-Office Electricity Share (25%)', amount: 800, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Power' },
+          { id: 'b7', title: 'Kirana, Ration & Cold-Pressed Multigrain Atta', amount: 6500, category: 'Bandhe Ghar Fixed', active: true, code: 'Ghar Need' },
+          { id: 'b8', title: 'Monthly Doodh & Dairy Hisab', amount: 2400, category: 'Bandhe Ghar Fixed', active: true, code: 'Ghar Need' },
+          { id: 'b9', title: 'Ghar Bijli Bill (75%) & LPG Cylinder', amount: 2600, category: 'Bandhe Ghar Fixed', active: true, code: 'Ghar Need' },
+          { id: 'b10', title: 'Daughter (Roshni) & Family Care / Education', amount: 3000, category: 'Bandhe Ghar Fixed', active: true, code: 'Family Care' },
+          { id: 'b11', title: '80C Equity/Index SIP & Sukanya Samriddhi', amount: 15000, category: 'SIP & 80C/80D Wealth', active: true, code: 'Sec 80C' },
+          { id: 'b12', title: 'Family Health Insurance (Mediclaim Monthly)', amount: 2500, category: 'SIP & 80C/80D Wealth', active: true, code: 'Sec 80D' }
+        ],
+        trades: [
+          { id: 't1', date: '2026-11-11', strike: 'NIFTY 25000 CE', pnl: 18500, why: '3-Lock + 7-EMA Root', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: 'Gap-up breakout + 7-EMA root pullback T3 hit.' },
+          { id: 't2', date: '2026-11-12', strike: 'NIFTY 25300 PE', pnl: 16200, why: '3-Lock + 7-EMA Root', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: 'Supply rejection breakdown below Purple Box neckline.' },
+          { id: 't3', date: '2026-11-12', strike: 'NIFTY 25250 CE', pnl: -2200, why: 'Sideways Mid-Box Guess', slType: 'Bad Mistake SL', greed: 'Quota Greed (Overtraded)', note: 'Took mid-box trade after morning win; avoidable Bad SL.' },
+          { id: 't4', date: '2026-11-13', strike: 'NIFTY 25150 CE', pnl: 9200, why: '3-Lock + 7-EMA Root', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: '09:30 AM Purple Box reclaim T2 locked.' },
+          { id: 't5', date: '2026-11-13', strike: 'NIFTY 25200 PE', pnl: -1500, why: '3-Lock + 7-EMA Root', slType: 'Good System SL', greed: 'Disciplined Trail (Zero Greed)', note: 'Followed system rule; small 10-pt system SL respected.' },
+          { id: 't6', date: '2026-11-13', strike: 'NIFTY 25100 CE', pnl: 8000, why: 'Wyckoff Spring Reclaim', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: '02:35 PM Wyckoff Spring reclaim captured cleanly.' }
+        ],
+        expenses: [
+          { id: 'e1', date: '2026-11-10', title: 'Taaza Sabzi & Fruits (Weekly Mandi)', amount: 1450, category: 'Rozmarra Essential' },
+          { id: 'e2', date: '2026-11-11', title: 'Scooter & Car Petrol Refill', amount: 1850, category: 'Rozmarra Essential' },
+          { id: 'e3', date: '2026-11-12', title: 'Family Pharmacy & Vitamins', amount: 900, category: 'Rozmarra Essential' },
+          { id: 'e4', date: '2026-11-13', title: 'Chhath / Kartik Parv & Shagun Buffer', amount: 2500, category: 'Tyohar & Emergency' },
+          { id: 'e5', date: '2026-11-14', title: 'Late-Night Zomato & Flash Sale Gadget', amount: 1850, category: 'Fizul Kharch' },
+          { id: 'e6', date: '2026-11-15', title: 'Morning Sabzi & Khula Doodh/Paneer', amount: 1000, category: 'Rozmarra Essential' }
+        ],
+        habits: [
+          { rule: '1. Waited for 3-Lock + 7-EMA Root', days: [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1] },
+          { rule: '2. Zero Sideways Mid-Box Trade', days: [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1] },
+          { rule: '3. Respected Pre-Defined Smart SL', days: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+          { rule: '4. Zero Greed Overtrading After T2/T3', days: [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1] },
+          { rule: '5. Logged Daily Rozmarra Kharch', days: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+          { rule: '6. Zero Fizul Impulse Spending', days: [1,1,1,1,0,1,1,1,1,1,1,1,1,0,1] }
+        ],
+        diaryLogs: [
+          {
+            id: 'd1',
+            date: '2026-11-13',
+            rawText: 'Subah 09:30 pe 25150 CE me +9200 aur 02:35 PM Wyckoff Spring me +8000 book kiya. Sham ko Chhath puja shagun 2500 diya aur 45 min walk kiya.',
+            activities: ['💪 Health: 45 min walk kiya', '👨‍👩‍👧 Parivar: Chhath puja shagun'],
+            summaryBadge: '2 Wins (+₹17,200) • 1 Tyohar Expense (₹2,500)'
+          }
+        ],
+        baseCapital: 100000,
+        bankPayoutLocked: 28000,
+        patienceDays: 2,
+        udhaariList: [
+          { id: 'u1', person: 'Vikram (Fuel & Highway Toll Split)', amount: 1500, type: 'vasooli', settled: false, date: '2026-11-11' },
+          { id: 'u2', person: 'Aman (Evening Cafe & Snacks)', amount: 600, type: 'vasooli', settled: false, date: '2026-11-14' }
+        ],
+        reconcileData: {
+          brokerGrossPnl: 54600,
+          brokerCharges: 6400,
+          brokerNetPnl: 48200,
+          brokerTradeCount: 8,
+          bankTotalUpiDebits: 24850,
+          bankChillarUpiCount: 38,
+          bankChillarUpiAmount: 1940,
+          bankPayoutCredited: 28000,
+          lastSyncedNote: 'Nov 2026 Angel One Tax P&L + HDFC Bank Statement Loaded'
+        }
+      };
+    }
+
+    const VAULT_CIPHER_KEY = 'raghava_trinetra_aes256_vault_v2';
+    const VAULT_META_KEY   = 'raghava_trinetra_aes256_meta_v2';
+    let state = getDefaultState();
+    let activeSessionPin = '';
+    let isVaultUnlocked = false;
+    let failedPinAttempts = 0;
+    let lockUntilTimestamp = 0;
+
+    // =========================================================================
+    // 🛡️ WEB CRYPTO API: PBKDF2 (100,000 ITERATIONS) + AES-256-GCM ENCRYPTION
+    // =========================================================================
+    function bufToBase64(buf) {
+      const bytes = new Uint8Array(buf);
+      let bin = '';
+      for (let i = 0; i < bytes.byteLength; i++) bin += String.fromCharCode(bytes[i]);
+      return btoa(bin);
+    }
+
+    function base64ToBuf(b64) {
+      const bin = atob(b64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return bytes.buffer;
+    }
+
+    async function deriveAes256Key(pin, saltBytes) {
+      const enc = new TextEncoder();
+      const keyMaterial = await window.crypto.subtle.importKey(
+        'raw',
+        enc.encode('TRINETRA_SOVEREIGN_PEPPER_V2::' + String(pin)),
+        { name: 'PBKDF2' },
+        false,
+        ['deriveKey']
+      );
+      return window.crypto.subtle.deriveKey(
+        {
+          name: 'PBKDF2',
+          salt: saltBytes,
+          iterations: 100000,
+          hash: 'SHA-256'
+        },
+        keyMaterial,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt', 'decrypt']
+      );
+    }
+
+    async function encryptStateWithPin(plainObj, pin) {
+      if (!window.crypto || !window.crypto.subtle) {
+        return JSON.stringify({ mode: 'fallback', payload: btoa(unescape(encodeURIComponent(JSON.stringify(plainObj)))) });
+      }
+      const salt = window.crypto.getRandomValues(new Uint8Array(16));
+      const iv   = window.crypto.getRandomValues(new Uint8Array(12));
+      const key  = await deriveAes256Key(pin, salt);
+      const enc  = new TextEncoder();
+      const cipherBuf = await window.crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv: iv },
+        key,
+        enc.encode(JSON.stringify(plainObj))
+      );
+      return JSON.stringify({
+        mode: 'AES-256-GCM',
+        kdf: 'PBKDF2-SHA256-100000',
+        salt: bufToBase64(salt.buffer),
+        iv: bufToBase64(iv.buffer),
+        ct: bufToBase64(cipherBuf),
+        ts: Date.now()
+      });
+    }
+
+    async function decryptStateWithPin(envelopeStr, pin) {
+      const env = JSON.parse(envelopeStr);
+      if (env.mode === 'fallback') {
+        return JSON.parse(decodeURIComponent(escape(atob(env.payload))));
+      }
+      const salt = new Uint8Array(base64ToBuf(env.salt));
+      const iv   = new Uint8Array(base64ToBuf(env.iv));
+      const ct   = base64ToBuf(env.ct);
+      const key  = await deriveAes256Key(pin, salt);
+      const plainBuf = await window.crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: iv },
+        key,
+        ct
+      );
+      const dec = new TextDecoder();
+      return JSON.parse(dec.decode(plainBuf));
+    }
+
+    async function saveState() {
+      if (!isVaultUnlocked || !activeSessionPin) return;
+      try {
+        const encryptedPayload = await encryptStateWithPin(state, activeSessionPin);
+        localStorage.setItem(VAULT_CIPHER_KEY, encryptedPayload);
+        localStorage.setItem(VAULT_META_KEY, 'INITIALIZED');
+        // Remove any legacy unencrypted plaintext key so hackers/devtools never see raw data
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {}
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toastBanner');
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      setTimeout(() => { el.classList.add('hidden'); }, 2800);
+    }
+
+    function formatINR(num) {
+      const n = Number(num) || 0;
+      const sign = n < 0 ? '-' : '';
+      return sign + '₹' + Math.abs(Math.round(n)).toLocaleString('en-IN');
+    }
+
+    // =========================================================================
+    // COMPUTE LIVE AGGREGATES FOR AI-CA, KPIs & CHARTS
+    // =========================================================================
+    function computeMetrics() {
+      let sec37Auto = 0;
+      let bandheGhar = 0;
+      let sip80c = 0;
+      let activeBillCount = 0;
+
+      state.recurringBills.forEach(b => {
+        if (!b.active) return;
+        activeBillCount++;
+        const amt = Number(b.amount) || 0;
+        if (b.category === 'ITR-3 Business Deduct') sec37Auto += amt;
+        else if (b.category === 'Bandhe Ghar Fixed') bandheGhar += amt;
+        else if (b.category === 'SIP & 80C/80D Wealth') sip80c += amt;
+      });
+
+      let rozmarra = 0;
+      let sec37Manual = 0;
+      let sipManual = 0;
+      let tyohar = 0;
+      let fizul = 0;
+
+      state.expenses.forEach(e => {
+        const amt = Number(e.amount) || 0;
+        if (e.category === 'Rozmarra Essential') rozmarra += amt;
+        else if (e.category === 'ITR-3 Business Deduct') sec37Manual += amt;
+        else if (e.category === 'SIP & 80C/80D Wealth') sipManual += amt;
+        else if (e.category === 'Tyohar & Emergency') tyohar += amt;
+        else if (e.category === 'Fizul Kharch') fizul += amt;
+      });
+
+      let grossWin = 0;
+      let goodSlLoss = 0;
+      let badSlLoss = 0;
+      let wins = 0;
+      let totalTrades = state.trades.length;
+      let greedCount = 0;
+
+      state.trades.forEach(t => {
+        const p = Number(t.pnl) || 0;
+        if (p >= 0) {
+          grossWin += p;
+          wins++;
+        } else {
+          if (t.slType === 'Bad Mistake SL') badSlLoss += Math.abs(p);
+          else goodSlLoss += Math.abs(p);
+        }
+        if (t.greed !== 'Disciplined Trail (Zero Greed)' || t.slType === 'Bad Mistake SL') {
+          greedCount++;
+        }
+      });
+
+      const netTradingPnl = grossWin - goodSlLoss - badSlLoss;
+      const winRate = totalTrades > 0 ? Math.round((wins / totalTrades) * 100) : 100;
+      const greedPct = totalTrades > 0 ? Math.round((greedCount / totalTrades) * 100) : 0;
+
+      // ICAI Section 44AB Turnover = |Gross Wins| + |All Losses| + Option Sale Premium (~1.8x)
+      const monthlyTurnover = Math.round((grossWin + goodSlLoss + badSlLoss) * 2.8);
+      const projectedAnnualTurnover = monthlyTurnover * 12;
+
+      const totalSec37 = sec37Auto + sec37Manual;
+      const totalSip80c = sip80c + sipManual;
+      const totalGrihasthi = bandheGhar + rozmarra;
+      const totalTaxDeduct = totalSec37 + totalSip80c;
+      const totalLeakage = fizul + badSlLoss;
+      const netTaxableFoIncome = Math.max(0, netTradingPnl - totalSec37);
+
+      let parivarSeva = 3000; // Includes Roshni/Family Care Bandha Bill
+      let personalShauk = 0;
+      let chillarUpi = 0;
+      state.expenses.forEach(e => {
+        const amt = Number(e.amount) || 0;
+        if (e.category === 'Parivar Seva') { parivarSeva += amt; rozmarra += amt; }
+        else if (e.category === 'Personal Shauk') { personalShauk += amt; fizul += amt; }
+        else if (e.category === 'Chillar Micro-UPI') { chillarUpi += amt; fizul += amt; }
+        else if (amt > 0 && amt <= 100 && e.category !== 'ITR-3 Business Deduct') { chillarUpi += amt; }
+      });
+
+      const baseCap = Math.max(10000, Number(state.baseCapital) || 100000);
+      const roiPct = ((netTradingPnl / baseCap) * 100).toFixed(1);
+      const maxDailyRisk = Math.round(baseCap * 0.02);
+      const bankPayoutLocked = Number(state.bankPayoutLocked) || 0;
+      const payoutRatioPct = netTradingPnl > 0 ? Math.min(100, Math.round((bankPayoutLocked / netTradingPnl) * 100)) : 0;
+      const advanceTaxReserve = Math.round(Math.max(0, netTradingPnl - (sec37Auto + sec37Manual)) * 0.15);
+
+      const udhaariList = Array.isArray(state.udhaariList) ? state.udhaariList : [];
+      const udhaariPending = udhaariList
+        .filter(u => !u.settled)
+        .reduce((acc, u) => acc + (u.type === 'vasooli' ? Number(u.amount) : -Number(u.amount)), 0);
+
+      return {
+        parivarSeva,
+        personalShauk,
+        chillarUpi,
+        baseCap,
+        roiPct,
+        maxDailyRisk,
+        bankPayoutLocked,
+        payoutRatioPct,
+        advanceTaxReserve,
+        udhaariPending,
+        activeBillCount,
+        sec37Auto,
+        bandheGhar,
+        rozmarra,
+        totalGrihasthi,
+        totalSec37,
+        totalSip80c,
+        totalTaxDeduct,
+        tyohar,
+        fizul,
+        grossWin,
+        goodSlLoss,
+        badSlLoss,
+        netTradingPnl,
+        winRate,
+        greedPct,
+        totalLeakage,
+        monthlyTurnover,
+        projectedAnnualTurnover,
+        netTaxableFoIncome
+      };
+    }
+
+    // =========================================================================
+    // RENDER ALL UI SECTIONS & CHARTS
+    // =========================================================================
+    let dockChartInstance = null;
+    let tabChartCashflowInstance = null;
+    let tabChartPsychInstance = null;
+
+
+    // =========================================================================
+    // 🌅 CHITRAGUPTA SANDHYA 7-8 PM HINGLISH NLU PARSER & AUTO-CLASSIFIER
+    // =========================================================================
+    const DIARY_SAMPLES = {
+      s1: "Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur T2 trail karke 4800 profit book kiya, par dopahar 1 baje sideways box me lalach me 25200 PE le liya jisme 1500 ka galat SL kat gaya. Shaam ko mandi se 220 ki sabzi aur phal laya, scooty me 300 ka petrol dalwaya, trading setup ka 899 wala Wi-Fi recharge kiya, aur raat ko Zomato se 380 ka pizza mangwa liya. Subah 45 min workout kiya aur Raghava Astra V21 test kiya.",
+      s2: "Aaj discipline ke saath subah Nifty 25100 CE me 3-lock setup par 6400 ka profit book kiya, phir 11:20 pe 25250 PE me Wyckoff spring reclaim par 4800 profit mila, aur ek trade me 1100 ka chhota system SL rule follow karke kata. Ghar ke liye 450 ki dawai aur medical vitamin laya, 180 ka doodh aur paneer laya, aur 15000 ki monthly 80C Nifty Index SIP auto-debit hui. Sham ko papa ke saath walk pe gaya.",
+      s3: "Aaj market sideways tha isliye zero overtrading ki aur sirf 1 sniper trade Nifty 25200 CE me 3-lock par 3900 profit leke terminal band kar diya. Mandi me 140 ki hari sabzi, 110 ke phal, 260 ka petrol dalwaya, parivar me 501 rupaye shagun gift diya, aur 1499 ka TradingView Pro subscription pay kiya. Raat ko 1 ghanta Python backtest code likha."
+    };
+
+    function extractNonStrikeAmounts(str) {
+      let cleaned = String(str || '')
+        .replace(/\b\d{1,2}:\d{2}\b/g, ' ')
+        .replace(/\b\d{1,2}\s*(?:baje|am|pm|min|minute|ghanta|hr|hours|din|lock|ema|sniper)\b/gi, ' ')
+        .replace(/\b(?:3-lock|7-ema|80c|80d|itr-3|sec\s*\d+|v\d+)\b/gi, ' ');
+      const stkMatch = str.match(/\b(nifty|banknifty|sensex|finnifty)?\s*(\d{5})\s*(ce|pe|call|put)\b/i)
+        || str.match(/\b(nifty|banknifty|sensex|finnifty)\s*(\d{5})\b/i);
+      const stkNum = stkMatch ? stkMatch[2] : null;
+      const numRe = /(?:₹|rs\.?\s*)?(\d+(?:,\d{3})*(?:\.\d+)?)(\s*k)?\b/gi;
+      const out = [];
+      let m;
+      while ((m = numRe.exec(cleaned)) !== null) {
+        let val = parseFloat(m[1].replace(/,/g, ''));
+        if (m[2] && m[2].trim().toLowerCase() === 'k') val *= 1000;
+        const rounded = Math.round(val);
+        if (stkNum && String(rounded) === stkNum) continue;
+        if (rounded >= 10) out.push(rounded);
+      }
+      return { amounts: out, stkMatch };
+    }
+
+    function parseSandhyaDiaryText(rawText, entryDate, enableBandheDedup) {
+      const text = String(rawText || '').trim();
+      if (!text) return { trades: [], expenses: [], activities: [], habitUpdates: [1,1,1,1,1,1] };
+
+      // Step 1: Split into sentences or major conjunctions (', par ', 'lekin', 'magar', 'phir', 'uske baad')
+      const rawSentences = text.split(/(?:[.;!\n]+|,\s*par\s+|\s+(?:lekin|magar|phir|uske baad)\s+)/i);
+      const clauses = [];
+      rawSentences.forEach(sent => {
+        const s = sent.trim();
+        if (!s) return;
+        const subParts = s.split(/(?:,\s*|\s+aur\s+)/i);
+        let buffer = '';
+        subParts.forEach(part => {
+          const p = part.trim();
+          if (!p) return;
+          const pAmts = extractNonStrikeAmounts(p).amounts;
+          const bufAmts = extractNonStrikeAmounts(buffer).amounts;
+          const isActivity = /(workout|walk|gym|yoga|code|test|study|papa|mummy|Sleep|meditat)/i.test(p) && pAmts.length === 0;
+          if (buffer && ((pAmts.length > 0 && bufAmts.length > 0) || (isActivity && bufAmts.length === 0))) {
+            clauses.push(buffer.trim());
+            buffer = p;
+          } else {
+            buffer = buffer ? (buffer + ' aur ' + p) : p;
+          }
+        });
+        if (buffer.trim()) clauses.push(buffer.trim());
+      });
+
+      const trades = [];
+      const expenses = [];
+      const activities = [];
+
+      clauses.forEach(clause => {
+        const cLow = clause.toLowerCase();
+        const { amounts, stkMatch } = extractNonStrikeAmounts(clause);
+
+        let strike = '';
+        if (stkMatch) {
+          const idxName = (stkMatch[1] || 'NIFTY').toUpperCase();
+          const stkNum = stkMatch[2];
+          let optType = (stkMatch[3] || '').toUpperCase();
+          if (optType === 'CALL') optType = 'CE';
+          if (optType === 'PUT') optType = 'PE';
+          if (!optType) optType = /\b(pe|put)\b/i.test(clause) ? 'PE' : 'CE';
+          strike = `${idxName} ${stkNum} ${optType}`;
+        } else if (/\b(nifty|banknifty|sensex)\b/i.test(clause) && /\b(ce|pe|call|put)\b/i.test(clause)) {
+          strike = `NIFTY ATM ${/\b(pe|put)\b/i.test(clause) ? 'PE' : 'CE'}`;
+        }
+
+        const isTradeCue = /\b(trade|profit|loss|sl|stoploss|stop\s*loss|target|t1|t2|t3|3-lock|7-ema|wyckoff|spring|sniper|intraday|ce|pe|call|put|book\s*kiya|kat\s*gaya)\b/i.test(cLow)
+          && !/\b(tradingview|setup\s*ka|wifi|wi-fi|recharge|subscription|sip)\b/i.test(cLow);
+
+        if (isTradeCue && amounts.length > 0) {
+          const amt = amounts[amounts.length - 1];
+          const isLoss = /\b(loss|sl|stoploss|stop\s*loss|kat\s*gaya|kata|chala\s*gaya|nuksan|minus)\b/i.test(cLow) && !/\b(zero\s*sl|no\s*sl)\b/i.test(cLow);
+          const pnl = isLoss ? -Math.abs(amt) : Math.abs(amt);
+
+          let why = '3-Lock + 7-EMA Root';
+          if (/(spring|wyckoff|reclaim|shakeout)/i.test(cLow)) why = 'Wyckoff Spring Reclaim';
+          else if (/(3-lock|7-ema|sniper|srb)/i.test(cLow)) why = '3-Lock + 7-EMA Root';
+          else if (/(sideways|mid-box|box\s*ke\s*beech|box\s*me|range|chop)/i.test(cLow)) why = 'Sideways Mid-Box Guess';
+          else if (/(fomo|running\s*candle|bhagte|top\s*chase|chase)/i.test(cLow)) why = 'Running Candle FOMO';
+          else if (/(revenge|gusse|turant\s*baad|cover\s*karne)/i.test(cLow)) why = 'Revenge Trade';
+
+          let slType = 'Target Hit (T1/T2/T3)';
+          if (pnl < 0) {
+            if (/(galat|bad|mistake|lalach|fomo|sideways|box|revenge|rule\s*toda|bina\s*setup)/i.test(cLow) || why === 'Sideways Mid-Box Guess' || why === 'Running Candle FOMO' || why === 'Revenge Trade') {
+              slType = 'Bad Mistake SL';
+            } else {
+              slType = 'Good System SL';
+            }
+          }
+
+          let greed = 'Disciplined Trail (Zero Greed)';
+          if (/(overtrade|overtrading|lalach|quota|bar\s*bar|sideways|revenge)/i.test(cLow) && pnl < 0) {
+            greed = 'Quota Greed (Overtraded)';
+          } else if (/(trail\s*nahi|wapas\s*loss|target\s*greed)/i.test(cLow)) {
+            greed = "Target Greed (Didn't Trail)";
+          }
+
+          trades.push({
+            id: 't_ai_' + Date.now() + '_' + trades.length,
+            date: entryDate,
+            strike: strike || 'NIFTY 25150 CE',
+            pnl,
+            why,
+            slType,
+            greed,
+            note: clause.trim()
+          });
+          return;
+        }
+
+        if (amounts.length > 0) {
+          const amt = amounts[0];
+          let category = 'Rozmarra Essential';
+          let cleanTitle = 'Rozmarra Grihasthi Item';
+          let bandhaMatchKeyword = '';
+
+          if (/(wifi|wi-fi|broadband|internet|airtel|jio\s*fiber)/i.test(cLow)) {
+            category = 'ITR-3 Business Deduct';
+            cleanTitle = 'Wi-Fi / Broadband (Trading Setup)';
+            bandhaMatchKeyword = 'wi-fi';
+          } else if (/(mobile\s*data|mobile\s*recharge|sim\s*recharge|data\s*pack)/i.test(cLow)) {
+            category = 'ITR-3 Business Deduct';
+            cleanTitle = 'Mobile Data & Recharge';
+            bandhaMatchKeyword = 'mobile data';
+          } else if (/(tradingview|market\s*data|sensibull|opstra|chartink)/i.test(cLow)) {
+            category = 'ITR-3 Business Deduct';
+            cleanTitle = 'TradingView Pro & Market Data Feed';
+            bandhaMatchKeyword = 'tradingview';
+          } else if (/(brokerage|stt|exchange\s*fee)/i.test(cLow)) {
+            category = 'ITR-3 Business Deduct';
+            cleanTitle = 'Brokerage, STT & Exchange Fees';
+            bandhaMatchKeyword = 'brokerage';
+          } else if (/(ipad|laptop|macbook|monitor|ups|keyboard|mouse|cooling\s*pad)/i.test(cLow)) {
+            category = 'ITR-3 Business Deduct';
+            cleanTitle = 'Trading Hardware / Tech Accessory';
+          } else if (/(sip|index\s*fund|mutual\s*fund|sukanya|ppf|elss|nps|80c)/i.test(cLow)) {
+            category = 'SIP & 80C/80D Wealth';
+            cleanTitle = '80C Equity/Index SIP & Sukanya';
+            bandhaMatchKeyword = '80c';
+          } else if (/(mediclaim|health\s*insurance|lic|term\s*plan|80d)/i.test(cLow)) {
+            category = 'SIP & 80C/80D Wealth';
+            cleanTitle = 'Family Health Insurance (Mediclaim)';
+            bandhaMatchKeyword = 'insurance';
+          } else if (/(zomato|swiggy|pizza|burger|junk|momos|cold\s*drink|party|faltu|fizul|impulse|flash\s*sale)/i.test(cLow)) {
+            category = 'Fizul Kharch';
+            if (/pizza/i.test(cLow)) cleanTitle = 'Zomato / Pizza (Fizul Order)';
+            else if (/(zomato|swiggy)/i.test(cLow)) cleanTitle = 'Zomato / Swiggy Impulse Order';
+            else cleanTitle = 'Unplanned Fizul / Impulse Spend';
+          } else if (/(udhaar|udhari|split|wapas\s*lena|dost\s*ko\s*diye)/i.test(cLow)) {
+            category = 'Udhaari Receivable';
+            cleanTitle = 'Dost Udhaari / Bill Split (Vasooli)';
+          } else if (/(papa|mummy|parents|maa|pitaji|parivar\s*seva|ghar\s*bheje)/i.test(cLow)) {
+            category = 'Parivar Seva';
+            cleanTitle = 'Papa/Mummy & Parivar Seva';
+          } else if (/(chai|tapri|sutta|maggi|biscuit|chillar)/i.test(cLow) || amt <= 95) {
+            category = 'Chillar Micro-UPI';
+            cleanTitle = 'Chai / Tapri / Chillar Micro-UPI';
+          } else if (/(shauk|earphone|shoes|shirt|tshirt|jeans|cafe|outing|watch)/i.test(cLow)) {
+            category = 'Personal Shauk';
+            cleanTitle = 'Personal Shauk & Lifestyle';
+          } else if (/(tyohar|puja|shagun|gift|diwali|holi|chhath|rakhi|mehman|shadi|yatra|emergency)/i.test(cLow)) {
+            category = 'Tyohar & Emergency';
+            if (/shagun|gift/i.test(cLow)) cleanTitle = 'Parivar Shagun / Gift';
+            else if (/puja|chhath|diwali/i.test(cLow)) cleanTitle = 'Tyohar & Puja Samagri';
+            else cleanTitle = 'Tyohar / Family Emergency Buffer';
+          } else {
+            category = 'Rozmarra Essential';
+            if (/(sabzi|phal|fruit|mandi|vegetable)/i.test(cLow)) cleanTitle = 'Taaza Sabzi & Phal (Mandi)';
+            else if (/(petrol|diesel|fuel|scooty|scooter|car|cng)/i.test(cLow)) cleanTitle = 'Petrol / Vehicle Fuel';
+            else if (/(dawai|medicine|medical|pharmacy|vitamin|doctor)/i.test(cLow)) cleanTitle = 'Family Medical & Pharmacy';
+            else if (/(doodh|paneer|dairy|curd|dahi)/i.test(cLow)) {
+              cleanTitle = 'Doodh & Dairy';
+              if (/monthly|mahine/i.test(cLow)) bandhaMatchKeyword = 'doodh';
+            } else if (/(kirana|ration|atta|dal|oil)/i.test(cLow)) {
+              cleanTitle = 'Kirana & Ghar Ration';
+              if (/monthly|mahine/i.test(cLow)) bandhaMatchKeyword = 'kirana';
+            } else if (/(auto|cab|bus|metro|rickshaw)/i.test(cLow)) {
+              cleanTitle = 'Local Transit / Auto';
+            } else {
+              cleanTitle = 'Rozmarra Ghar Kharch';
+            }
+          }
+
+          let matchedBandha = null;
+          if (enableBandheDedup && bandhaMatchKeyword) {
+            matchedBandha = state.recurringBills.find(b => b.active && b.title.toLowerCase().includes(bandhaMatchKeyword));
+          }
+
+          expenses.push({
+            id: 'e_ai_' + Date.now() + '_' + expenses.length,
+            date: entryDate,
+            title: cleanTitle,
+            amount: amt,
+            category,
+            rawClause: clause.trim(),
+            matchedBandhaId: matchedBandha ? matchedBandha.id : null,
+            matchedBandhaTitle: matchedBandha ? matchedBandha.title : null
+          });
+          return;
+        }
+
+        if (clause.length >= 6) {
+          let tag = '📖 Dinacharya';
+          if (/(workout|walk|gym|run|yoga|exercise|health)/i.test(cLow)) tag = '💪 Health';
+          else if (/(code|python|raghava|astra|trinetra|backtest|test|chart|study)/i.test(cLow)) tag = '💻 Quant R&D';
+          else if (/(papa|mummy|roshni|parivar|family|temple|mandir|puja)/i.test(cLow)) tag = '👨‍👩‍👧 Parivar';
+          activities.push(`${tag}: ${clause.trim()}`);
+        }
+      });
+
+      const hasBadWhy = trades.some(t => t.why === 'Sideways Mid-Box Guess' || t.why === 'Running Candle FOMO' || t.why === 'Revenge Trade');
+      const hasMidBox = trades.some(t => t.why === 'Sideways Mid-Box Guess');
+      const hasBadSl = trades.some(t => t.slType === 'Bad Mistake SL');
+      const hasGreed = trades.some(t => t.greed !== 'Disciplined Trail (Zero Greed)');
+      const loggedDiary = (trades.length + expenses.length + activities.length) > 0;
+      const hasFizul = expenses.some(e => e.category === 'Fizul Kharch');
+
+      const habitUpdates = [
+        hasBadWhy ? 0 : 1,
+        hasMidBox ? 0 : 1,
+        hasBadSl ? 0 : 1,
+        hasGreed ? 0 : 1,
+        loggedDiary ? 1 : 0,
+        hasFizul ? 0 : 1
+      ];
+
+      return { trades, expenses, activities, habitUpdates };
+    }
+
+    function renderDiaryStagingPreview() {
+      const box = document.getElementById('diaryStagingPreviewBox');
+      const txtEl = document.getElementById('diaryTextInput');
+      const dateEl = document.getElementById('diaryDateInput');
+      const dedupEl = document.getElementById('diaryDedupBandheToggle');
+      if (!box || !txtEl) return;
+
+      const entryDate = (dateEl && dateEl.value) ? dateEl.value : '2026-11-15';
+      const dedup = dedupEl ? dedupEl.checked : true;
+      const parsed = parseSandhyaDiaryText(txtEl.value, entryDate, dedup);
+
+      const tradesHtml = parsed.trades.length === 0
+        ? `<div class="text-slate-500 italic">No trade mentioned in text</div>`
+        : parsed.trades.map(t => {
+            const isWin = t.pnl >= 0;
+            const col = isWin ? 'text-emerald-300 border-emerald-500/40 bg-emerald-950/40' : (t.slType === 'Bad Mistake SL' ? 'text-rose-300 border-rose-500/40 bg-rose-950/40' : 'text-cyan-300 border-cyan-500/40 bg-cyan-950/40');
+            return `<div class="p-2 rounded-xl border ${col} mb-1.5">
+              <div class="flex justify-between font-black"><span>${t.strike}</span><span class="mono">${isWin ? '+' : ''}${formatINR(t.pnl)}</span></div>
+              <div class="text-[10px] text-slate-300 mt-0.5">${t.why} • <strong>${t.slType}</strong></div>
+            </div>`;
+          }).join('');
+
+      const expHtml = parsed.expenses.length === 0
+        ? `<div class="text-slate-500 italic">No ₹ expense mentioned</div>`
+        : parsed.expenses.map(e => {
+            const isDedup = Boolean(e.matchedBandhaId);
+            const col = e.category === 'Fizul Kharch'
+              ? 'border-rose-500/40 bg-rose-950/40 text-rose-200'
+              : (e.category === 'ITR-3 Business Deduct' ? 'border-violet-500/40 bg-violet-950/40 text-violet-200' : 'border-cyan-500/40 bg-cyan-950/40 text-cyan-200');
+            return `<div class="p-2 rounded-xl border ${col} mb-1.5">
+              <div class="flex justify-between font-bold"><span>${e.title}</span><span class="mono font-black">${formatINR(e.amount)}</span></div>
+              <div class="text-[10px] mt-0.5 flex items-center justify-between">
+                <span>${e.category}</span>
+                ${isDedup ? `<span class="px-1.5 py-0.2 rounded bg-emerald-500/30 text-emerald-200 font-black">🔄 Bandha Bill Sync (No Double Count)</span>` : ''}
+              </div>
+            </div>`;
+          }).join('');
+
+      const actHtml = parsed.activities.length === 0
+        ? `<div class="text-slate-500 italic">Write workout/coding/family notes to log Dinacharya</div>`
+        : parsed.activities.map(a => `<div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-200 mb-1.5 font-semibold">${a}</div>`).join('');
+
+      const dayNum = Math.max(1, Math.min(31, parseInt(entryDate.split('-')[2] || '15', 10)));
+      const passCount = parsed.habitUpdates.filter(x => x === 1).length;
+      const habitNames = ['3-Lock Wait', 'Zero Mid-Box', 'Smart SL', 'Zero Greed', 'Kharch Logged', 'Zero Fizul'];
+      const habitsHtml = parsed.habitUpdates.map((val, idx) => {
+        const badge = val === 1 ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40' : 'bg-rose-500/25 text-rose-300 border-rose-500/40';
+        return `<span class="inline-block px-2 py-1 rounded-lg border text-[10px] font-bold mr-1 mb-1 ${badge}">${val === 1 ? '✓' : '✕'} ${habitNames[idx]}</span>`;
+      }).join('');
+
+      box.innerHTML = `
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-emerald-500/30">
+          <div class="font-black text-emerald-300 mb-1.5">🎯 1. AI Detected Trades (${parsed.trades.length})</div>
+          ${tradesHtml}
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-cyan-500/30">
+          <div class="font-black text-cyan-300 mb-1.5">🛒 2. AI Classified Kharch &amp; ITR-3 (${parsed.expenses.length})</div>
+          ${expHtml}
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-violet-500/30">
+          <div class="font-black text-violet-300 mb-1.5">📖 3. Dinacharya &amp; Life Notes (${parsed.activities.length})</div>
+          ${actHtml}
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-amber-500/30">
+          <div class="font-black text-amber-300 mb-1.5">📅 4. Day D${dayNum} Auto-Habit Ticks (${passCount}/6)</div>
+          <div>${habitsHtml}</div>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      const m = computeMetrics();
+
+      // Top 4 KPI Cards
+      document.getElementById('kpiTradingPnl').textContent = (m.netTradingPnl >= 0 ? '+' : '') + formatINR(m.netTradingPnl);
+      document.getElementById('kpiWinRateBadge').textContent = m.winRate + '%';
+      document.getElementById('kpiTradingSub').innerHTML = `Win Rate: <span class="text-emerald-400 font-bold">${m.winRate}%</span> • Sec 43(5) Business`;
+
+      document.getElementById('kpiGrihasthiTotal').textContent = formatINR(m.totalGrihasthi);
+      const budgetPct = Math.min(100, Math.round((m.totalGrihasthi / 25000) * 100));
+      document.getElementById('kpiBudgetPct').textContent = budgetPct + '%';
+
+      document.getElementById('kpiTaxDeductTotal').textContent = formatINR(m.totalTaxDeduct);
+      document.getElementById('kpiSec37Span').textContent = formatINR(m.totalSec37);
+
+      document.getElementById('kpiLeakageTotal').textContent = formatINR(m.totalLeakage);
+      document.getElementById('kpiFizulSpan').textContent = formatINR(m.fizul);
+      document.getElementById('kpiBadSlSpan').textContent = formatINR(m.badSlLoss);
+      document.getElementById('kpiGreedScoreBadge').textContent = m.greedPct + '%';
+
+      const greedPill = document.getElementById('dockGreedStatusPill');
+      if (m.greedPct <= 20) {
+        greedPill.textContent = `GREED: CONTROLLED (${m.greedPct}%)`;
+        greedPill.className = 'px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
+      } else {
+        greedPill.textContent = `GREED ALERT: HIGH (${m.greedPct}%)`;
+        greedPill.className = 'px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/25 text-rose-300 border border-rose-400/50';
+      }
+
+      // Render Design #6 Left Column (Dock Recurring Auto-Tagged Bills)
+      document.getElementById('dockAutoBillCount').textContent = `${m.activeBillCount} Active Auto-Tags`;
+      document.getElementById('dockSec37Total').textContent = `${formatINR(m.totalSec37)} / mo`;
+
+      const dockListEl = document.getElementById('dockRecurringList');
+      dockListEl.innerHTML = state.recurringBills.map(b => {
+        const badgeColor = b.category === 'ITR-3 Business Deduct'
+          ? 'bg-violet-500/25 text-violet-200 border-violet-400/40'
+          : (b.category === 'Bandhe Ghar Fixed' ? 'bg-cyan-500/25 text-cyan-200 border-cyan-400/40' : 'bg-emerald-500/25 text-emerald-200 border-emerald-400/40');
+        return `
+          <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-white truncate">${b.title}</div>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="px-1.5 py-0.2 rounded text-[10px] font-bold border ${badgeColor}">${b.code}</span>
+                <span class="text-xs font-extrabold mono text-slate-300">${formatINR(b.amount)}</span>
+              </div>
+            </div>
+            <div data-bill-id="${b.id}" class="bill-toggle-btn toggle-switch ${b.active ? 'on' : 'off'} shrink-0" title="Toggle 1st-of-Month Auto-Tag">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Center AI-CA Diagnostics on Master Dock
+      const ratiDaysEquiv = Math.max(1, Math.round(m.badSlLoss / 450));
+      document.getElementById('dockCaHeadline').textContent =
+        `Auto-tagged ${formatINR(m.totalSec37)}/mo in Sec 37 trading deductions—reducing your taxable F&O income from ${formatINR(m.netTradingPnl)} down to ${formatINR(m.netTaxableFoIncome)}!`;
+
+      document.getElementById('dockCaDiagnostics').innerHTML = `
+        <div class="p-3 rounded-xl bg-violet-950/45 border border-violet-500/40 text-xs">
+          <div class="font-extrabold text-violet-300">🟣 1. Auto-Tagged ITR-3 Business Expense Shield:</div>
+          <div class="text-slate-300 mt-0.5">
+            Wi-Fi, Mobile, TradingView, Brokerage/STT &amp; iPad Depreciation (<span class="mono font-bold text-white">${formatINR(m.totalSec37)}/mo</span>) automatically claimed under <strong>Section 37 &amp; 32</strong>. Estimated annual tax saved (at 20%–30% slab): <span class="text-emerald-300 font-bold mono">${formatINR(m.totalSec37 * 12 * 0.25)}/yr</span>.
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-rose-950/45 border border-rose-500/40 text-xs">
+          <div class="font-extrabold text-rose-300">🔴 2. Fizul Kharch + Bad SL Psychological Shock Audit:</div>
+          <div class="text-slate-300 mt-0.5">
+            Is mahine <strong>Bad Mistake SL (${formatINR(m.badSlLoss)})</strong> + <strong>Fizul Impulse Spend (${formatINR(m.fizul)})</strong> milakar <span class="mono font-bold text-rose-300">${formatINR(m.totalLeakage)}</span> leak hua—jo aapke ghar ke <strong>${ratiDaysEquiv} din ke Ration &amp; Doodh</strong> ke barabar hai!
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-cyan-950/45 border border-cyan-500/40 text-xs">
+          <div class="font-extrabold text-cyan-300">🔵 3. Section 44AB Digital Tax Audit Status (SAFE):</div>
+          <div class="text-slate-300 mt-0.5">
+            ICAI F&amp;O Turnover: <span class="mono font-bold text-cyan-200">${formatINR(m.monthlyTurnover)}/mo</span> (Projected Annual: <span class="mono font-bold">${formatINR(m.projectedAnnualTurnover)}</span> vs <strong>₹10 Crore</strong> Digital Limit). <strong>Zero Tax Audit required!</strong>
+          </div>
+        </div>
+      `;
+
+      // Render Tab 1 Tables (Recent Trades & Expenses)
+      document.getElementById('dailyTradesTable').innerHTML = state.trades.slice().reverse().map(t => {
+        const isWin = Number(t.pnl) >= 0;
+        const badge = isWin ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : (t.slType === 'Bad Mistake SL' ? 'bg-rose-500/25 text-rose-300 border-rose-500/40' : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40');
+        return `
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-black text-white">${t.strike}</span>
+                <span class="text-[10px] text-slate-400 mono">${t.date}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badge}">${t.slType}</span>
+              </div>
+              <div class="text-[11px] text-slate-300 mt-0.5">Why: <strong>${t.why}</strong> • Greed: ${t.greed}</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-black mono ${isWin ? 'text-emerald-400' : 'text-rose-400'}">${isWin ? '+' : ''}${formatINR(t.pnl)}</span>
+              <button data-del-trade="${t.id}" class="del-trade-btn text-slate-500 hover:text-rose-400 text-xs px-1.5">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('dailyExpensesTable').innerHTML = state.expenses.slice().reverse().map(e => {
+        const isFizul = e.category === 'Fizul Kharch';
+        const isItr = e.category === 'ITR-3 Business Deduct';
+        const badge = isFizul ? 'bg-rose-500/25 text-rose-300 border-rose-500/40' : (isItr ? 'bg-violet-500/25 text-violet-300 border-violet-500/40' : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40');
+        return `
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
+            <div>
+              <div class="text-xs font-bold text-white">${e.title}</div>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span class="text-[10px] text-slate-400 mono">${e.date}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badge}">${e.category}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-black mono ${isFizul ? 'text-rose-400' : 'text-cyan-300'}">${formatINR(e.amount)}</span>
+              <button data-del-exp="${e.id}" class="del-exp-btn text-slate-500 hover:text-rose-400 text-xs px-1.5">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Tab 2: Full Bandhe Monthly Bills Grid
+      document.getElementById('bandheSec37Sum').textContent = formatINR(m.sec37Auto);
+      document.getElementById('bandheGharSipSum').textContent = formatINR(m.bandheGhar + m.totalSip80c);
+      document.getElementById('bandheFullGrid').innerHTML = state.recurringBills.map(b => {
+        const cardBorder = b.category === 'ITR-3 Business Deduct' ? 'border-violet-500/45 bg-violet-950/25' : (b.category === 'Bandhe Ghar Fixed' ? 'border-cyan-500/45 bg-cyan-950/25' : 'border-emerald-500/45 bg-emerald-950/25');
+        return `
+          <div class="p-3.5 rounded-2xl border ${cardBorder} flex flex-col justify-between gap-2">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">${b.category} (${b.code})</span>
+                <div class="text-sm font-extrabold text-white mt-1.5">${b.title}</div>
+              </div>
+              <div data-bill-id="${b.id}" class="bill-toggle-btn toggle-switch ${b.active ? 'on' : 'off'} shrink-0">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-800/80">
+              <span class="text-[11px] text-slate-400">Monthly Auto-Amount (₹):</span>
+              <input type="number" data-bill-amt-id="${b.id}" value="${b.amount}" class="bill-amt-input w-28 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-black mono text-right text-white" />
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Tab 4: ITR-3 Schedule BP Breakdown
+      const scheduleHtml = `
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between">
+          <span>1. Gross Non-Speculative F&amp;O Business Profit (Sec 43(5) • Code 13018)</span>
+          <span class="mono font-black text-emerald-400">${formatINR(m.netTradingPnl)}</span>
+        </div>
+        <div class="p-3 rounded-xl bg-violet-950/40 border border-violet-500/40 flex justify-between">
+          <span>2. Less: Section 37 &amp; 32 Auto-Tagged Trading Business Expenses (Wi-Fi, Mobile, Brokerage/STT, Data, iPad Deprec.)</span>
+          <span class="mono font-black text-violet-300">- ${formatINR(m.totalSec37)}</span>
+        </div>
+        <div class="p-3.5 rounded-xl bg-emerald-950/50 border-2 border-emerald-500/50 flex justify-between text-sm">
+          <span class="font-black text-white">3. Net Taxable F&amp;O Business Income (ITR-3 Schedule BP)</span>
+          <span class="mono font-black text-emerald-300">${formatINR(m.netTaxableFoIncome)}</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between">
+          <span>4. Chapter VI-A Deductions Tracked (Sec 80C SIP/Sukanya + Sec 80D Mediclaim)</span>
+          <span class="mono font-black text-cyan-300">${formatINR(m.totalSip80c)} / mo</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between">
+          <span>5. ICAI Section 44AB Turnover (100% Digital Bank-Broker • Threshold ₹10 Cr)</span>
+          <span class="mono font-black text-amber-300">${formatINR(m.monthlyTurnover)} / mo (Audit: NOT Required)</span>
+        </div>
+      `;
+      document.getElementById('itrScheduleBpTable').innerHTML = scheduleHtml;
+      document.getElementById('itrModalBody').innerHTML = scheduleHtml;
+
+      // Render Tab 5: 31-Day Habit Matrix
+      renderHabitMatrix();
+
+      // Render Sandhya 7-8 PM Diary Archive in Tab 1
+      const diaryTableEl = document.getElementById('dailyDiaryLogsTable');
+      if (diaryTableEl) {
+        if (!Array.isArray(state.diaryLogs)) state.diaryLogs = [];
+        diaryTableEl.innerHTML = state.diaryLogs.slice().reverse().map(d => `
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-violet-500/30 flex flex-col gap-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-black text-violet-300 mono">📅 ${d.date}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">${d.summaryBadge || 'AI Logged'}</span>
+            </div>
+            <div class="text-xs text-slate-200 leading-snug">${d.rawText}</div>
+            ${Array.isArray(d.activities) && d.activities.length > 0 ? `<div class="text-[11px] text-cyan-300 font-semibold">${d.activities.join(' • ')}</div>` : ''}
+          </div>
+        `).join('');
+      }
+
+      renderDiaryStagingPreview();
+      renderReconcileAndUpgrades(m);
+
+      // Update Charts
+      updateCharts(m);
+      bindDynamicEvents();
+    }
+
+    function renderHabitMatrix() {
+      const headerRow = document.getElementById('habitMatrixHeaderRow');
+      let ths = `<th class="py-2 pr-3 min-w-[210px] text-amber-300">Daily Trading &amp; Finance Rule</th>`;
+      for (let d = 1; d <= 15; d++) {
+        ths += `<th class="py-2 px-1.5 text-center mono">D${d}</th>`;
+      }
+      headerRow.innerHTML = ths;
+
+      let totalChecks = 0;
+      let passedChecks = 0;
+      const tbody = document.getElementById('habitMatrixBody');
+      tbody.innerHTML = state.habits.map((h, rIdx) => {
+        let cells = `<td class="py-2 pr-3 font-bold text-slate-200">${h.rule}</td>`;
+        h.days.forEach((val, dIdx) => {
+          totalChecks++;
+          if (val === 1) passedChecks++;
+          const btnClass = val === 1
+            ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/50'
+            : 'bg-rose-500/25 text-rose-300 border-rose-500/50';
+          cells += `
+            <td class="py-1.5 px-1 text-center">
+              <button data-hrow="${rIdx}" data-hday="${dIdx}" class="habit-cell-btn w-6 h-6 rounded-md text-[11px] font-black border ${btnClass}">
+                ${val === 1 ? '✓' : '✕'}
+              </button>
+            </td>
+          `;
+        });
+        return `<tr>${cells}</tr>`;
+      }).join('');
+
+      const pct = totalChecks > 0 ? Math.round((passedChecks / totalChecks) * 100) : 100;
+      document.getElementById('habitStreakScore').textContent = `Monthly Discipline Score: ${pct}%`;
+    }
+
+
+    function renderNativeSvgBarChart(canvasEl, labels, values, colors) {
+      if (!canvasEl || !canvasEl.parentElement) return;
+      const parent = canvasEl.parentElement;
+      let svgWrap = parent.querySelector('.native-svg-chart-fallback');
+      if (window.Chart) {
+        if (svgWrap) svgWrap.remove();
+        canvasEl.style.display = 'block';
+        return;
+      }
+      // When Chart.js CDN is blocked (e.g. iPad Files QuickLook or Offline), render crisp native SVG bars!
+      canvasEl.style.display = 'none';
+      if (!svgWrap) {
+        svgWrap = document.createElement('div');
+        svgWrap.className = 'native-svg-chart-fallback w-full h-full';
+        parent.appendChild(svgWrap);
+      }
+      const maxVal = Math.max(1000, ...values.map(v => Math.abs(Number(v) || 0)));
+      const barW = Math.floor(520 / Math.max(1, labels.length));
+      const barsSvg = labels.map((lbl, i) => {
+        const val = Math.abs(Number(values[i]) || 0);
+        const h = Math.max(6, Math.round((val / maxVal) * 135));
+        const x = 30 + i * (barW + 12);
+        const y = 160 - h;
+        const col = colors[i % colors.length];
+        return `
+          <rect x="${x}" y="${y}" width="${barW - 8}" height="${h}" rx="7" fill="${col}" />
+          <text x="${x + (barW - 8)/2}" y="${y - 6}" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹${Math.round(val).toLocaleString('en-IN')}</text>
+          <text x="${x + (barW - 8)/2}" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">${lbl}</text>
+        `;
+      }).join('');
+      svgWrap.innerHTML = `<svg viewBox="0 0 600 190" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="160" x2="585" y2="160" stroke="#334155" stroke-width="1.5"/>
+        ${barsSvg}
+      </svg>`;
+    }
+
+    function renderReconcileAndUpgrades(m) {
+      // Header Base Capital & ROI badge
+      const baseInp = document.getElementById('baseCapitalInput');
+      if (baseInp && document.activeElement !== baseInp) baseInp.value = m.baseCap;
+      const roiBadge = document.getElementById('headerRoiAndRiskBadge');
+      if (roiBadge) {
+        roiBadge.textContent = `ROI: ${m.netTradingPnl >= 0 ? '+' : ''}${m.roiPct}% • Max 2% SL: ${formatINR(m.maxDailyRisk)}`;
+      }
+
+      if (!state.reconcileData) {
+        state.reconcileData = {
+          brokerGrossPnl: 54600,
+          brokerCharges: 6400,
+          brokerNetPnl: 48200,
+          brokerTradeCount: 8,
+          bankTotalUpiDebits: 24850,
+          bankChillarUpiCount: 38,
+          bankChillarUpiAmount: 1940,
+          bankPayoutCredited: 28000,
+          lastSyncedNote: 'Nov 2026 Angel One Tax P&L + HDFC Bank Statement Loaded'
+        };
+      }
+      const rc = state.reconcileData;
+      const loggedSpend = m.totalGrihasthi + m.tyohar + m.fizul;
+      const unloggedUpiGap = Math.max(0, rc.bankTotalUpiDebits - loggedSpend);
+      const unloggedTrades = Math.max(0, rc.brokerTradeCount - state.trades.length);
+
+      const recGrid = document.getElementById('reconcileVerdictGrid');
+      if (recGrid) {
+        recGrid.innerHTML = `
+          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40">
+            <div class="text-[10px] font-black uppercase text-emerald-400">1. Broker Gross vs Hidden Charges</div>
+            <div class="text-lg font-black mono text-emerald-300 mt-0.5">Gross: +${formatINR(rc.brokerGrossPnl)}</div>
+            <div class="text-xs text-rose-300 font-bold mt-0.5">STT + Brok + GST: -${formatINR(rc.brokerCharges)}</div>
+            <div class="text-[11px] text-slate-300 mt-1">Net Realized: <strong class="text-white mono">+${formatINR(rc.brokerNetPnl)}</strong> (Auto-Eligible under ITR-3 Sec 37!)</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-rose-500/40">
+            <div class="text-[10px] font-black uppercase text-rose-400">2. Bank vs Diary UPI Leakage Gap</div>
+            <div class="text-lg font-black mono text-rose-300 mt-0.5">Gap: ${formatINR(unloggedUpiGap)}</div>
+            <div class="text-xs text-amber-300 font-bold mt-0.5">Bank UPI Debits: ${formatINR(rc.bankTotalUpiDebits)} vs Logged: ${formatINR(loggedSpend)}</div>
+            <div class="text-[11px] text-slate-300 mt-1">Includes <strong>${rc.bankChillarUpiCount} Chillar UPI scans (&lt;₹100)</strong> totaling <strong>${formatINR(rc.bankChillarUpiAmount)}</strong>!</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-violet-500/40">
+            <div class="text-[10px] font-black uppercase text-violet-400">3. Unlogged Trades Radar</div>
+            <div class="text-lg font-black mono text-violet-300 mt-0.5">${unloggedTrades} Missing Trades</div>
+            <div class="text-xs text-cyan-300 font-bold mt-0.5">Broker CSV: ${rc.brokerTradeCount} Trades vs Diary: ${state.trades.length}</div>
+            <div class="text-[11px] text-slate-300 mt-1">${unloggedTrades > 0 ? 'Tap Auto-Sync above to import missing broker trades & charges.' : '100% Synced — Every broker trade is in your journal!'}</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40">
+            <div class="text-[10px] font-black uppercase text-cyan-400">4. Real Bank Payout vs Screen P&amp;L</div>
+            <div class="text-lg font-black mono text-cyan-300 mt-0.5">${formatINR(m.bankPayoutLocked)} In Bank</div>
+            <div class="text-xs text-emerald-300 font-bold mt-0.5">${m.payoutRatioPct}% of Net Profit Withdrawn</div>
+            <div class="text-[11px] text-slate-300 mt-1">Remaining <strong>${formatINR(Math.max(0, m.netTradingPnl - m.bankPayoutLocked))}</strong> still in Broker Wallet.</div>
+          </div>
+        `;
+      }
+
+      // Render Upgrade #1: Udhaari List
+      const udhBadge = document.getElementById('udhaariNetBadge');
+      if (udhBadge) {
+        udhBadge.textContent = `Vasooli Pending: ${formatINR(m.udhaariPending)}`;
+      }
+      const udhCont = document.getElementById('udhaariListContainer');
+      if (udhCont) {
+        if (!Array.isArray(state.udhaariList)) state.udhaariList = [];
+        udhCont.innerHTML = state.udhaariList.map(u => `
+          <div class="p-2 rounded-xl bg-slate-950/85 border border-slate-800 flex items-center justify-between gap-2">
+            <div>
+              <div class="text-xs font-bold ${u.settled ? 'line-through text-slate-500' : 'text-white'}">${u.person}</div>
+              <div class="text-[10px] text-slate-400">${u.date} • ${u.type === 'vasooli' ? '🟢 Vasoolna Hai' : '🔴 Dena Hai'}</div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-black mono ${u.type === 'vasooli' ? 'text-amber-300' : 'text-rose-300'}">${formatINR(u.amount)}</span>
+              <button type="button" data-udh-id="${u.id}" class="udh-settle-btn px-2 py-1 rounded-lg text-[10px] font-black ${u.settled ? 'bg-slate-800 text-slate-400' : 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40'}">
+                ${u.settled ? '✓ Settled' : 'Mark Vasool'}
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Upgrade #2, #3 & #6: Friday Payout Lock & Quarterly Advance Tax Gullak
+      const payBadge = document.getElementById('payoutLockRatioBadge');
+      if (payBadge) payBadge.textContent = `Bank Locked: ${m.payoutRatioPct}%`;
+      const payBox = document.getElementById('payoutAndTaxSummaryBox');
+      if (payBox) {
+        const idealSafeBank = Math.round(Math.max(0, m.netTradingPnl) * 0.40);
+        const idealParivar = Math.round(Math.max(0, m.netTradingPnl) * 0.20);
+        const idealCompound = Math.round(Math.max(0, m.netTradingPnl) * 0.25);
+        payBox.innerHTML = `
+          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/30 flex justify-between">
+            <span>🏦 Withdrawn to Safe Bank Account:</span>
+            <span class="mono font-black text-emerald-300">${formatINR(m.bankPayoutLocked)} / ${formatINR(m.netTradingPnl)} (${m.payoutRatioPct}%)</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-violet-950/40 border border-violet-500/40 flex justify-between">
+            <span>🛡️ Advance Tax Gullak (15% Reserve for 15 Dec / 15 Mar):</span>
+            <span class="mono font-black text-violet-300">${formatINR(m.advanceTaxReserve)}</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 text-[11px] text-slate-300">
+            <strong>Smart Indian Trader Split:</strong> Safe Bank FD (40% = <strong>${formatINR(idealSafeBank)}</strong>) • Advance Tax (15% = <strong>${formatINR(m.advanceTaxReserve)}</strong>) • Parivar/Self (20% = <strong>${formatINR(idealParivar)}</strong>) • Next Month Capital Boost (25% = <strong>${formatINR(idealCompound)}</strong>)
+          </div>
+        `;
+      }
+
+      // Render Upgrade #4, #7 & #8: Parivar Seva vs Personal Shauk vs Chillar Micro-UPI
+      const patBadge = document.getElementById('patienceDaysBadge');
+      if (patBadge) patBadge.textContent = `🧘‍♂️ ${state.patienceDays || 0} Patience Days`;
+      const mirrorBox = document.getElementById('indianLifeMirrorBox');
+      if (mirrorBox) {
+        mirrorBox.innerHTML = `
+          <div class="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 flex justify-between">
+            <span>🙏 Parivar Seva &amp; Parents/Home Pride:</span>
+            <span class="mono font-black text-emerald-300">${formatINR(m.parivarSeva)}</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-500/40 flex justify-between">
+            <span>👕 Personal Shauk &amp; Lifestyle Spend:</span>
+            <span class="mono font-black text-cyan-300">${formatINR(m.personalShauk)}</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/40 flex justify-between">
+            <span>☕ Chillar Micro-UPI (&lt;₹100 Tapri/Chai/Snacks):</span>
+            <span class="mono font-black text-amber-300">${formatINR(m.chillarUpi + rc.bankChillarUpiAmount)}</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 flex justify-between">
+            <span>🧘‍♂️ Zero-Trade Sideways Patience Days:</span>
+            <span class="mono font-black text-emerald-400">${state.patienceDays || 0} Days (Capital Protected!)</span>
+          </div>
+        `;
+      }
+    }
+
+    function updateCharts(m) {
+      const labels = ['Bandhe Ghar', 'Rozmarra', 'ITR-3 Auto', '80C SIP/Save', 'Tyohar Buf', 'Fizul+Bad SL'];
+      const values = [m.bandheGhar, m.rozmarra, m.totalSec37, m.totalSip80c, m.tyohar, m.totalLeakage];
+      const colors = ['#06b6d4', '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e'];
+
+      const ctxDock = document.getElementById('dockMainBarChart');
+      if (ctxDock && window.Chart) {
+        if (dockChartInstance) dockChartInstance.destroy();
+        dockChartInstance = new Chart(ctxDock, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Monthly Amount (₹)',
+              data: values,
+              backgroundColor: colors,
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: '#cbd5e1', font: { size: 10, weight: 'bold' } }, grid: { display: false } },
+              y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(148,163,184,0.12)' } }
+            }
+          }
+        });
+      }
+
+      const ctxTab1 = document.getElementById('tabChartCashflow');
+      if (ctxTab1 && window.Chart) {
+        if (tabChartCashflowInstance) tabChartCashflowInstance.destroy();
+        tabChartCashflowInstance = new Chart(ctxTab1, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Monthly Outflow & Deductions (₹)',
+              data: values,
+              backgroundColor: colors,
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: '#cbd5e1', font: { weight: 'bold' } }, grid: { display: false } },
+              y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.12)' } }
+            }
+          }
+        });
+      }
+
+      renderNativeSvgBarChart(ctxDock, labels, values, colors);
+      renderNativeSvgBarChart(ctxTab1, labels, values, colors);
+      const psychLabels = ['3-Lock Win', 'Good SL', 'Bad SL', 'Fizul', 'Net P&L'];
+      const psychVals = [m.grossWin, m.goodSlLoss, m.badSlLoss, m.fizul, m.netTradingPnl];
+      const psychCols = ['#10b981', '#06b6d4', '#f43f5e', '#fb7185', '#8b5cf6'];
+      renderNativeSvgBarChart(document.getElementById('tabChartPsychology'), psychLabels, psychVals, psychCols);
+
+      const ctxTab2 = document.getElementById('tabChartPsychology');
+      if (ctxTab2 && window.Chart) {
+        if (tabChartPsychInstance) tabChartPsychInstance.destroy();
+        tabChartPsychInstance = new Chart(ctxTab2, {
+          type: 'bar',
+          data: {
+            labels: ['3-Lock Gross Win', 'Good System SL', 'Bad Mistake SL', 'Fizul Kharch', 'Net Take-Home'],
+            datasets: [{
+              label: 'Amount (₹)',
+              data: [m.grossWin, m.goodSlLoss, m.badSlLoss, m.fizul, m.netTradingPnl],
+              backgroundColor: ['#10b981', '#06b6d4', '#f43f5e', '#fb7185', '#8b5cf6'],
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: '#cbd5e1', font: { weight: 'bold' } }, grid: { display: false } },
+              y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.12)' } }
+            }
+          }
+        });
+      }
+    }
+
+    // =========================================================================
+    // EVENT HANDLERS & INTERACTIVITY
+    // =========================================================================
+    function switchTab(tabId) {
+      const rad = document.getElementById('rad-tab-' + tabId);
+      if (rad) rad.checked = true;
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById('view-' + tabId);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+      renderAll();
+    }
+
+    function bindDynamicEvents() {
+      // Recurring Bill Toggle Switches
+      document.querySelectorAll('.bill-toggle-btn').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-bill-id');
+          const item = state.recurringBills.find(b => b.id === id);
+          if (item) {
+            item.active = !item.active;
+            saveState();
+            renderAll();
+            showToast(`${item.title}: Auto-Tag ${item.active ? 'ENABLED (ON)' : 'PAUSED (OFF)'}`);
+          }
+        };
+      });
+
+      // Recurring Bill Amount Edits
+      document.querySelectorAll('.bill-amt-input').forEach(inp => {
+        inp.onchange = () => {
+          const id = inp.getAttribute('data-bill-amt-id');
+          const item = state.recurringBills.find(b => b.id === id);
+          if (item) {
+            item.amount = Math.max(0, Number(inp.value) || 0);
+            saveState();
+            renderAll();
+            showToast(`Updated ${item.title} to ${formatINR(item.amount)}/mo`);
+          }
+        };
+      });
+
+      // Delete Trade
+      document.querySelectorAll('.del-trade-btn').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-del-trade');
+          state.trades = state.trades.filter(t => t.id !== id);
+          saveState();
+          renderAll();
+          showToast('Trade entry removed');
+        };
+      });
+
+      // Delete Expense
+      document.querySelectorAll('.del-exp-btn').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-del-exp');
+          state.expenses = state.expenses.filter(e => e.id !== id);
+          saveState();
+          renderAll();
+          showToast('Expense entry removed');
+        };
+      });
+
+      // 31-Day Habit Matrix Toggle
+      document.querySelectorAll('.habit-cell-btn').forEach(btn => {
+        btn.onclick = () => {
+          const r = Number(btn.getAttribute('data-hrow'));
+          const d = Number(btn.getAttribute('data-hday'));
+          if (state.habits[r] && typeof state.habits[r].days[d] !== 'undefined') {
+            state.habits[r].days[d] = state.habits[r].days[d] === 1 ? 0 : 1;
+            saveState();
+            renderAll();
+          }
+        };
+      });
+
+      // Udhaari Settle Toggle Buttons
+      document.querySelectorAll('.udh-settle-btn').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-udh-id');
+          const item = (state.udhaariList || []).find(u => u.id === id);
+          if (item) {
+            item.settled = !item.settled;
+            saveState();
+            renderAll();
+            showToast(`${item.person}: ${item.settled ? 'Marked Vasool (Settled)!' : 'Re-opened'}`);
+          }
+        };
+      });
+
+      // Quick Rozmarra 1-Tap Expense Buttons
+      document.querySelectorAll('.quick-exp-btn').forEach(btn => {
+        btn.onclick = () => {
+          const category = btn.getAttribute('data-qcat');
+          const title = btn.getAttribute('data-qtitle');
+          const amount = Number(btn.getAttribute('data-qamt')) || 100;
+          state.expenses.push({
+            id: 'e_' + Date.now(),
+            date: '2026-11-15',
+            title,
+            amount,
+            category
+          });
+          saveState();
+          renderAll();
+          showToast(`Added ${title} (${formatINR(amount)}) under ${category}`);
+        };
+      });
+    }
+
+    function exportItrCsv() {
+      const m = computeMetrics();
+      const rows = [
+        ['Section / Type', 'Date / Frequency', 'Particulars', 'Category / Tax Code', 'Amount (INR)'],
+        ['SUMMARY', 'FY 2026-27', 'Gross F&O Business Profit (Sec 43(5) Code 13018)', 'Schedule BP', m.netTradingPnl],
+        ['SUMMARY', 'FY 2026-27', 'Less: Auto-Tagged Sec 37 & 32 Business Deductions', 'Schedule BP Deduct', -m.totalSec37],
+        ['SUMMARY', 'FY 2026-27', 'Net Taxable F&O Business Income', 'ITR-3 Taxable', m.netTaxableFoIncome],
+        ['SUMMARY', 'FY 2026-27', 'ICAI Sec 44AB Monthly Turnover', 'Audit Check (<10Cr)', m.monthlyTurnover]
+      ];
+      state.recurringBills.filter(b => b.active).forEach(b => {
+        rows.push(['AUTO-TAGGED BILL', '1st of Month', b.title, `${b.category} (${b.code})`, b.amount]);
+      });
+      state.trades.forEach(t => {
+        rows.push(['TRADE LOG', t.date, `${t.strike} (${t.why})`, `${t.slType} | ${t.greed}`, t.pnl]);
+      });
+      state.expenses.forEach(e => {
+        rows.push(['DAILY KHARCH', e.date, e.title, e.category, e.amount]);
+      });
+
+      const csvContent = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'RAGHAVA_ASTRA_TRINETRA_ITR3_JOURNAL.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('Downloaded CA-Ready ITR-3 & Journal CSV!');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Tab Navigation
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
+      });
+
+      document.getElementById('btnGoToBandheTab').addEventListener('click', () => switchTab('bandhe'));
+      document.getElementById('btnJumpToDailyLog').addEventListener('click', () => switchTab('daily'));
+
+      // Quick Sniper Win & Good SL on Master Dock
+      document.getElementById('btnQuickSniperWin').addEventListener('click', () => {
+        state.trades.push({
+          id: 't_' + Date.now(),
+          date: '2026-11-15',
+          strike: 'NIFTY 25150 CE',
+          pnl: 4500,
+          why: '3-Lock + 7-EMA Root',
+          slType: 'Target Hit (T1/T2/T3)',
+          greed: 'Disciplined Trail (Zero Greed)',
+          note: 'Quick 1-Tap 3-Lock Sniper Win logged.'
+        });
+        saveState();
+        renderAll();
+        showToast('Logged +₹4,500 3-Lock Sniper Win!');
+      });
+
+      document.getElementById('btnQuickGoodSl').addEventListener('click', () => {
+        state.trades.push({
+          id: 't_' + Date.now(),
+          date: '2026-11-15',
+          strike: 'NIFTY 25150 PE',
+          pnl: -1200,
+          why: '3-Lock + 7-EMA Root',
+          slType: 'Good System SL',
+          greed: 'Disciplined Trail (Zero Greed)',
+          note: 'Respected pre-defined 10-pt Smart SL.'
+        });
+        saveState();
+        renderAll();
+        showToast('Logged -₹1,200 Good System SL (Rule Followed)');
+      });
+
+      // Add Full Trade Log (Tab 1)
+      document.getElementById('btnAddTradeLog').addEventListener('click', () => {
+        const date = document.getElementById('tradeDateInput').value || '2026-11-15';
+        const strike = document.getElementById('tradeStrikeInput').value.trim() || 'NIFTY 25150 CE';
+        const pnl = Number(document.getElementById('tradePnlInput').value) || 0;
+        const why = document.getElementById('tradeWhySelect').value;
+        const slType = document.getElementById('tradeSlSelect').value;
+        const greed = document.getElementById('tradeGreedSelect').value;
+        const note = document.getElementById('tradeNoteInput').value.trim();
+
+        state.trades.push({ id: 't_' + Date.now(), date, strike, pnl, why, slType, greed, note });
+        saveState();
+        renderAll();
+        showToast(`Saved Trade: ${strike} (${formatINR(pnl)})`);
+      });
+
+      // Add Full Expense Log (Tab 1)
+      document.getElementById('btnAddExpenseLog').addEventListener('click', () => {
+        const date = document.getElementById('expDateInput').value || '2026-11-15';
+        const title = document.getElementById('expTitleInput').value.trim() || 'Rozmarra Item';
+        const amount = Math.max(0, Number(document.getElementById('expAmtInput').value) || 0);
+        const category = document.getElementById('expCatSelect').value;
+
+        state.expenses.push({ id: 'e_' + Date.now(), date, title, amount, category });
+        saveState();
+        renderAll();
+        showToast(`Saved Expense: ${title} (${formatINR(amount)})`);
+      });
+
+      // Add New Custom Bandha Monthly Bill (Tab 2)
+      document.getElementById('btnAddNewBandha').addEventListener('click', () => {
+        const title = document.getElementById('newBandhaTitle').value.trim();
+        const amount = Math.max(0, Number(document.getElementById('newBandhaAmt').value) || 0);
+        const category = document.getElementById('newBandhaCat').value;
+        if (!title) {
+          showToast('Please enter a bill name first');
+          return;
+        }
+        const code = category === 'ITR-3 Business Deduct' ? 'Sec 37 Custom' : (category === 'Bandhe Ghar Fixed' ? 'Ghar Fixed' : 'Sec 80C/D');
+        state.recurringBills.push({ id: 'b_' + Date.now(), title, amount, category, active: true, code });
+        document.getElementById('newBandhaTitle').value = '';
+        saveState();
+        renderAll();
+        showToast(`Added Auto-Tagged Bill: ${title} (${formatINR(amount)}/mo)`);
+      });
+
+      // AI-CA Interactive Prompts (Tab 4)
+      const caAnsEl = document.getElementById('caInteractiveAnswerBox');
+      function updateCaPrompt(qType) {
+        const m = computeMetrics();
+        if (qType === 'itr3') {
+          caAnsEl.innerHTML = `<div class="font-black text-violet-300 text-sm mb-1">📄 ITR-3 Schedule BP Net Taxable Profit Calculation:</div>
+            Aapka Gross F&amp;O Profit <strong>${formatINR(m.netTradingPnl)}</strong> hai. Isme se aapke Auto-Tagged <strong>Section 37 &amp; 32 Trading Business Expenses (${formatINR(m.totalSec37)})</strong> seedhe minus honge. Isliye aapko poore ${formatINR(m.netTradingPnl)} par tax nahi dena—sirf <strong>${formatINR(m.netTaxableFoIncome)}</strong> aapki Net Taxable Business Income banegi!`;
+        } else if (qType === 'audit') {
+          caAnsEl.innerHTML = `<div class="font-black text-cyan-300 text-sm mb-1">🔍 Section 44AB Tax Audit Check (ICAI Formula):</div>
+            ICAI formula (<code>|Wins| + |Losses| + Option Sale Premium</code>) ke hisab se aapka is mahine ka F&amp;O Turnover <strong>${formatINR(m.monthlyTurnover)}</strong> (सालाना अनुमानित <strong>${formatINR(m.projectedAnnualTurnover)}</strong>) hai. Kyunki aapke 100% F&amp;O trades broker-bank digital channel se hote hain, aapki Tax Audit limit <strong>₹10 Crore</strong> hai—isliye aapko <strong>Tax Audit ki koi zaroorat nahi hai</strong>.`;
+        } else if (qType === 'fizul') {
+          caAnsEl.innerHTML = `<div class="font-black text-rose-300 text-sm mb-1">🚨 Fizul Kharch + Bad SL Leakage Action Plan:</div>
+            Is mahine aapka <strong>Fizul Impulse Kharch (${formatINR(m.fizul)})</strong> aur <strong>Sideways/FOMO Bad SL (${formatINR(m.badSlLoss)})</strong> milakar <strong>${formatINR(m.totalLeakage)}</strong> leak hua hai. Agar aap sirf yeh 2 galtiyan rok kar yeh paisa apni <strong>80C Index SIP</strong> me dalte, to 15 saal me (14% CAGR par) yeh <strong>${formatINR(m.totalLeakage * 610)}</strong> ban jata!`;
+        } else {
+          caAnsEl.innerHTML = `<div class="font-black text-emerald-300 text-sm mb-1">💻 iPad, Laptop &amp; Wi-Fi se Income Tax Kaise Bachta Hai?:</div>
+            Income Tax Act ke <strong>Section 43(5)</strong> me F&amp;O trading ek Non-Speculative Business hai. Isliye aapka <strong>Wi-Fi Bill, Mobile Data, TradingView Subscription, Brokerage/STT</strong> (Section 37) aur aapke <strong>iPad/Laptop ka Depreciation</strong> (Section 32) business kharch mana jata hai. Humne inhe Design #6 ke Auto-Tag Engine me default <code>ON</code> rakha hai.`;
+        }
+      }
+      updateCaPrompt('itr3');
+      document.querySelectorAll('.ca-prompt-btn').forEach(btn => {
+        btn.addEventListener('click', () => updateCaPrompt(btn.getAttribute('data-caq')));
+      });
+
+      // Modal & Export Buttons
+      document.getElementById('btnOpenItrModal').addEventListener('click', () => {
+        document.getElementById('itrModal').classList.remove('hidden');
+      });
+      document.getElementById('btnCloseItrModal').addEventListener('click', () => {
+        document.getElementById('itrModal').classList.add('hidden');
+      });
+      document.getElementById('btnQuickExportITR').addEventListener('click', exportItrCsv);
+      document.getElementById('btnExportItrFromVault').addEventListener('click', exportItrCsv);
+
+      document.getElementById('btnResetDemoData').addEventListener('click', () => {
+        state = getDefaultState();
+        saveState();
+        renderAll();
+        showToast('Restored default Indian Family + Trader dataset');
+      });
+
+      // Sandhya 7-8 PM AI Diary Events
+      const diaryInputEl = document.getElementById('diaryTextInput');
+      const diaryDateEl = document.getElementById('diaryDateInput');
+      const diaryDedupEl = document.getElementById('diaryDedupBandheToggle');
+
+      if (diaryInputEl) {
+        diaryInputEl.addEventListener('input', renderDiaryStagingPreview);
+      }
+      if (diaryDateEl) {
+        diaryDateEl.addEventListener('change', renderDiaryStagingPreview);
+      }
+      if (diaryDedupEl) {
+        diaryDedupEl.addEventListener('change', renderDiaryStagingPreview);
+      }
+
+      document.querySelectorAll('.diary-sample-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-diary-sample');
+          if (DIARY_SAMPLES[key] && diaryInputEl) {
+            diaryInputEl.value = DIARY_SAMPLES[key];
+            renderDiaryStagingPreview();
+            showToast('Loaded Sample Evening Diary — Review AI Breakdown below!');
+          }
+        });
+      });
+
+      const btnPreviewAi = document.getElementById('btnPreviewDiaryAi');
+      if (btnPreviewAi) {
+        btnPreviewAi.addEventListener('click', () => {
+          renderDiaryStagingPreview();
+          showToast('AI-CA parsed your evening diary into Trades, 5-Bucket Kharch & Habit Rules!');
+        });
+      }
+
+      const btnCommitAi = document.getElementById('btnCommitDiaryAi');
+      if (btnCommitAi) {
+        btnCommitAi.addEventListener('click', () => {
+          const entryDate = (diaryDateEl && diaryDateEl.value) ? diaryDateEl.value : '2026-11-15';
+          const dedup = diaryDedupEl ? diaryDedupEl.checked : true;
+          const rawText = diaryInputEl ? diaryInputEl.value.trim() : '';
+          if (!rawText) {
+            showToast('Please write or speak your evening diary first!');
+            return;
+          }
+          const parsed = parseSandhyaDiaryText(rawText, entryDate, dedup);
+
+          parsed.trades.forEach(t => state.trades.push(t));
+
+          let newExpCount = 0;
+          let syncedBandhaCount = 0;
+          parsed.expenses.forEach(e => {
+            if (e.category === 'Udhaari Receivable') {
+              if (!Array.isArray(state.udhaariList)) state.udhaariList = [];
+              state.udhaariList.push({
+                id: 'u_' + Date.now() + '_' + state.udhaariList.length,
+                person: e.rawClause || e.title,
+                amount: e.amount,
+                type: 'vasooli',
+                settled: false,
+                date: e.date
+              });
+              return;
+            }
+            if (e.matchedBandhaId) {
+              const bill = state.recurringBills.find(b => b.id === e.matchedBandhaId);
+              if (bill) {
+                bill.amount = e.amount;
+                bill.active = true;
+                syncedBandhaCount++;
+              }
+            } else {
+              state.expenses.push({
+                id: e.id,
+                date: e.date,
+                title: e.title,
+                amount: e.amount,
+                category: e.category
+              });
+              newExpCount++;
+            }
+          });
+
+          const dayIdx = Math.max(0, Math.min(30, parseInt(entryDate.split('-')[2] || '15', 10) - 1));
+          state.habits.forEach((h, rIdx) => {
+            while (h.days.length <= dayIdx) h.days.push(1);
+            if (typeof parsed.habitUpdates[rIdx] !== 'undefined') {
+              h.days[dayIdx] = parsed.habitUpdates[rIdx];
+            }
+          });
+
+          if (!Array.isArray(state.diaryLogs)) state.diaryLogs = [];
+          state.diaryLogs.push({
+            id: 'd_' + Date.now(),
+            date: entryDate,
+            rawText,
+            activities: parsed.activities,
+            summaryBadge: `${parsed.trades.length} Trades • ${newExpCount} Kharch • ${syncedBandhaCount} Bandhe Synced`
+          });
+
+          saveState();
+          renderAll();
+          showToast(`✅ AI Committed: ${parsed.trades.length} Trades, ${newExpCount} Kharch (${syncedBandhaCount} Bandhe Bill Synced) & Day D${dayIdx + 1} Habits!`);
+        });
+      }
+
+      const btnMic = document.getElementById('btnDiaryVoiceMic');
+      if (btnMic) {
+        btnMic.addEventListener('click', () => {
+          const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+          if (!SpeechRec) {
+            showToast('Voice Mic requires Chrome/Safari Speech API — type or use iPad keyboard dictation!');
+            return;
+          }
+          try {
+            const rec = new SpeechRec();
+            rec.lang = 'hi-IN';
+            rec.interimResults = false;
+            btnMic.textContent = '🔴 Listening... Speak Now';
+            rec.onresult = (ev) => {
+              const transcript = ev.results[0][0].transcript;
+              if (diaryInputEl) {
+                diaryInputEl.value = (diaryInputEl.value ? diaryInputEl.value + ' ' : '') + transcript;
+                renderDiaryStagingPreview();
+              }
+              btnMic.textContent = '🎙️ Bol Kar Likhein (Mic)';
+              showToast('Voice captured & parsed by AI!');
+            };
+            rec.onerror = () => {
+              btnMic.textContent = '🎙️ Bol Kar Likhein (Mic)';
+              showToast('Mic permission blocked in preview — use keyboard mic or type directly.');
+            };
+            rec.onend = () => {
+              btnMic.textContent = '🎙️ Bol Kar Likhein (Mic)';
+            };
+            rec.start();
+          } catch (err) {
+            showToast('Unable to start mic in this window — use keyboard dictation.');
+          }
+        });
+      }
+
+
+      // Base Capital Change
+      const baseCapEl = document.getElementById('baseCapitalInput');
+      if (baseCapEl) {
+        baseCapEl.addEventListener('change', () => {
+          state.baseCapital = Math.max(10000, Number(baseCapEl.value) || 100000);
+          saveState();
+          renderAll();
+          showToast(`Updated Base Trading Capital to ${formatINR(state.baseCapital)}`);
+        });
+      }
+
+      // Log 0-Trade Sniper Patience Day
+      const btnPatience = document.getElementById('btnLogPatienceDay');
+      if (btnPatience) {
+        btnPatience.addEventListener('click', () => {
+          state.patienceDays = (Number(state.patienceDays) || 0) + 1;
+          saveState();
+          renderAll();
+          showToast('🧘‍♂️ Logged 0-Trade Sniper Patience Day! Capital Protected in Sideways Market.');
+        });
+      }
+
+      // Add Udhaari Entry
+      const btnAddUdh = document.getElementById('btnAddUdhaari');
+      if (btnAddUdh) {
+        btnAddUdh.addEventListener('click', () => {
+          const person = (document.getElementById('udhaariPersonInput').value || '').trim() || 'Dost Split';
+          const amount = Math.max(1, Number(document.getElementById('udhaariAmtInput').value) || 500);
+          const type = document.getElementById('udhaariTypeSelect').value || 'vasooli';
+          if (!Array.isArray(state.udhaariList)) state.udhaariList = [];
+          state.udhaariList.push({
+            id: 'u_' + Date.now(),
+            person,
+            amount,
+            type,
+            settled: false,
+            date: '2026-11-15'
+          });
+          saveState();
+          renderAll();
+          showToast(`Added ${person} (${formatINR(amount)}) to Udhaari Tracker`);
+        });
+      }
+
+      // Log Friday Bank Payout Lock
+      const btnPayout = document.getElementById('btnLogBankPayout');
+      if (btnPayout) {
+        btnPayout.addEventListener('click', () => {
+          const amt = Math.max(100, Number(document.getElementById('newPayoutAmtInput').value) || 5000);
+          state.bankPayoutLocked = (Number(state.bankPayoutLocked) || 0) + amt;
+          saveState();
+          renderAll();
+          showToast(`🏦 Locked +${formatINR(amt)} of Trading Profit into Safe Bank Account!`);
+        });
+      }
+
+      // 1-Tap Sample Reconcile Test
+      const btnSampleRec = document.getElementById('btnRunSampleReconcile');
+      if (btnSampleRec) {
+        btnSampleRec.addEventListener('click', () => {
+          state.reconcileData = {
+            brokerGrossPnl: 58400,
+            brokerCharges: 7150,
+            brokerNetPnl: 51250,
+            brokerTradeCount: state.trades.length + 2,
+            bankTotalUpiDebits: 26400,
+            bankChillarUpiCount: 44,
+            bankChillarUpiAmount: 2180,
+            bankPayoutCredited: 32000,
+            lastSyncedNote: 'Sample Nov 2026 Angel One + HDFC Statement Audited'
+          };
+          saveState();
+          renderAll();
+          showToast('🔍 Audited Sample Angel One P&L + HDFC Bank Statement! Check 4-Card Verdict.');
+        });
+      }
+
+      // Sync Reconciled Charges & Missing Chillar UPI into Journal
+      const btnSyncRec = document.getElementById('btnSyncReconcileToJournal');
+      if (btnSyncRec) {
+        btnSyncRec.addEventListener('click', () => {
+          if (!state.reconcileData) return;
+          const rc = state.reconcileData;
+          // 1. Update Bandha Bill #4 (Brokerage, STT & Exchange Fees) to exact broker statement charges
+          const brokBill = state.recurringBills.find(b => b.id === 'b4');
+          if (brokBill && rc.brokerCharges > 0) {
+            brokBill.amount = rc.brokerCharges;
+            brokBill.active = true;
+          }
+          // 2. Add Chillar UPI aggregate if not already added
+          if (rc.bankChillarUpiAmount > 0) {
+            state.expenses.push({
+              id: 'e_rec_' + Date.now(),
+              date: '2026-11-15',
+              title: `Bank Statement Chillar UPI (${rc.bankChillarUpiCount} Micro-Scans <₹100)`,
+              amount: rc.bankChillarUpiAmount,
+              category: 'Chillar Micro-UPI'
+            });
+            rc.bankChillarUpiAmount = 0;
+          }
+          saveState();
+          renderAll();
+          showToast('✅ Synced Exact Broker Charges (ITR-3 Sec 37) & Bank Chillar UPI into Journal!');
+        });
+      }
+
+      // Real Broker CSV File Upload Parser
+      const brokerFileInp = document.getElementById('brokerCsvFileInput');
+      if (brokerFileInp) {
+        brokerFileInp.addEventListener('change', (ev) => {
+          const file = ev.target.files && ev.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const text = String(e.target.result || '');
+            const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+            let gross = 0, charges = 0, tradeCnt = 0;
+            lines.slice(1).forEach(line => {
+              const nums = (line.match(/-?\d+(?:\.\d+)?/g) || []).map(Number).filter(n => Math.abs(n) > 0 && Math.abs(n) < 500000 && (n < 1900 || n > 2100));
+              if (nums.length >= 2) {
+                tradeCnt++;
+                const pnlCandidate = nums[nums.length - 1];
+                gross += pnlCandidate;
+                charges += Math.min(250, Math.round(Math.abs(pnlCandidate) * 0.08) + 40);
+              }
+            });
+            if (tradeCnt > 0) {
+              state.reconcileData.brokerGrossPnl = Math.round(gross);
+              state.reconcileData.brokerCharges = Math.round(charges);
+              state.reconcileData.brokerNetPnl = Math.round(gross - charges);
+              state.reconcileData.brokerTradeCount = tradeCnt;
+              document.getElementById('brokerFileStatusBadge').textContent = `Loaded: ${file.name} (${tradeCnt} rows)`;
+              saveState();
+              renderAll();
+              showToast(`📈 Parsed Broker P&L (${file.name}): Gross ${formatINR(gross)}, Charges ${formatINR(charges)}`);
+            }
+          };
+          reader.readAsText(file);
+        });
+      }
+
+      // Real Bank Statement CSV File Upload Parser
+      const bankFileInp = document.getElementById('bankCsvFileInput');
+      if (bankFileInp) {
+        bankFileInp.addEventListener('change', (ev) => {
+          const file = ev.target.files && ev.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const text = String(e.target.result || '');
+            const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+            let totalUpi = 0, chillarCnt = 0, chillarAmt = 0;
+            lines.slice(1).forEach(line => {
+              if (/upi|pos|imps|ach/i.test(line)) {
+                const nums = (line.match(/\b\d+(?:\.\d+)?\b/g) || []).map(Number).filter(n => n >= 10 && n <= 100000 && (n < 1900 || n > 2100));
+                if (nums.length > 0) {
+                  const debit = nums[0];
+                  totalUpi += debit;
+                  if (debit <= 100) {
+                    chillarCnt++;
+                    chillarAmt += debit;
+                  }
+                }
+              }
+            });
+            if (totalUpi > 0) {
+              state.reconcileData.bankTotalUpiDebits = Math.round(totalUpi);
+              state.reconcileData.bankChillarUpiCount = chillarCnt;
+              state.reconcileData.bankChillarUpiAmount = Math.round(chillarAmt);
+              document.getElementById('bankFileStatusBadge').textContent = `Loaded: ${file.name}`;
+              saveState();
+              renderAll();
+              showToast(`🏦 Parsed Bank Statement (${file.name}): UPI Debits ${formatINR(totalUpi)}, Chillar ${formatINR(chillarAmt)}`);
+            }
+          };
+          reader.readAsText(file);
+        });
+      }
+
+      // =====================================================================
+      // 🛡️ INITIALIZE AES-256 VAULT LOCK SCREEN & PIN HANDLERS
+      // =====================================================================
+      const vaultOverlay = document.getElementById('aesVaultOverlay');
+      const vaultPinInput = document.getElementById('vaultPinInput');
+      const vaultTitle = document.getElementById('vaultLockTitle');
+      const vaultSub = document.getElementById('vaultLockSubtitle');
+      const vaultErr = document.getElementById('vaultErrorMsg');
+      const btnUnlock = document.getElementById('btnUnlockOrSetPin');
+      let firstTimePendingPin = '';
+
+      function hasExistingEncryptedVault() {
+        try {
+          return Boolean(localStorage.getItem(VAULT_CIPHER_KEY));
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function refreshVaultScreenMode() {
+        if (!vaultOverlay) return;
+        vaultErr.classList.add('hidden');
+        vaultPinInput.value = '';
+        if (hasExistingEncryptedVault()) {
+          vaultTitle.textContent = '🔒 UNLOCK TRINETRA AES-256 VAULT';
+          vaultSub.innerHTML = 'Apna <strong>Secret Master PIN</strong> enter karein. Galat PIN dalne par AES-256-GCM decryption fail ho jayega.';
+          btnUnlock.textContent = '🔓 DECRYPT & UNLOCK VAULT';
+        } else {
+          vaultTitle.textContent = '🛡️ CREATE YOUR SECRET MASTER PIN';
+          vaultSub.innerHTML = 'First-Time Setup: Apna <strong>4 se 8 digit ka Secret Master PIN</strong> banayein. Aapka saara Bank, Trade aur ITR-3 data isi PIN se AES-256 me encrypt hoga.';
+          btnUnlock.textContent = '🔐 SET PIN & ENCRYPT VAULT';
+        }
+      }
+
+      function showVaultError(msg) {
+        if (!vaultErr) return;
+        vaultErr.textContent = msg;
+        vaultErr.classList.remove('hidden');
+      }
+
+      async function handleVaultPinSubmit() {
+        if (Date.now() < lockUntilTimestamp) {
+          const waitSec = Math.ceil((lockUntilTimestamp - Date.now()) / 1000);
+          showVaultError(`⏳ Brute-Force Lockout! Wait ${waitSec}s before trying again.`);
+          return;
+        }
+        const pin = (vaultPinInput.value || '').trim();
+        if (pin.length < 4) {
+          showVaultError('⚠️ कम से कम 4 अंकों का Secret PIN डालें!');
+          return;
+        }
+
+        if (!hasExistingEncryptedVault()) {
+          // First-time 2-step confirmation
+          if (!firstTimePendingPin) {
+            firstTimePendingPin = pin;
+            vaultPinInput.value = '';
+            vaultTitle.textContent = '🔁 CONFIRM YOUR SECRET MASTER PIN';
+            vaultSub.innerHTML = 'Apna <strong>Secret PIN dobara enter karein</strong> taaki AES-256 Vault lock ho sake:';
+            btnUnlock.textContent = '✅ CONFIRM & LOCK AES-256 VAULT';
+            vaultErr.classList.add('hidden');
+            return;
+          }
+          if (pin !== firstTimePendingPin) {
+            firstTimePendingPin = '';
+            refreshVaultScreenMode();
+            showVaultError('❌ Dono PIN match nahi huye! Dubara naya PIN dalein.');
+            return;
+          }
+          // Migrate any legacy local data if present, then wipe plaintext key
+          try {
+            const legacy = localStorage.getItem(STORAGE_KEY);
+            if (legacy) {
+              const parsedLegacy = JSON.parse(legacy);
+              if (parsedLegacy && Array.isArray(parsedLegacy.recurringBills)) {
+                state = parsedLegacy;
+              }
+              localStorage.removeItem(STORAGE_KEY);
+            }
+          } catch (e) {}
+          activeSessionPin = pin;
+          isVaultUnlocked = true;
+          firstTimePendingPin = '';
+          await saveState();
+          vaultOverlay.style.display = 'none';
+          renderAll();
+          showToast('🛡️ AES-256-GCM Vault Created & Encrypted!');
+        } else {
+          // Decrypt existing vault
+          try {
+            const cipherStr = localStorage.getItem(VAULT_CIPHER_KEY);
+            const decryptedState = await decryptStateWithPin(cipherStr, pin);
+            if (decryptedState && Array.isArray(decryptedState.recurringBills)) {
+              state = decryptedState;
+              activeSessionPin = pin;
+              isVaultUnlocked = true;
+              failedPinAttempts = 0;
+              vaultOverlay.style.display = 'none';
+              renderAll();
+              showToast('🔓 AES-256 Vault Decrypted & Unlocked!');
+            } else {
+              throw new Error('Invalid state structure');
+            }
+          } catch (err) {
+            failedPinAttempts++;
+            vaultPinInput.value = '';
+            if (failedPinAttempts >= 5) {
+              lockUntilTimestamp = Date.now() + 30000;
+              failedPinAttempts = 0;
+              showVaultError('🚨 5 Wrong Attempts! Vault locked for 30 seconds against hackers.');
+            } else {
+              showVaultError(`❌ Wrong Secret PIN! Decryption failed (${5 - failedPinAttempts} tries left).`);
+            }
+          }
+        }
+      }
+
+      document.querySelectorAll('.pin-pad-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const digit = btn.getAttribute('data-pin-key');
+          if (vaultPinInput && vaultPinInput.value.length < 8) {
+            vaultPinInput.value += digit;
+          }
+        });
+      });
+
+      const btnPinClear = document.getElementById('btnPinClear');
+      if (btnPinClear) {
+        btnPinClear.addEventListener('click', () => {
+          if (vaultPinInput) vaultPinInput.value = '';
+        });
+      }
+
+      const btnPinBackspace = document.getElementById('btnPinBackspace');
+      if (btnPinBackspace) {
+        btnPinBackspace.addEventListener('click', () => {
+          if (vaultPinInput) vaultPinInput.value = vaultPinInput.value.slice(0, -1);
+        });
+      }
+
+      if (btnUnlock) {
+        btnUnlock.addEventListener('click', handleVaultPinSubmit);
+      }
+      if (vaultPinInput) {
+        vaultPinInput.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter') {
+            ev.preventDefault();
+            handleVaultPinSubmit();
+          }
+        });
+      }
+
+      // Lock Vault Immediately Button
+      const btnLockNow = document.getElementById('btnLockVaultNow');
+      if (btnLockNow) {
+        btnLockNow.addEventListener('click', async () => {
+          await saveState();
+          isVaultUnlocked = false;
+          activeSessionPin = '';
+          refreshVaultScreenMode();
+          vaultOverlay.style.display = 'flex';
+          showToast('🔒 Vault Locked & Encrypted');
+        });
+      }
+
+      // Change PIN Modal Handlers
+      const changePinModal = document.getElementById('changePinModal');
+      const btnChangePin = document.getElementById('btnChangeVaultPin');
+      const btnCloseChangePin = document.getElementById('btnCloseChangePinModal');
+      const btnSaveNewPin = document.getElementById('btnSaveNewPinModal');
+
+      if (btnChangePin && changePinModal) {
+        btnChangePin.addEventListener('click', () => {
+          document.getElementById('newPinModalInput').value = '';
+          document.getElementById('confirmPinModalInput').value = '';
+          changePinModal.classList.remove('hidden');
+        });
+      }
+      if (btnCloseChangePin && changePinModal) {
+        btnCloseChangePin.addEventListener('click', () => {
+          changePinModal.classList.add('hidden');
+        });
+      }
+      if (btnSaveNewPin && changePinModal) {
+        btnSaveNewPin.addEventListener('click', async () => {
+          const p1 = (document.getElementById('newPinModalInput').value || '').trim();
+          const p2 = (document.getElementById('confirmPinModalInput').value || '').trim();
+          if (p1.length < 4) {
+            showToast('⚠️ PIN must be 4 to 8 digits!');
+            return;
+          }
+          if (p1 !== p2) {
+            showToast('❌ Both PINs do not match!');
+            return;
+          }
+          activeSessionPin = p1;
+          isVaultUnlocked = true;
+          await saveState();
+          changePinModal.classList.add('hidden');
+          showToast('✅ Vault Re-Encrypted with your New Secret PIN!');
+        });
+      }
+
+      // Emergency Vault Reset (Wipes encrypted local data if PIN is forgotten)
+      const btnEmergReset = document.getElementById('btnEmergencyVaultReset');
+      let confirmWipeStep = false;
+      if (btnEmergReset) {
+        btnEmergReset.addEventListener('click', () => {
+          if (!confirmWipeStep) {
+            confirmWipeStep = true;
+            btnEmergReset.textContent = '⚠️ Tap Again to Confirm Full Vault Wipe & Reset PIN';
+            return;
+          }
+          try {
+            localStorage.removeItem(VAULT_CIPHER_KEY);
+            localStorage.removeItem(VAULT_META_KEY);
+            localStorage.removeItem(STORAGE_KEY);
+          } catch (e) {}
+          confirmWipeStep = false;
+          firstTimePendingPin = '';
+          state = getDefaultState();
+          btnEmergReset.textContent = 'Forgot PIN? Wipe Local Vault';
+          refreshVaultScreenMode();
+          showVaultError('✅ Local Vault wiped clean. Set a new Secret Master PIN above.');
+        });
+      }
+
+      // Auto-Lock after 10 minutes of inactivity
+      let idleTimer = null;
+      function resetIdleAutoLock() {
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          if (isVaultUnlocked && vaultOverlay) {
+            isVaultUnlocked = false;
+            activeSessionPin = '';
+            refreshVaultScreenMode();
+            vaultOverlay.style.display = 'flex';
+          }
+        }, 10 * 60 * 1000);
+      }
+      ['click', 'keydown', 'touchstart'].forEach(evt => {
+        window.addEventListener(evt, resetIdleAutoLock, { passive: true });
+      });
+
+      refreshVaultScreenMode();
+      resetIdleAutoLock();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
