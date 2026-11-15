@@ -322,8 +322,18 @@
         Apna <strong>Secret Master PIN (4–8 digits)</strong> dalein. Aapka saara journal data AES-256 me सुरक्षित hai.
       </p>
 
-      <input type="password" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off"
-        style="font-size:1.45rem !important; letter-spacing:0.45em !important; margin-bottom:10px;" class="mono text-cyan-200" />
+      <div style="position:relative; width:100%; margin-bottom:8px;">
+        <input type="text" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="Enter 4–8 Digit PIN" autocomplete="off"
+          style="font-size:1.25rem !important; letter-spacing:0.18em !important; padding-right:76px !important; margin-bottom:0 !important;" class="mono text-cyan-200 font-black" />
+        <button type="button" id="btnTogglePinEye"
+          style="position:absolute; right:8px; top:50%; transform:translateY(-50%) !important; padding:4px 10px !important; min-height:28px !important; font-size:11px !important; border-radius:8px !important; background:rgba(15,23,42,0.9) !important; border:1.5px solid #38bdf8 !important; color:#7dd3fc !important; box-shadow:none !important;">
+          👁️ SHOW
+        </button>
+      </div>
+
+      <div id="vaultDigitCounter" class="text-[11px] font-extrabold text-cyan-300 mb-2 mono">
+        🔢 Digits Entered: 0 / 4–8
+      </div>
 
       <div id="vaultErrorMsg" class="text-xs font-extrabold text-rose-400 mb-2 hidden"></div>
 
@@ -2977,8 +2987,51 @@
       const vaultTitle = document.getElementById('vaultLockTitle');
       const vaultSub = document.getElementById('vaultLockSubtitle');
       const vaultErr = document.getElementById('vaultErrorMsg');
+      const vaultDigitCounter = document.getElementById('vaultDigitCounter');
+      const btnTogglePinEye = document.getElementById('btnTogglePinEye');
       const btnUnlock = document.getElementById('btnUnlockOrSetPin');
-      let firstTimePendingPin = '';
+      let isPinVisible = true;
+
+      function sanitizePinString(raw) {
+        if (!raw) return '';
+        const devMap = {'०':'0','१':'1','२':'2','३':'3','४':'4','५':'5','६':'6','७':'7','८':'8','९':'9'};
+        return String(raw)
+          .replace(/[०-९]/g, ch => devMap[ch] || ch)
+          .replace(/[^0-9]/g, '')
+          .slice(0, 8);
+      }
+
+      function updatePinVisibilityAndCounter() {
+        if (!vaultPinInput) return;
+        const clean = sanitizePinString(vaultPinInput.value);
+        if (vaultPinInput.value !== clean) {
+          vaultPinInput.value = clean;
+        }
+        vaultPinInput.type = isPinVisible ? 'text' : 'password';
+        if (btnTogglePinEye) {
+          btnTogglePinEye.textContent = isPinVisible ? '🙈 HIDE' : '👁️ SHOW';
+        }
+        if (vaultDigitCounter) {
+          if (clean.length === 0) {
+            vaultDigitCounter.textContent = '🔢 Digits Entered: 0 (Min 4 digits dalein)';
+            vaultDigitCounter.className = 'text-[11px] font-extrabold text-slate-400 mb-2 mono';
+          } else if (clean.length < 4) {
+            vaultDigitCounter.textContent = `⏳ Digits Entered: ${clean.length} / 4+ (${4 - clean.length} aur dalein)`;
+            vaultDigitCounter.className = 'text-[11px] font-extrabold text-amber-300 mb-2 mono';
+          } else {
+            vaultDigitCounter.textContent = `✅ ${clean.length}-Digit PIN Ready ${isPinVisible ? "(" + clean + ")" : ""}`;
+            vaultDigitCounter.className = 'text-[11px] font-extrabold text-emerald-300 mb-2 mono';
+          }
+        }
+      }
+
+      if (btnTogglePinEye) {
+        btnTogglePinEye.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          isPinVisible = !isPinVisible;
+          updatePinVisibilityAndCounter();
+        });
+      }
 
       function hasExistingEncryptedVault() {
         try {
@@ -2993,14 +3046,17 @@
         vaultErr.classList.add('hidden');
         vaultPinInput.value = '';
         if (hasExistingEncryptedVault()) {
+          isPinVisible = false;
           vaultTitle.textContent = '🔒 UNLOCK TRINETRA AES-256 VAULT';
           vaultSub.innerHTML = 'Apna <strong>Secret Master PIN</strong> enter karein. Galat PIN dalne par AES-256-GCM decryption fail ho jayega.';
           btnUnlock.textContent = '🔓 DECRYPT & UNLOCK VAULT';
         } else {
+          isPinVisible = true;
           vaultTitle.textContent = '🛡️ CREATE YOUR SECRET MASTER PIN';
-          vaultSub.innerHTML = 'First-Time Setup: Apna <strong>4 se 8 digit ka Secret Master PIN</strong> banayein. Aapka saara Bank, Trade aur ITR-3 data isi PIN se AES-256 me encrypt hoga.';
+          vaultSub.innerHTML = 'First-Time Setup (1-Step): Apna <strong>4 se 8 digit ka Secret PIN</strong> dalein aur niche button dabayein. Aapka PIN screen par dikhega taaki koi mismatch na ho!';
           btnUnlock.textContent = '🔐 SET PIN & ENCRYPT VAULT';
         }
+        updatePinVisibilityAndCounter();
       }
 
       function showVaultError(msg) {
@@ -3015,30 +3071,17 @@
           showVaultError(`⏳ Brute-Force Lockout! Wait ${waitSec}s before trying again.`);
           return;
         }
-        const pin = (vaultPinInput.value || '').trim();
+        const pin = sanitizePinString(vaultPinInput.value);
+        vaultPinInput.value = pin;
+        updatePinVisibilityAndCounter();
+
         if (pin.length < 4) {
-          showVaultError('⚠️ कम से कम 4 अंकों का Secret PIN डालें!');
+          showVaultError('⚠️ कम से कम 4 अंकों का Secret PIN डालें! (Abhi ' + pin.length + ' digit hai)');
           return;
         }
 
         if (!hasExistingEncryptedVault()) {
-          // First-time 2-step confirmation
-          if (!firstTimePendingPin) {
-            firstTimePendingPin = pin;
-            vaultPinInput.value = '';
-            vaultTitle.textContent = '🔁 CONFIRM YOUR SECRET MASTER PIN';
-            vaultSub.innerHTML = 'Apna <strong>Secret PIN dobara enter karein</strong> taaki AES-256 Vault lock ho sake:';
-            btnUnlock.textContent = '✅ CONFIRM & LOCK AES-256 VAULT';
-            vaultErr.classList.add('hidden');
-            return;
-          }
-          if (pin !== firstTimePendingPin) {
-            firstTimePendingPin = '';
-            refreshVaultScreenMode();
-            showVaultError('❌ Dono PIN match nahi huye! Dubara naya PIN dalein.');
-            return;
-          }
-          // Migrate any legacy local data if present, then wipe plaintext key
+          // 1-Step Instant First-Time Setup (Visible PIN eliminates mismatch errors)
           try {
             const legacy = localStorage.getItem(STORAGE_KEY);
             if (legacy) {
@@ -3051,11 +3094,10 @@
           } catch (e) {}
           activeSessionPin = pin;
           isVaultUnlocked = true;
-          firstTimePendingPin = '';
           await saveState();
           vaultOverlay.style.display = 'none';
           renderAll();
-          showToast('🛡️ AES-256-GCM Vault Created & Encrypted!');
+          showToast(`🛡️ AES-256 Vault Locked & Encrypted with ${pin.length}-Digit PIN!`);
         } else {
           // Decrypt existing vault
           try {
@@ -3075,44 +3117,74 @@
           } catch (err) {
             failedPinAttempts++;
             vaultPinInput.value = '';
+            updatePinVisibilityAndCounter();
             if (failedPinAttempts >= 5) {
               lockUntilTimestamp = Date.now() + 30000;
               failedPinAttempts = 0;
               showVaultError('🚨 5 Wrong Attempts! Vault locked for 30 seconds against hackers.');
             } else {
-              showVaultError(`❌ Wrong Secret PIN! Decryption failed (${5 - failedPinAttempts} tries left).`);
+              showVaultError(`❌ Wrong Secret PIN! Decryption failed (${5 - failedPinAttempts} tries left). Agar purana PIN bhool gaye hain toh niche red button se reset karein.`);
             }
           }
         }
       }
 
+      // Bulletproof iPad/Mobile Touch + Desktop Click Keypad Binding (Zero Dropped Taps)
+      let lastKeypadTapTs = 0;
+      function bindInstantPadButton(el, callback) {
+        if (!el) return;
+        el.addEventListener('pointerdown', (ev) => {
+          ev.preventDefault();
+          lastKeypadTapTs = Date.now();
+          callback();
+        });
+        el.addEventListener('click', (ev) => {
+          if (Date.now() - lastKeypadTapTs < 350) return;
+          callback();
+        });
+      }
+
       document.querySelectorAll('.pin-pad-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        bindInstantPadButton(btn, () => {
           const digit = btn.getAttribute('data-pin-key');
-          if (vaultPinInput && vaultPinInput.value.length < 8) {
-            vaultPinInput.value += digit;
+          if (vaultPinInput) {
+            const cur = sanitizePinString(vaultPinInput.value);
+            if (cur.length < 8) {
+              vaultPinInput.value = cur + digit;
+              vaultErr.classList.add('hidden');
+              updatePinVisibilityAndCounter();
+            }
           }
         });
       });
 
       const btnPinClear = document.getElementById('btnPinClear');
-      if (btnPinClear) {
-        btnPinClear.addEventListener('click', () => {
-          if (vaultPinInput) vaultPinInput.value = '';
-        });
-      }
+      bindInstantPadButton(btnPinClear, () => {
+        if (vaultPinInput) {
+          vaultPinInput.value = '';
+          vaultErr.classList.add('hidden');
+          updatePinVisibilityAndCounter();
+        }
+      });
 
       const btnPinBackspace = document.getElementById('btnPinBackspace');
-      if (btnPinBackspace) {
-        btnPinBackspace.addEventListener('click', () => {
-          if (vaultPinInput) vaultPinInput.value = vaultPinInput.value.slice(0, -1);
-        });
-      }
+      bindInstantPadButton(btnPinBackspace, () => {
+        if (vaultPinInput) {
+          const cur = sanitizePinString(vaultPinInput.value);
+          vaultPinInput.value = cur.slice(0, -1);
+          vaultErr.classList.add('hidden');
+          updatePinVisibilityAndCounter();
+        }
+      });
 
       if (btnUnlock) {
         btnUnlock.addEventListener('click', handleVaultPinSubmit);
       }
       if (vaultPinInput) {
+        vaultPinInput.addEventListener('input', () => {
+          vaultErr.classList.add('hidden');
+          updatePinVisibilityAndCounter();
+        });
         vaultPinInput.addEventListener('keydown', (ev) => {
           if (ev.key === 'Enter') {
             ev.preventDefault();
@@ -3154,8 +3226,8 @@
       }
       if (btnSaveNewPin && changePinModal) {
         btnSaveNewPin.addEventListener('click', async () => {
-          const p1 = (document.getElementById('newPinModalInput').value || '').trim();
-          const p2 = (document.getElementById('confirmPinModalInput').value || '').trim();
+          const p1 = sanitizePinString(document.getElementById('newPinModalInput').value);
+          const p2 = sanitizePinString(document.getElementById('confirmPinModalInput').value);
           if (p1.length < 4) {
             showToast('⚠️ PIN must be 4 to 8 digits!');
             return;
