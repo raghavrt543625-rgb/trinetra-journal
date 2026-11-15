@@ -6,6 +6,7 @@
   <title>🏹 RAGHAVA ASTRA • TRINETRA AI — V6.0 Simple 3D Daily Journal & Statement Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -281,6 +282,41 @@
     }
     .hidden { display: none !important; }
 
+
+    /* Clean File Input & Empty Box Guards */
+    input[type="file"] {
+      padding: 6px !important;
+      font-size: 0.76rem !important;
+      text-align: center !important;
+      cursor: pointer !important;
+    }
+    input[type="file"]::file-selector-button {
+      background: linear-gradient(135deg, #0891b2 0%, #7c3aed 100%);
+      color: #ffffff;
+      font-weight: 800;
+      border: 1.5px solid #a5f3fc;
+      border-radius: 9px;
+      padding: 5px 12px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    #loanSummaryAdvisorBanner:empty,
+    #payoutAndTaxSummaryBox:empty,
+    #loanListContainer:empty,
+    #tripListContainer:empty,
+    #udhaariListContainer:empty,
+    #reconcileVerdictGrid:empty {
+      display: none !important;
+    }
+    .info-row-inline {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      gap: 4px !important;
+    }
+
     /* Self-Contained Responsive Grids */
     .v6-container { max-width: 1180px; margin: 0 auto; padding: 10px; }
     .v6-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
@@ -322,12 +358,12 @@
         Apna <strong>Secret Master PIN (4–8 digits)</strong> dalein. Aapka saara journal data AES-256 me सुरक्षित hai.
       </p>
 
-      <div style="position:relative; width:100%; margin-bottom:8px;">
-        <input type="text" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="Enter 4–8 Digit PIN" autocomplete="off"
-          style="font-size:1.25rem !important; letter-spacing:0.18em !important; padding-right:76px !important; margin-bottom:0 !important;" class="mono text-cyan-200 font-black" />
-        <button type="button" id="btnTogglePinEye"
-          style="position:absolute; right:8px; top:50%; transform:translateY(-50%) !important; padding:4px 10px !important; min-height:28px !important; font-size:11px !important; border-radius:8px !important; background:rgba(15,23,42,0.9) !important; border:1.5px solid #38bdf8 !important; color:#7dd3fc !important; box-shadow:none !important;">
-          👁️ SHOW
+      <div style="display:grid; grid-template-columns: 1fr auto; gap:8px; width:100%; align-items:center; margin-bottom:8px;">
+        <input type="text" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="4–8 Digit PIN" autocomplete="off"
+          style="font-size:1.15rem !important; letter-spacing:0.12em !important; margin-bottom:0 !important; height:46px !important;" class="mono text-cyan-200 font-black" />
+        <button type="button" id="btnTogglePinEye" class="btn-cyan"
+          style="height:46px !important; padding:0 14px !important; font-size:0.76rem !important; white-space:nowrap !important;">
+          🙈 HIDE
         </button>
       </div>
 
@@ -507,9 +543,14 @@
         <span id="dockGreedStatusPill" class="px-3 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/50">
           ⚡ 1-TAP INSTANT ENTRY • GREED: CONTROLLED (0%)
         </span>
-        <h3 class="text-sm sm:text-base font-black text-amber-300 m-0">
-          BINA TYPE KIYE 1-TAP ME TRADE YA KHARCH JODEIN
-        </h3>
+        <div class="flex flex-wrap items-center justify-center gap-2 w-full">
+          <h3 class="text-sm sm:text-base font-black text-amber-300 m-0">
+            BINA TYPE KIYE 1-TAP ME TRADE YA KHARCH JODEIN
+          </h3>
+          <button id="btnResetJournalTop" type="button" class="btn-rose py-1.5 px-3 text-[11px]">
+            🗑️ Reset All P&amp;L to ₹0
+          </button>
+        </div>
 
         <div class="v6-grid-3 w-full">
           <button id="btnQuickSniperWin" type="button" class="btn-emerald py-2.5 text-xs">✅ +Sniper Win (+₹4,500)</button>
@@ -633,18 +674,18 @@
           </div>
         </div>
 
-        <!-- 2 Upload Cards -->
+        <!-- 2 Upload Cards (Supports PDF + CSV + TXT!) -->
         <div class="v6-stack-md w-full">
           <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40 center-stack space-y-1.5">
-            <div class="text-xs font-black text-emerald-300">📈 1. Upload Trading App P&amp;L CSV (.csv / .txt)</div>
-            <div id="brokerFileStatusBadge" class="text-[11px] font-bold text-emerald-400 mono">Ready (Angel One / Zerodha / Dhan)</div>
-            <input type="file" id="brokerCsvFileInput" accept=".csv,.txt" class="text-xs" />
+            <div class="text-xs font-black text-emerald-300">📈 1. Upload Trading App P&amp;L (.pdf / .csv / .txt)</div>
+            <div id="brokerFileStatusBadge" class="text-[11px] font-bold text-emerald-400 mono">Ready: PDF, CSV ya TXT (Angel One / Zerodha / Dhan / Groww)</div>
+            <input type="file" id="brokerCsvFileInput" accept=".pdf,.csv,.txt,application/pdf,text/csv,text/plain" class="text-xs" />
           </div>
 
           <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40 center-stack space-y-1.5">
-            <div class="text-xs font-black text-cyan-300">🏦 2. Upload Monthly Bank Statement (.csv / .txt)</div>
-            <div id="bankFileStatusBadge" class="text-[11px] font-bold text-cyan-400 mono">Ready (SBI / HDFC / ICICI / Axis)</div>
-            <input type="file" id="bankCsvFileInput" accept=".csv,.txt" class="text-xs" />
+            <div class="text-xs font-black text-cyan-300">🏦 2. Upload Monthly Bank Statement (.pdf / .csv / .txt)</div>
+            <div id="bankFileStatusBadge" class="text-[11px] font-bold text-cyan-400 mono">Ready: PDF, CSV ya TXT (SBI / HDFC / ICICI / Axis)</div>
+            <input type="file" id="bankCsvFileInput" accept=".pdf,.csv,.txt,application/pdf,text/csv,text/plain" class="text-xs" />
           </div>
         </div>
 
@@ -991,8 +1032,11 @@
       };
     }
 
-    const VAULT_CIPHER_KEY = 'raghava_trinetra_aes256_vault_v4_clean';
-    const VAULT_META_KEY   = 'raghava_trinetra_aes256_meta_v4_clean';
+    const VAULT_CIPHER_KEY = 'raghava_trinetra_aes256_vault_v7_clean';
+    const VAULT_META_KEY   = 'raghava_trinetra_aes256_meta_v7_clean';
+    try {
+      ['raghava_trinetra_journal_v1', 'raghava_trinetra_aes256_vault_v4_clean', 'raghava_trinetra_aes256_meta_v4_clean', 'raghava_astra_trinetra_wealth_v1', 'raghava_astra_trinetra_wealth_v2', 'raghava_astra_trinetra_aes256_vault_v3'].forEach(k => localStorage.removeItem(k));
+    } catch (e) {}
     let state = getDefaultState();
     let activeSessionPin = '';
     let isVaultUnlocked = false;
@@ -1724,6 +1768,170 @@
       `;
     }
 
+
+    function renderReconcileAndUpgrades(m) {
+      const baseInp = document.getElementById('baseCapitalInput');
+      if (baseInp && document.activeElement !== baseInp) baseInp.value = m.baseCap;
+      const roiBadge = document.getElementById('headerRoiAndRiskBadge');
+      if (roiBadge) {
+        roiBadge.textContent = `ROI: ${Number(m.roiPct) > 0 ? '+' : ''}${m.roiPct}% • Max 2% SL: ${formatINR(m.maxDailyRisk)}`;
+      }
+
+      // 1. Render Backend NSE/BSE Holiday & Weekend Drawer
+      const diaryDateVal = (document.getElementById('diaryDateInput') && document.getElementById('diaryDateInput').value) || '2026-11-16';
+      const selStatus = getMarketDayStatus(diaryDateVal);
+      const holSelBox = document.getElementById('holidayCardSelectedStatus');
+      if (holSelBox) {
+        holSelBox.textContent = selStatus.badgeText;
+        holSelBox.className = `p-2.5 rounded-xl text-xs font-bold mb-2 ${selStatus.badgeClass}`;
+      }
+      const holListEl = document.getElementById('nseHolidayListContainer');
+      if (holListEl) {
+        const customHols = Array.isArray(state.customHolidays) ? state.customHolidays : [];
+        const allHols = [...customHols.map(h => ({ ...h, isCustom: true })), ...OFFICIAL_NSE_BSE_HOLIDAYS];
+        const calBadge = document.getElementById('marketCalendarCountBadge');
+        if (calBadge) calBadge.textContent = `Sat/Sun + ${allHols.length} Holidays`;
+        holListEl.innerHTML = allHols.map((h) => {
+          const isUpcomingNov = h.date.startsWith('2026-11') || h.date.startsWith('2026-12');
+          const rowBorder = isUpcomingNov ? 'border-amber-400/50 bg-amber-950/30' : 'border-slate-800 bg-slate-950/80';
+          return `
+            <div class="p-2 rounded-xl border ${rowBorder} center-stack">
+              <div class="text-xs font-bold text-white">${h.title}</div>
+              <div class="text-[10px] text-violet-300 mono">${h.date} • ${h.type || 'Custom Off-Day'}</div>
+              ${h.isCustom ? `<button type="button" data-del-hol="${h.date}" class="del-hol-btn del-mini-btn mt-1">✕ Remove</button>` : `<span class="px-2 py-0.5 rounded text-[10px] font-black bg-violet-500/20 text-violet-200 mt-1">🏛️ Market Closed</span>`}
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 2. Render ✈️ Travel / Vacation Mode & Trip Tracker Card
+      const tripBadge = document.getElementById('travelTotalSpendBadge');
+      if (tripBadge) tripBadge.textContent = `✈️ Trip Spend: ${formatINR(m.travelSpend)}`;
+      const tSub = document.getElementById('travelModeSubText');
+      if (tSub) {
+        tSub.textContent = state.travelModeActive
+          ? '🟢 ACTIVE: Mobile FOMO Trading Paused & 31-Day Streak Protected!'
+          : 'Vacation Mode pauses FOMO trading & protects habit streak';
+      }
+      const tripCont = document.getElementById('tripListContainer');
+      if (tripCont) {
+        if (!Array.isArray(state.tripsList)) state.tripsList = [];
+        tripCont.innerHTML = state.tripsList.length === 0
+          ? `<div class="text-slate-400 italic py-1.5">Abhi koi Trip darj nahi hai (₹0).</div>`
+          : state.tripsList.slice().reverse().map(tr => `
+            <div class="p-2.5 rounded-xl bg-slate-950/85 border border-cyan-500/40 center-stack space-y-1">
+              <div class="text-xs font-bold text-white">✈️ ${tr.place}</div>
+              <div class="text-[10px] text-cyan-300 mono">${tr.startDate} to ${tr.endDate} • Streak Protected</div>
+              <div class="flex items-center justify-center gap-2">
+                <span class="text-xs font-black mono text-cyan-200">${formatINR(tr.amount)}</span>
+                <button type="button" data-del-trip="${tr.id}" class="del-trip-btn del-mini-btn">✕</button>
+              </div>
+            </div>
+          `).join('');
+      }
+
+      // 3. Render 🏦 Running Loans & EMI Tracker Card
+      const loanBadge = document.getElementById('loanTotalEmiBadge');
+      if (loanBadge) loanBadge.textContent = `🏦 Monthly EMI: ${formatINR(m.totalLoanMonthlyEmi)}/mo`;
+      const loanAdv = document.getElementById('loanSummaryAdvisorBanner');
+      const loanCont = document.getElementById('loanListContainer');
+      if (!Array.isArray(state.loansList)) state.loansList = [];
+      if (loanAdv) {
+        if (state.loansList.length === 0) {
+          loanAdv.innerHTML = `🎉 <strong>Zero Running Loans (₹0 Debt):</strong> Koi Home, Bike ya iPad EMI chal rahi hai toh niche add karein.`;
+        } else {
+          const avgRate = state.loansList.reduce((a, l) => a + (Number(l.rate) || 10), 0) / state.loansList.length;
+          const avgMonths = state.loansList.reduce((a, l) => a + (Number(l.monthsLeft) || 24), 0) / state.loansList.length;
+          const estInterestSaved = Math.round(m.totalLoanMonthlyEmi * (avgRate / 100) * (avgMonths / 12) * 1.4);
+          loanAdv.innerHTML = `💡 <strong>Total Balance Left: <span class="text-white mono">${formatINR(m.totalLoanPrincipal)}</span></strong> • Har mahine 1 extra EMI prepay karne par ~<strong class="text-emerald-300 mono">${formatINR(estInterestSaved)}</strong> byaaj bachega!`;
+        }
+      }
+      if (loanCont) {
+        loanCont.innerHTML = state.loansList.map(ln => `
+          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 center-stack space-y-1.5">
+            <div class="text-xs font-black text-white">🏦 ${ln.name}</div>
+            <div class="text-[10px] text-slate-300 mono">Bal: <strong class="text-amber-300">${formatINR(ln.principal)}</strong> • EMI: <strong class="text-emerald-300">${formatINR(ln.emi)}/mo</strong> (${ln.rate}% • ${ln.monthsLeft}m)</div>
+            <div class="v6-grid-3 w-full pt-1">
+              <button type="button" data-pay-emi="${ln.id}" class="pay-loan-emi-btn btn-violet py-1 text-[10px]">💳 Pay EMI</button>
+              <button type="button" data-prepay-loan="${ln.id}" class="prepay-loan-btn btn-emerald py-1 text-[10px]">⚡ -₹5K Prin.</button>
+              <button type="button" data-del-loan="${ln.id}" class="del-loan-btn btn-rose py-1 text-[10px]">✕ Delete</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 4. Render 4 Reconciliation Verdict Cards in Tab 2
+      if (!state.reconcileData) {
+        state.reconcileData = getDefaultState().reconcileData;
+      }
+      const rc = state.reconcileData;
+      const loggedSpend = m.totalGrihasthi + m.tyohar + m.fizul;
+      const unloggedUpiGap = Math.max(0, (Number(rc.bankTotalUpiDebits) || 0) - loggedSpend);
+      const unloggedTrades = Math.max(0, (Number(rc.brokerTradeCount) || 0) - state.trades.length);
+
+      const recGrid = document.getElementById('reconcileVerdictGrid');
+      if (recGrid) {
+        recGrid.innerHTML = `
+          <div class="p-3 rounded-2xl bg-slate-950/90 border border-emerald-500/40 center-stack space-y-1">
+            <div class="text-[10px] font-black uppercase text-emerald-400">1. Broker Gross vs Charges</div>
+            <div class="text-base font-black mono text-emerald-300">${formatSignedINR(rc.brokerGrossPnl)}</div>
+            <div class="text-[11px] text-rose-300 font-bold">Charges: -${formatINR(rc.brokerCharges)}</div>
+            <div class="text-[10px] text-slate-300">Net P&amp;L: <strong class="text-white mono">${formatSignedINR(rc.brokerNetPnl)}</strong></div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/90 border border-rose-500/40 center-stack space-y-1">
+            <div class="text-[10px] font-black uppercase text-rose-400">2. Bank vs Diary UPI Gap</div>
+            <div class="text-base font-black mono text-rose-300">Gap: ${formatINR(unloggedUpiGap)}</div>
+            <div class="text-[11px] text-amber-300 font-bold">Bank UPI: ${formatINR(rc.bankTotalUpiDebits)}</div>
+            <div class="text-[10px] text-slate-300">Chillar (&lt;₹100): <strong>${rc.bankChillarUpiCount} (${formatINR(rc.bankChillarUpiAmount)})</strong></div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/90 border border-violet-500/40 center-stack space-y-1">
+            <div class="text-[10px] font-black uppercase text-violet-400">3. Unlogged Trades Radar</div>
+            <div class="text-base font-black mono text-violet-300">${unloggedTrades} Missing</div>
+            <div class="text-[11px] text-cyan-300 font-bold">Statement: ${rc.brokerTradeCount} vs Diary: ${state.trades.length}</div>
+            <div class="text-[10px] text-slate-300">${unloggedTrades > 0 ? 'Tap Sync to import' : '100% Synced with Journal'}</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/90 border border-cyan-500/40 center-stack space-y-1">
+            <div class="text-[10px] font-black uppercase text-cyan-400">4. Real Bank Payout Lock</div>
+            <div class="text-base font-black mono text-cyan-300">${formatINR(m.bankPayoutLocked)}</div>
+            <div class="text-[11px] text-emerald-300 font-bold">${m.payoutRatioPct}% Profit Withdrawn</div>
+            <div class="text-[10px] text-slate-300">Tax Gullak (15%): <strong>${formatINR(m.advanceTaxReserve)}</strong></div>
+          </div>
+        `;
+      }
+
+      // 5. Render Udhaari & Bank Payout Lock
+      const udhBadge = document.getElementById('udhaariNetBadge');
+      if (udhBadge) udhBadge.textContent = `🤝 Vasooli Pending: ${formatINR(m.udhaariPending)}`;
+      const udhCont = document.getElementById('udhaariListContainer');
+      if (udhCont) {
+        if (!Array.isArray(state.udhaariList)) state.udhaariList = [];
+        udhCont.innerHTML = state.udhaariList.length === 0
+          ? `<div class="text-xs text-slate-400 italic py-1">Koi pending udhaari nahi hai (₹0).</div>`
+          : state.udhaariList.map(u => `
+          <div class="p-2 rounded-xl bg-slate-950/85 border border-slate-800 center-stack space-y-1">
+            <div class="text-xs font-bold ${u.settled ? 'line-through text-slate-500' : 'text-white'}">${u.person} (${u.type === 'vasooli' ? '🟢 Vasoolna' : '🔴 Dena'})</div>
+            <div class="flex items-center justify-center gap-2">
+              <span class="text-xs font-black mono ${u.type === 'vasooli' ? 'text-amber-300' : 'text-rose-300'}">${formatINR(u.amount)}</span>
+              <button type="button" data-udh-id="${u.id}" class="udh-settle-btn btn-emerald py-1 px-2 text-[10px]">
+                ${u.settled ? '✓ Settled' : 'Mark Vasool'}
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const payBadge = document.getElementById('payoutLockRatioBadge');
+      if (payBadge) payBadge.textContent = `Bank Locked: ${m.payoutRatioPct}% (${formatINR(m.bankPayoutLocked)})`;
+      const payBox = document.getElementById('payoutAndTaxSummaryBox');
+      if (payBox) {
+        payBox.innerHTML = `
+          <div class="p-2 rounded-xl bg-slate-950/90 border border-emerald-500/30 center-stack">
+            <span class="text-[11px] text-slate-300">🛡️ Advance Tax Reserve (15%): <strong class="mono text-violet-300">${formatINR(m.advanceTaxReserve)}</strong></span>
+          </div>
+        `;
+      }
+    }
+
     function renderAll() {
       const m = computeMetrics();
 
@@ -1752,15 +1960,24 @@
         tradeBannerEl.className = `mb-2.5 p-2.5 rounded-xl text-xs font-bold ${tradeMkt.badgeClass}`;
       }
 
-      // Top 4 KPI Cards
-      document.getElementById('kpiTradingPnl').textContent = formatSignedINR(m.netTradingPnl);
-      document.getElementById('kpiWinRateBadge').textContent = m.winRate + '%';
-      document.getElementById('kpiTradingSub').innerHTML = `Win Rate: <span class="text-emerald-400 font-bold">${m.winRate}%</span> • Sec 43(5) Business`;
+      // Top 4 KPI Cards (Preserves child span IDs on every render!)
+      const kpiPnlEl = document.getElementById('kpiTradingPnl');
+      if (kpiPnlEl) {
+        kpiPnlEl.textContent = formatSignedINR(m.netTradingPnl);
+        kpiPnlEl.className = `text-xl sm:text-2xl font-black mono kpi-3d-num my-1 ${m.netTradingPnl >= 0 ? 'text-emerald-300' : 'text-rose-400'}`;
+      }
+      const kpiSubEl = document.getElementById('kpiTradingSub');
+      if (kpiSubEl) {
+        kpiSubEl.innerHTML = `Win Rate: <span id="kpiWinRateBadge" class="text-emerald-400 font-bold">${m.winRate}%</span> • Trades: <span class="text-cyan-300 font-bold">${m.filteredTrades.length}</span>`;
+      }
 
-      document.getElementById('kpiGrihasthiTotal').textContent = formatINR(m.totalGrihasthi);
+      const kpiGrihEl = document.getElementById('kpiGrihasthiTotal');
+      if (kpiGrihEl) kpiGrihEl.textContent = formatINR(m.totalGrihasthi);
       const budgetPct = Math.min(100, Math.round((m.totalGrihasthi / 25000) * 100));
-      document.getElementById('kpiBudgetPct').textContent = budgetPct + '%';
-      document.getElementById('kpiGrihasthiSub').innerHTML = `Ghar + Rozmarra + Loan EMI (${formatINR(m.totalLoanMonthlyEmi)}/mo)`;
+      const kpiGrihSubEl = document.getElementById('kpiGrihasthiSub');
+      if (kpiGrihSubEl) {
+        kpiGrihSubEl.innerHTML = `Ghar + Rozmarra + EMI (${formatINR(m.totalLoanMonthlyEmi)}/mo) • <span id="kpiBudgetPct" class="text-cyan-300 font-black">${budgetPct}%</span>`;
+      }
 
       document.getElementById('kpiTaxDeductTotal').textContent = formatINR(m.totalTaxDeduct);
       document.getElementById('kpiSec37Span').textContent = formatINR(m.totalSec37);
@@ -2007,31 +2224,31 @@
     function renderNativeSvgBarChart(canvasEl, labels, values, colors) {
       if (!canvasEl || !canvasEl.parentElement) return;
       const parent = canvasEl.parentElement;
-      let svgWrap = parent.querySelector('.native-svg-chart-fallback');
-      if (window.Chart) {
-        if (svgWrap) svgWrap.remove();
-        canvasEl.style.display = 'block';
-        return;
-      }
+      // Hide canvas so it never renders blank/0-width inside hidden CSS tabs on iPad
       canvasEl.style.display = 'none';
+      let svgWrap = parent.querySelector('.native-svg-chart-fallback');
       if (!svgWrap) {
         svgWrap = document.createElement('div');
-        svgWrap.className = 'native-svg-chart-fallback w-full h-full';
+        svgWrap.className = 'native-svg-chart-fallback w-full h-full flex flex-col justify-center gap-2 py-1';
         parent.appendChild(svgWrap);
       }
       const maxVal = Math.max(1000, ...values.map(v => Math.abs(Number(v) || 0)));
-      const rowsSvg = labels.map((lbl, i) => {
+      svgWrap.innerHTML = labels.map((lbl, i) => {
         const val = Math.abs(Number(values[i]) || 0);
-        const w = Math.max(8, Math.round((val / maxVal) * 320));
-        const y = 18 + i * 36;
+        const pct = Math.min(100, Math.max(4, Math.round((val / maxVal) * 100)));
         const col = colors[i % colors.length];
         return `
-          <text x="125" y="${y + 16}" text-anchor="end" fill="#e2e8f0" font-size="11" font-weight="800">${lbl}</text>
-          <rect x="135" y="${y}" width="${w}" height="22" rx="6" fill="${col}" />
-          <text x="${142 + w}" y="${y + 16}" text-anchor="start" fill="#f8fafc" font-size="11" font-weight="800">₹${Math.round(val).toLocaleString('en-IN')}</text>
+          <div class="w-full space-y-1">
+            <div class="flex items-center justify-between text-xs font-extrabold px-1">
+              <span class="text-slate-200">${lbl}</span>
+              <span class="mono font-black" style="color:${col};">₹${Math.round(val).toLocaleString('en-IN')}</span>
+            </div>
+            <div style="width:100%; height:14px; background:#070c18; border-radius:999px; border:1px solid rgba(148,163,184,0.25); overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,0.85);">
+              <div style="width:${val === 0 ? 3 : pct}%; height:100%; background:${col}; border-radius:999px; box-shadow:0 0 10px ${col}; transition:width 0.25s ease;"></div>
+            </div>
+          </div>
         `;
       }).join('');
-      svgWrap.innerHTML = `<svg viewBox="0 0 560 235" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">${rowsSvg}</svg>`;
     }
 
     function updateCharts(m) {
@@ -2039,75 +2256,12 @@
       const values = [m.bandheGhar + m.totalLoanMonthlyEmi, m.rozmarra, m.totalSec37, m.totalSip80c, m.tyohar, m.totalLeakage];
       const colors = ['#06b6d4', '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e'];
 
-      const horizontalChartOptions = {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: { padding: { top: 8, bottom: 8, left: 6, right: 16 } },
-        plugins: { legend: { display: false } },
-        scales: {
-          x: {
-            beginAtZero: true,
-            min: 0,
-            suggestedMax: 10000,
-            ticks: {
-              color: '#94a3b8',
-              font: { size: 10, weight: 'bold' },
-              callback: function(v) { return '₹' + Number(v).toLocaleString('en-IN'); }
-            },
-            grid: { color: 'rgba(148,163,184,0.12)' }
-          },
-          y: {
-            ticks: { color: '#f8fafc', font: { size: 11, weight: '800' }, autoSkip: false },
-            grid: { display: false }
-          }
-        }
-      };
-
-      const ctxDock = document.getElementById('dockMainBarChart');
-      if (ctxDock && window.Chart) {
-        if (dockChartInstance) dockChartInstance.destroy();
-        dockChartInstance = new Chart(ctxDock, {
-          type: 'bar',
-          data: {
-            labels: flatLabels,
-            datasets: [{
-              label: 'Amount (₹)',
-              data: values,
-              backgroundColor: colors,
-              borderRadius: 7,
-              barThickness: 20
-            }]
-          },
-          options: horizontalChartOptions
-        });
-      }
-
       const psychLabels = ['3-Lock Win', 'Good System SL', 'Bad Mistake SL', 'Fizul Spend', 'Net P&L'];
       const psychVals = [m.grossWin, m.goodSlLoss, m.badSlLoss, m.fizul, Math.max(0, m.netTradingPnl)];
       const psychCols = ['#10b981', '#06b6d4', '#f43f5e', '#fb7185', '#8b5cf6'];
 
-      renderNativeSvgBarChart(ctxDock, flatLabels, values, colors);
+      renderNativeSvgBarChart(document.getElementById('dockMainBarChart'), flatLabels, values, colors);
       renderNativeSvgBarChart(document.getElementById('tabChartPsychology'), psychLabels, psychVals, psychCols);
-
-      const ctxTab2 = document.getElementById('tabChartPsychology');
-      if (ctxTab2 && window.Chart) {
-        if (tabChartPsychInstance) tabChartPsychInstance.destroy();
-        tabChartPsychInstance = new Chart(ctxTab2, {
-          type: 'bar',
-          data: {
-            labels: psychLabels,
-            datasets: [{
-              label: 'Amount (₹)',
-              data: psychVals,
-              backgroundColor: psychCols,
-              borderRadius: 7,
-              barThickness: 22
-            }]
-          },
-          options: horizontalChartOptions
-        });
-      }
     }
 
     // =========================================================================
@@ -2582,7 +2736,18 @@
       document.getElementById('btnQuickExportITR').addEventListener('click', exportItrCsv);
       document.getElementById('btnExportItrFromVault').addEventListener('click', exportItrCsv);
 
-      document.getElementById('btnResetDemoData').addEventListener('click', async () => {
+      async function resetAllJournalToZero() {
+        state = getDefaultState();
+        const diaryEl = document.getElementById('diaryTextInput');
+        if (diaryEl) diaryEl.value = '';
+        await saveState();
+        renderAll();
+        showToast('🗑️ All Data Wiped! Net P&L & Journal Reset to ₹0 Clean Slate.');
+      }
+      document.getElementById('btnResetDemoData').addEventListener('click', resetAllJournalToZero);
+      const btnResetTop = document.getElementById('btnResetJournalTop');
+      if (btnResetTop) btnResetTop.addEventListener('click', resetAllJournalToZero);
+      if (false) document.getElementById('btnResetDemoData').addEventListener('click', async () => {
         state = getDefaultState();
         const diaryEl = document.getElementById('diaryTextInput');
         if (diaryEl) diaryEl.value = '';
@@ -2906,76 +3071,169 @@
         });
       }
 
-      // Real Broker CSV File Upload Parser
-      const brokerFileInp = document.getElementById('brokerCsvFileInput');
-      if (brokerFileInp) {
-        brokerFileInp.addEventListener('change', (ev) => {
-          const file = ev.target.files && ev.target.files[0];
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const text = String(e.target.result || '');
-            const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
-            let gross = 0, charges = 0, tradeCnt = 0;
-            lines.slice(1).forEach(line => {
-              const nums = (line.match(/-?\d+(?:\.\d+)?/g) || []).map(Number).filter(n => Math.abs(n) > 0 && Math.abs(n) < 500000 && (n < 1900 || n > 2100));
-              if (nums.length >= 2) {
-                tradeCnt++;
-                const pnlCandidate = nums[nums.length - 1];
-                gross += pnlCandidate;
-                charges += Math.min(250, Math.round(Math.abs(pnlCandidate) * 0.08) + 40);
-              }
-            });
-            if (tradeCnt > 0) {
-              state.reconcileData.brokerGrossPnl = Math.round(gross);
-              state.reconcileData.brokerCharges = Math.round(charges);
-              state.reconcileData.brokerNetPnl = Math.round(gross - charges);
-              state.reconcileData.brokerTradeCount = tradeCnt;
-              document.getElementById('brokerFileStatusBadge').textContent = `Loaded: ${file.name} (${tradeCnt} rows)`;
-              saveState();
-              renderAll();
-              showToast(`📈 Parsed Broker P&L (${file.name}): Gross ${formatINR(gross)}, Charges ${formatINR(charges)}`);
+      // =====================================================================
+      // 📄 UNIVERSAL PDF + CSV + TXT STATEMENT EXTRACTOR (ONLINE + 100% OFFLINE)
+      // =====================================================================
+      async function extractTextFromUploadedStatement(file) {
+        const nameLow = (file.name || '').toLowerCase();
+        if (!nameLow.endsWith('.pdf') && file.type !== 'application/pdf') {
+          return await file.text();
+        }
+
+        // Layer 1: Try PDF.js if loaded
+        const arrayBuf = await file.arrayBuffer();
+        if (window.pdfjsLib && typeof window.pdfjsLib.getDocument === 'function') {
+          try {
+            if (!window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+              window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
             }
-          };
-          reader.readAsText(file);
+            const pdfDoc = await window.pdfjsLib.getDocument({ data: arrayBuf.slice(0) }).promise;
+            let fullLines = [];
+            for (let p = 1; p <= pdfDoc.numPages; p++) {
+              const page = await pdfDoc.getPage(p);
+              const tc = await page.getTextContent();
+              let lastY = null;
+              let lineBuf = [];
+              tc.items.forEach(item => {
+                const y = item.transform ? Math.round(item.transform[5]) : 0;
+                if (lastY !== null && Math.abs(y - lastY) > 4) {
+                  fullLines.push(lineBuf.join(' , '));
+                  lineBuf = [];
+                }
+                if (item.str && item.str.trim()) lineBuf.push(item.str.trim());
+                lastY = y;
+              });
+              if (lineBuf.length > 0) fullLines.push(lineBuf.join(' , '));
+            }
+            if (fullLines.join('\n').trim().length > 20) {
+              return fullLines.join('\n');
+            }
+          } catch (e) {}
+        }
+
+        // Layer 2: 100% Offline Native PDF Stream & FlateDecode Decompressor
+        const rawBytes = new Uint8Array(arrayBuf);
+        const latin1 = new TextDecoder('latin1').decode(rawBytes);
+        let extractedChunks = [];
+
+        // Extract plain parenthesized PDF text strings (...)
+        const parenMatches = latin1.match(/\(([^()\\]{2,120})\)/g) || [];
+        parenMatches.forEach(m => {
+          const clean = m.slice(1, -1).replace(/\\[nrt]/g, ' ').trim();
+          if (/[0-9A-Za-z₹]/.test(clean)) extractedChunks.push(clean);
         });
+
+        // Decompress FlateDecode streams via native DecompressionStream('deflate') if available
+        if (typeof DecompressionStream !== 'undefined') {
+          const streamRegex = /stream[\r\n]+([\s\S]*?)[\r\n]+endstream/g;
+          let match;
+          while ((match = streamRegex.exec(latin1)) !== null) {
+            try {
+              const sStart = match.index + match[0].indexOf(match[1]);
+              const sLen = match[1].length;
+              const subBuf = rawBytes.slice(sStart, sStart + sLen);
+              // Try raw zlib/deflate (skip 2-byte zlib header if 0x78)
+              const payload = (subBuf.length > 2 && subBuf[0] === 0x78) ? subBuf.slice(2, subBuf.length - 4) : subBuf;
+              const ds = new DecompressionStream('deflate-raw');
+              const writer = ds.writable.getWriter();
+              writer.write(payload).catch(() => {});
+              writer.close().catch(() => {});
+              const decBuf = await new Response(ds.readable).arrayBuffer();
+              const decStr = new TextDecoder('utf-8', { fatal: false }).decode(decBuf);
+              const innerParens = decStr.match(/\(([^()\\]{1,120})\)/g) || [];
+              if (innerParens.length > 0) {
+                extractedChunks.push(innerParens.map(x => x.slice(1, -1)).join(' , '));
+              }
+            } catch (e) {}
+          }
+        }
+
+        return extractedChunks.join('\n') || latin1;
       }
 
-      // Real Bank Statement CSV File Upload Parser
-      const bankFileInp = document.getElementById('bankCsvFileInput');
-      if (bankFileInp) {
-        bankFileInp.addEventListener('change', (ev) => {
+      // Real Broker PDF / CSV / TXT File Upload Parser
+      const brokerFileInp = document.getElementById('brokerCsvFileInput');
+      if (brokerFileInp) {
+        brokerFileInp.addEventListener('change', async (ev) => {
           const file = ev.target.files && ev.target.files[0];
           if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const text = String(e.target.result || '');
+          try {
+            const text = await extractTextFromUploadedStatement(file);
             const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
-            let totalUpi = 0, chillarCnt = 0, chillarAmt = 0;
-            lines.slice(1).forEach(line => {
-              if (/upi|pos|imps|ach|emi/i.test(line)) {
-                const nums = (line.match(/\b\d+(?:\.\d+)?\b/g) || []).map(Number).filter(n => n >= 10 && n <= 100000 && (n < 1900 || n > 2100));
-                if (nums.length > 0) {
-                  const debit = nums[0];
-                  totalUpi += debit;
-                  if (debit <= 100) {
-                    chillarCnt++;
-                    chillarAmt += debit;
-                  }
+            let gross = 0;
+            let charges = 0;
+            let tradeCnt = 0;
+            lines.forEach((line, idx) => {
+              const lLow = line.toLowerCase();
+              const nums = (line.replace(/,/g, '').match(/-?\d+(?:\.\d+)?/g) || []).map(Number).filter(n => !isNaN(n));
+              if (nums.length === 0) return;
+              if (lLow.includes('charge') || lLow.includes('stt') || lLow.includes('brokerage') || lLow.includes('gst') || lLow.includes('stamp') || lLow.includes('sebi')) {
+                charges += Math.abs(nums[nums.length - 1]);
+              } else if (idx > 0 && (lLow.includes('nifty') || lLow.includes('banknifty') || lLow.includes('sensex') || lLow.includes('ce') || lLow.includes('pe') || lLow.includes('pnl') || lLow.includes('profit') || lLow.includes('realized') || nums.length >= 2)) {
+                const candidate = nums[nums.length - 1];
+                if (Math.abs(candidate) <= 500000 && Math.abs(candidate) !== 2026 && Math.abs(candidate) !== 2025) {
+                  gross += candidate;
+                  tradeCnt++;
                 }
               }
             });
-            if (totalUpi > 0) {
-              state.reconcileData.bankTotalUpiDebits = Math.round(totalUpi);
-              state.reconcileData.bankChillarUpiCount = chillarCnt;
-              state.reconcileData.bankChillarUpiAmount = Math.round(chillarAmt);
-              document.getElementById('bankFileStatusBadge').textContent = `Loaded: ${file.name}`;
-              saveState();
-              renderAll();
-              showToast(`🏦 Parsed Bank Statement (${file.name}): UPI Debits ${formatINR(totalUpi)}, Chillar ${formatINR(chillarAmt)}`);
+            if (charges === 0 && Math.abs(gross) > 0) {
+              charges = Math.round(Math.abs(gross) * 0.09);
             }
-          };
-          reader.readAsText(file);
+            if (!state.reconcileData) state.reconcileData = getDefaultState().reconcileData;
+            state.reconcileData.brokerGrossPnl = Math.round(gross);
+            state.reconcileData.brokerCharges = Math.round(charges);
+            state.reconcileData.brokerNetPnl = Math.round(gross - charges);
+            state.reconcileData.brokerTradeCount = Math.max(1, tradeCnt);
+            state.reconcileData.lastUpdatedLabel = `Uploaded Broker Statement: ${file.name}`;
+            document.getElementById('brokerFileStatusBadge').textContent = `✅ Loaded: ${file.name} (${tradeCnt} entries)`;
+            saveState();
+            renderAll();
+            showToast(`📈 Parsed Broker Statement (${file.name}): Gross ${formatINR(gross)}, Charges ${formatINR(charges)}`);
+          } catch (err) {
+            showToast('⚠️ Could not parse file—try CSV/PDF statement');
+          }
+        });
+      }
+
+      // Real Bank Statement PDF / CSV / TXT File Upload Parser
+      const bankFileInp = document.getElementById('bankCsvFileInput');
+      if (bankFileInp) {
+        bankFileInp.addEventListener('change', async (ev) => {
+          const file = ev.target.files && ev.target.files[0];
+          if (!file) return;
+          try {
+            const text = await extractTextFromUploadedStatement(file);
+            const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+            let totalUpi = 0;
+            let chillarCnt = 0;
+            let chillarAmt = 0;
+            lines.forEach((line, idx) => {
+              if (idx === 0 && !line.toLowerCase().includes('upi')) return;
+              const lLow = line.toLowerCase();
+              const nums = (line.replace(/,/g, '').match(/\b\d+(?:\.\d+)?\b/g) || []).map(Number).filter(n => n > 0 && n < 250000 && n !== 2026 && n !== 2025);
+              if (nums.length === 0) return;
+              if (lLow.includes('upi') || lLow.includes('dr') || lLow.includes('debit') || lLow.includes('withdrawal') || lLow.includes('imps') || lLow.includes('pos') || nums.length >= 2) {
+                const amt = nums[0] < 100000 ? nums[0] : nums[nums.length - 1];
+                totalUpi += amt;
+                if (amt <= 100) {
+                  chillarCnt++;
+                  chillarAmt += amt;
+                }
+              }
+            });
+            if (!state.reconcileData) state.reconcileData = getDefaultState().reconcileData;
+            state.reconcileData.bankTotalUpiDebits = Math.round(totalUpi);
+            state.reconcileData.bankChillarUpiCount = chillarCnt;
+            state.reconcileData.bankChillarUpiAmount = Math.round(chillarAmt);
+            state.reconcileData.lastUpdatedLabel = `Uploaded Bank Statement: ${file.name}`;
+            document.getElementById('bankFileStatusBadge').textContent = `✅ Loaded: ${file.name} (UPI: ${formatINR(totalUpi)})`;
+            saveState();
+            renderAll();
+            showToast(`🏦 Parsed Bank Statement (${file.name}): UPI Debits ${formatINR(totalUpi)}, Chillar ${formatINR(chillarAmt)}`);
+          } catch (err) {
+            showToast('⚠️ Could not parse Bank Statement');
+          }
         });
       }
 
@@ -3298,6 +3556,16 @@
           btn.classList.remove('btn-3d-pressed');
         }, 170);
       }, { passive: true });
+
+      // Auto-sync date inputs to today's live IST date on load
+      try {
+        const nowIst = new Date(Date.now() + (5.5 * 3600 * 1000));
+        const todayIso = nowIst.toISOString().slice(0, 10);
+        ['diaryDateInput', 'tradeDateInput', 'expDateInput', 'tripStartInput'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = todayIso;
+        });
+      } catch (e) {}
 
       refreshVaultScreenMode();
       resetIdleAutoLock();
