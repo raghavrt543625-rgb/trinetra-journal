@@ -269,6 +269,65 @@
     }
     label.pill-tab { display: inline-block; user-select: none; -webkit-user-select: none; }
 
+  
+    /* =========================================================================
+       V3 PIXEL-PERFECT ALIGNMENT, CHART OVERFLOW LOCK & CENTERING FIXES
+       ========================================================================= */
+    .relative { position: relative !important; }
+    .fixed { position: fixed !important; }
+    .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
+    .z-50 { z-index: 50 !important; }
+    .h-56 { height: 224px !important; max-height: 224px !important; overflow: hidden !important; }
+    .h-72 { height: 288px !important; max-height: 288px !important; overflow: hidden !important; }
+    .w-14 { width: 56px !important; min-width: 56px !important; }
+    .h-14 { height: 56px !important; min-height: 56px !important; }
+    .w-12 { width: 48px !important; min-width: 48px !important; }
+    .h-12 { height: 48px !important; min-height: 48px !important; }
+    .text-center { text-align: center !important; }
+    .text-right { text-align: right !important; }
+    .whitespace-nowrap { white-space: nowrap !important; }
+
+    /* Center all buttons & pill tabs vertically and horizontally */
+    button, label.pill-tab {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      gap: 6px;
+      line-height: 1.25 !important;
+      vertical-align: middle;
+    }
+
+    /* Keep toast notification pinned top-center so every button tap is 100% visible on iPad */
+    #toastBanner {
+      position: fixed !important;
+      top: 16px !important;
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      z-index: 99999 !important;
+      max-width: 92vw !important;
+      text-align: center !important;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(16, 185, 129, 0.45) !important;
+    }
+
+    /* Prevent chart canvas or SVG from overflowing card borders */
+    #dockMainBarChart, #tabChartCashflow, #tabChartPsychology {
+      max-height: 100% !important;
+      width: 100% !important;
+    }
+    .native-svg-chart-fallback {
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    #dockSec37Total, #kpiTradingPnl, #kpiGrihasthiTotal, #kpiTaxDeductTotal, #kpiLeakageTotal {
+      white-space: nowrap !important;
+    }
+
   </style>
 </head>
 <body class="p-2 sm:p-4 md:p-5 select-none">
@@ -381,7 +440,8 @@
     <!-- Month Selector & Quick Actions -->
     <div class="flex items-center gap-2 flex-wrap justify-center">
       <select id="activeMonthSelect" class="bg-slate-900 border border-cyan-500/40 text-cyan-200 text-xs font-bold rounded-xl px-3 py-2 focus:outline-none">
-        <option value="2026-11" selected>📅 November 2026 (FY 2026-27)</option>
+        <option value="ALL" selected>📅 All Months (FY 2026-27)</option>
+        <option value="2026-11">📅 November 2026 (FY 2026-27)</option>
         <option value="2026-10">📅 October 2026 (FY 2026-27)</option>
         <option value="2026-12">📅 December 2026 (FY 2026-27)</option>
       </select>
@@ -390,14 +450,17 @@
       </button>
       <div class="flex items-center gap-1.5 bg-slate-900/95 border border-emerald-500/40 rounded-xl px-2.5 py-1">
         <span class="text-[10px] font-extrabold text-emerald-300 uppercase">Base Cap (₹):</span>
-        <input type="number" id="baseCapitalInput" value="100000" step="10000" class="w-24 text-xs font-black mono text-emerald-300" title="Active Trading Capital for ROI% and 2% Daily Loss Shield" />
-        <span id="headerRoiAndRiskBadge" class="text-[10px] font-black mono text-cyan-300">ROI: +48.2% • Max 2% SL: ₹2,000</span>
+        <input type="number" id="baseCapitalInput" value="0" step="10000" class="w-24 text-xs font-black mono text-emerald-300" title="Active Trading Capital for ROI% and 2% Daily Loss Shield" />
+        <span id="headerRoiAndRiskBadge" class="text-[10px] font-black mono text-cyan-300">ROI: 0.0% • Max 2% SL: ₹0</span>
       </div>
       <button id="btnLogPatienceDay" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-amber-500/20 hover:bg-amber-500/35 text-amber-200 border border-amber-400/50" title="Log Zero-Trade Sniper Patience Day in Sideways Market">
         🧘‍♂️ +0-Trade Patience Day
       </button>
-      <button id="btnResetDemoData" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-600/50">
-        🔄 Reset Sample Data
+      <button id="btnResetDemoData" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/50" title="Wipe all entries and reset journal to ₹0 clean slate">
+        🗑️ Reset All to ₹0
+      </button>
+      <button id="btnBackupJson" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-cyan-950/90 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/40" title="Download full journal backup (.json)">
+        💾 Backup
       </button>
       <button id="btnLockVaultNow" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-rose-600/30 hover:bg-rose-600/45 text-rose-200 border border-rose-400/50" title="Immediately lock screen & encrypt vault">
         🔒 Lock Vault
@@ -446,11 +509,11 @@
     <div class="bento-card bento-emerald p-3.5 flex items-center justify-between">
       <div>
         <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">1. Monthly Net Trading P&amp;L</div>
-        <div id="kpiTradingPnl" class="text-2xl font-black mono text-emerald-300 mt-0.5">+₹48,200</div>
-        <div id="kpiTradingSub" class="text-[11px] text-slate-300 mt-1">Win Rate: <span class="text-emerald-400 font-bold">83%</span> • Sec 43(5) Business</div>
+        <div id="kpiTradingPnl" class="text-2xl font-black mono text-emerald-300 mt-0.5">₹0</div>
+        <div id="kpiTradingSub" class="text-[11px] text-slate-300 mt-1">Win Rate: <span class="text-emerald-400 font-bold">0%</span> • Sec 43(5) Business</div>
       </div>
       <div class="w-14 h-14 rounded-full border-4 border-emerald-500/30 flex items-center justify-center relative bg-emerald-950/40">
-        <span id="kpiWinRateBadge" class="text-xs font-black mono text-emerald-300">83%</span>
+        <span id="kpiWinRateBadge" class="text-xs font-black mono text-emerald-300">0%</span>
       </div>
     </div>
 
@@ -458,11 +521,11 @@
     <div class="bento-card bento-cyan p-3.5 flex items-center justify-between">
       <div>
         <div class="text-[11px] font-extrabold uppercase tracking-wider text-cyan-400">2. Ghar-Grihasthi &amp; Family</div>
-        <div id="kpiGrihasthiTotal" class="text-2xl font-black mono text-cyan-300 mt-0.5">₹19,700</div>
+        <div id="kpiGrihasthiTotal" class="text-2xl font-black mono text-cyan-300 mt-0.5">₹0</div>
         <div id="kpiGrihasthiSub" class="text-[11px] text-slate-300 mt-1">Bandhe Bills + Rozmarra (Budget ₹25k)</div>
       </div>
       <div class="w-14 h-14 rounded-full border-4 border-cyan-500/30 flex items-center justify-center relative bg-cyan-950/40">
-        <span id="kpiBudgetPct" class="text-xs font-black mono text-cyan-300">79%</span>
+        <span id="kpiBudgetPct" class="text-xs font-black mono text-cyan-300">0%</span>
       </div>
     </div>
 
@@ -470,8 +533,8 @@
     <div class="bento-card bento-violet p-3.5 flex items-center justify-between">
       <div>
         <div class="text-[11px] font-extrabold uppercase tracking-wider text-violet-400">3. Auto-Tagged ITR-3 &amp; 80C/D</div>
-        <div id="kpiTaxDeductTotal" class="text-2xl font-black mono text-violet-300 mt-0.5">₹25,397</div>
-        <div id="kpiTaxSub" class="text-[11px] text-slate-300 mt-1">Sec 37 Business: <span id="kpiSec37Span" class="text-violet-300 font-bold">₹7,897</span> + 80C/D</div>
+        <div id="kpiTaxDeductTotal" class="text-2xl font-black mono text-violet-300 mt-0.5">₹0</div>
+        <div id="kpiTaxSub" class="text-[11px] text-slate-300 mt-1">Sec 37 Business: <span id="kpiSec37Span" class="text-violet-300 font-bold">₹0</span> + 80C/D</div>
       </div>
       <div class="w-14 h-14 rounded-full border-4 border-violet-500/30 flex items-center justify-center relative bg-violet-950/40">
         <span class="text-[11px] font-black mono text-violet-300">ITR-3</span>
@@ -482,11 +545,11 @@
     <div class="bento-card bento-coral p-3.5 flex items-center justify-between">
       <div>
         <div class="text-[11px] font-extrabold uppercase tracking-wider text-rose-400">4. Fizul Kharch + Bad SL Leakage</div>
-        <div id="kpiLeakageTotal" class="text-2xl font-black mono text-rose-300 mt-0.5">₹4,050</div>
-        <div id="kpiLeakageSub" class="text-[11px] text-slate-300 mt-1">Fizul: <span id="kpiFizulSpan" class="text-rose-400 font-bold">₹1,850</span> • Bad SL: <span id="kpiBadSlSpan" class="text-amber-400 font-bold">₹2,200</span></div>
+        <div id="kpiLeakageTotal" class="text-2xl font-black mono text-rose-300 mt-0.5">₹0</div>
+        <div id="kpiLeakageSub" class="text-[11px] text-slate-300 mt-1">Fizul: <span id="kpiFizulSpan" class="text-rose-400 font-bold">₹0</span> • Bad SL: <span id="kpiBadSlSpan" class="text-amber-400 font-bold">₹0</span></div>
       </div>
       <div class="w-14 h-14 rounded-full border-4 border-rose-500/30 flex items-center justify-center relative bg-rose-950/40">
-        <span id="kpiGreedScoreBadge" class="text-xs font-black mono text-rose-300">16%</span>
+        <span id="kpiGreedScoreBadge" class="text-xs font-black mono text-rose-300">0%</span>
       </div>
     </div>
   </section>
@@ -515,27 +578,34 @@
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           <input type="date" id="diaryDateInput" value="2026-11-15" class="bg-slate-950 border border-cyan-500/50 rounded-xl px-3 py-1.5 text-xs font-bold text-cyan-200 mono" />
+          <select id="voiceLangSelect" class="bg-slate-950 border border-violet-500/50 rounded-xl px-2.5 py-1.5 text-xs font-bold text-violet-200" title="Voice Mic Recognition Language">
+            <option value="hi-IN" selected>🇮🇳 Mic: हिन्दी / Hinglish</option>
+            <option value="en-IN">🇮🇳 Mic: English (India)</option>
+          </select>
           <button id="btnDiaryVoiceMic" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/25 hover:bg-rose-500/40 text-rose-200 border border-rose-400/50">
             🎙️ Bol Kar Likhein (Mic)
           </button>
         </div>
       </div>
 
-      <!-- Sample Preset Story Buttons for 1-Tap Testing -->
+      <!-- Tri-Lingual Sample Buttons (Optional Test) + Clear Button -->
       <div class="flex items-center gap-1.5 flex-wrap mb-2">
-        <span class="text-[11px] font-bold text-slate-400">⚡ Test Sample Diary:</span>
-        <button type="button" data-diary-sample="s1" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-cyan-200 border border-cyan-500/30">
-          📝 Sample 1: +₹4,800 Win, -₹1,500 Bad SL, Sabzi, Petrol, Wi-Fi &amp; Zomato
+        <span class="text-[11px] font-bold text-slate-400">🌐 Tri-Bhasha AI Test (Optional):</span>
+        <button type="button" data-diary-sample="s_hi" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-amber-200 border border-amber-500/30">
+          🇮🇳 1. हिन्दी (देवनागरी) उदाहरण
         </button>
-        <button type="button" data-diary-sample="s2" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-emerald-200 border border-emerald-500/30">
-          📝 Sample 2: 2 Sniper Wins (+₹11,200), Good SL (-₹1,100), Dawai, SIP &amp; Workout
+        <button type="button" data-diary-sample="s_en" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-emerald-200 border border-emerald-500/30">
+          🇬🇧 2. Pure English Example
         </button>
-        <button type="button" data-diary-sample="s3" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-amber-200 border border-amber-500/30">
-          📝 Sample 3: Multi-Item Mandi, Shagun ₹501, TradingView Bill &amp; Parivar Time
+        <button type="button" data-diary-sample="s_hg" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-cyan-200 border border-cyan-500/30">
+          ⚡ 3. Hinglish Example
+        </button>
+        <button type="button" id="btnClearDiaryBox" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-500/30">
+          ✕ Clear Box
         </button>
       </div>
 
-      <textarea id="diaryTextInput" rows="3" class="w-full bg-slate-950/95 border border-violet-500/50 rounded-2xl p-3 text-xs sm:text-sm text-white font-medium leading-relaxed focus:outline-none focus:border-cyan-400" placeholder="Example: Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur 4800 profit book kiya... Shaam ko 220 ki sabzi laya, 300 ka petrol dalwaya, 899 ka Wi-Fi recharge kiya aur 45 min workout kiya.">Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur T2 trail karke 4800 profit book kiya, par dopahar 1 baje sideways box me lalach me 25200 PE le liya jisme 1500 ka galat SL kat gaya. Shaam ko mandi se 220 ki sabzi aur phal laya, scooty me 300 ka petrol dalwaya, trading setup ka 899 wala Wi-Fi recharge kiya, aur raat ko Zomato se 380 ka pizza mangwa liya. Subah 45 min workout kiya aur Raghava Astra V21 test kiya.</textarea>
+      <textarea id="diaryTextInput" rows="3" class="w-full bg-slate-950/95 border border-violet-500/50 rounded-2xl p-3 text-xs sm:text-sm text-white font-medium leading-relaxed focus:outline-none focus:border-cyan-400" placeholder="हिन्दी / English / Hinglish में लिखें — जैसे:&#10;• हिन्दी: आज निफ्टी 25150 कॉल में 3-लॉक पर 4800 का मुनाफा बुक किया। मंडी से 220 की सब्जी, 300 का पेट्रोल डलवाया और पापा को 2000 भेजे।&#10;• English: Booked 4800 profit in Nifty 25150 CE on 3-lock pullback. Spent 220 on vegetables, 300 on petrol, and 899 on Wi-Fi bill.&#10;• Hinglish: Aaj Nifty 25150 CE me 4800 profit hua, 220 sabzi, 300 petrol aur Rahul ko 600 udhaar diye."></textarea>
 
       <div class="mt-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
         <div class="flex items-center gap-3 flex-wrap">
@@ -603,7 +673,7 @@
           <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/40">
             Design #6 Hero • Auto-Tag Engine
           </span>
-          <span class="text-xs font-bold mono text-cyan-300" id="dockAutoBillCount">11 Active</span>
+          <span class="text-xs font-bold mono text-cyan-300" id="dockAutoBillCount">0 Active</span>
         </div>
         <h2 class="text-base sm:text-lg font-black text-white tracking-tight">
           1st-OF-MONTH AUTO-TAGGED BILLS
@@ -644,7 +714,7 @@
       <div class="mt-3 pt-3 border-t border-violet-500/30 flex items-center justify-between text-xs">
         <div>
           <div class="text-slate-400 font-medium">Auto-Tagged ITR-3 Sec 37 Total:</div>
-          <div id="dockSec37Total" class="text-base font-black mono text-violet-300">₹7,897 / mo</div>
+          <div id="dockSec37Total" class="text-base font-black mono text-violet-300 whitespace-nowrap">₹0 / mo</div>
         </div>
         <button id="btnGoToBandheTab" class="px-3 py-2 rounded-xl font-extrabold bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-400/40">
           ✏️ Edit Bills &amp; Amounts
@@ -676,7 +746,7 @@
           <div class="text-xs">
             <div class="font-extrabold text-cyan-300">CA Trinetra Verdict (Nov 2026):</div>
             <div id="dockCaHeadline" class="text-slate-200 mt-0.5 leading-snug">
-              Auto-tagged ₹7,897/mo in Sec 37 trading deductions—reducing your taxable F&amp;O business income directly!
+              Auto-tagged ₹0/mo in Sec 37 trading deductions—toggle ON your Bandhe Bills to reduce taxable F&amp;O income!
             </div>
           </div>
         </div>
@@ -725,22 +795,22 @@
             <svg viewBox="0 0 600 190" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <line x1="20" y1="160" x2="585" y2="160" stroke="#334155" stroke-width="1.5"/>
               <rect x="30" y="49" width="76" height="111" rx="7" fill="#06b6d4" />
-              <text x="68" y="43" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹14,500</text>
+              <text x="68" y="43" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹0</text>
               <text x="68" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Bandhe Ghar</text>
               <rect x="126" y="120" width="76" height="40" rx="7" fill="#3b82f6" />
               <text x="164" y="114" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹5,200</text>
               <text x="164" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Rozmarra</text>
               <rect x="222" y="99" width="76" height="61" rx="7" fill="#8b5cf6" />
-              <text x="260" y="93" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹7,897</text>
+              <text x="260" y="93" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹0</text>
               <text x="260" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">ITR-3 Auto</text>
               <rect x="318" y="25" width="76" height="135" rx="7" fill="#10b981" />
-              <text x="356" y="19" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹17,500</text>
+              <text x="356" y="19" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹0</text>
               <text x="356" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">80C SIP/Save</text>
               <rect x="414" y="141" width="76" height="19" rx="7" fill="#f59e0b" />
-              <text x="452" y="135" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹2,500</text>
+              <text x="452" y="135" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹0</text>
               <text x="452" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Tyohar Buf</text>
               <rect x="510" y="129" width="76" height="31" rx="7" fill="#f43f5e" />
-              <text x="548" y="123" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹4,050</text>
+              <text x="548" y="123" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹0</text>
               <text x="548" y="178" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700">Fizul+Bad SL</text>
             </svg>
           </div>
@@ -753,7 +823,7 @@
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-black text-amber-300">⚡ 10-SECOND TRADE &amp; ROZMARRA QUICK-LOGGER</h3>
             <span id="dockGreedStatusPill" class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">
-              GREED: CONTROLLED (16%)
+              GREED: CONTROLLED (0%)
             </span>
           </div>
 
@@ -798,11 +868,11 @@
         </div>
         <div>
           <label class="text-[11px] font-bold text-slate-300 block mb-1">Strike / Instrument</label>
-          <input type="text" id="tradeStrikeInput" value="NIFTY 25150 CE" placeholder="e.g. NIFTY 25150 CE" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+          <input type="text" id="tradeStrikeInput" value="" placeholder="e.g. NIFTY 25150 CE" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
         </div>
         <div>
           <label class="text-[11px] font-bold text-slate-300 block mb-1">Net P&amp;L (₹) (+Win / -Loss)</label>
-          <input type="number" id="tradePnlInput" value="4800" class="w-full bg-slate-900 border border-emerald-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-emerald-300" />
+          <input type="number" id="tradePnlInput" value="" placeholder="e.g. 4800 or -1200" class="w-full bg-slate-900 border border-emerald-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-emerald-300" />
         </div>
       </div>
 
@@ -840,7 +910,7 @@
 
       <div class="mb-3">
         <label class="text-xs font-bold text-slate-300 block mb-1">Aaj Ki 1-Line Trading Seekh (Lesson):</label>
-        <input type="text" id="tradeNoteInput" value="Waited patiently for 7-EMA pullback outside Purple Box; trailed T1 cleanly." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200" />
+        <input type="text" id="tradeNoteInput" value="" placeholder="1-line lesson (optional)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200" />
       </div>
 
       <button id="btnAddTradeLog" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-600/25">
@@ -863,11 +933,11 @@
           </div>
           <div>
             <label class="text-[11px] font-bold text-slate-300 block mb-1">Kharch Ka Naam (Item)</label>
-            <input type="text" id="expTitleInput" placeholder="e.g. Sabzi, Petrol, Wi-Fi, Zomato" value="Taaza Sabzi & Phal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
+            <input type="text" id="expTitleInput" placeholder="e.g. सब्जी / Vegetables / Sabzi, Petrol, Wi-Fi" value="" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
           </div>
           <div>
             <label class="text-[11px] font-bold text-slate-300 block mb-1">Amount (₹)</label>
-            <input type="number" id="expAmtInput" value="220" class="w-full bg-slate-900 border border-cyan-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-cyan-300" />
+            <input type="number" id="expAmtInput" value="" placeholder="₹ Amount" class="w-full bg-slate-900 border border-cyan-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-cyan-300" />
           </div>
         </div>
 
@@ -940,7 +1010,7 @@
         <div class="flex gap-3">
           <div class="p-3 rounded-xl bg-violet-950/70 border border-violet-400/40 text-right">
             <div class="text-[10px] font-bold text-violet-300 uppercase">Auto-Tagged ITR-3 Business</div>
-            <div id="bandheSec37Sum" class="text-lg font-black mono text-violet-200">₹7,897</div>
+            <div id="bandheSec37Sum" class="text-lg font-black mono text-violet-200">₹0</div>
           </div>
           <div class="p-3 rounded-xl bg-cyan-950/70 border border-cyan-400/40 text-right">
             <div class="text-[10px] font-bold text-cyan-300 uppercase">Bandhe Ghar + 80C SIP</div>
@@ -1143,7 +1213,7 @@
       <div id="reconcileVerdictGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
         <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40">
           <div class="text-[10px] font-black uppercase text-emerald-400">1. Broker Gross vs Hidden Charges</div>
-          <div class="text-lg font-black mono text-emerald-300 mt-0.5">Gross: +₹54,600</div>
+          <div class="text-lg font-black mono text-emerald-300 mt-0.5">Gross: ₹0</div>
           <div class="text-xs text-rose-300 font-bold mt-0.5">STT + Brok + GST: -₹6,400</div>
           <div class="text-[11px] text-slate-300 mt-1">Net Realized: <strong class="text-white mono">+₹48,200</strong> (ITR-3 Sec 37 Deductible)</div>
         </div>
@@ -1186,8 +1256,8 @@
           </p>
 
           <div class="grid grid-cols-3 gap-1.5 mb-2">
-            <input type="text" id="udhaariPersonInput" placeholder="Dost Ka Naam" value="Rahul (Dinner Split)" class="text-xs" />
-            <input type="number" id="udhaariAmtInput" placeholder="₹" value="600" class="text-xs mono" />
+            <input type="text" id="udhaariPersonInput" placeholder="Dost Ka Naam (e.g. Rahul)" value="" class="text-xs" />
+            <input type="number" id="udhaariAmtInput" placeholder="₹ Amount" value="" class="text-xs mono" />
             <select id="udhaariTypeSelect" class="text-xs">
               <option value="vasooli">🟢 Vasoolna Hai (Lent)</option>
               <option value="dena">🔴 Wapas Dena Hai (Borrowed)</option>
@@ -1218,7 +1288,7 @@
           <div id="payoutAndTaxSummaryBox" class="space-y-2 mb-3 text-xs"></div>
 
           <div class="flex items-center gap-2">
-            <input type="number" id="newPayoutAmtInput" value="10000" step="1000" class="w-32 text-xs mono" />
+            <input type="number" id="newPayoutAmtInput" value="" placeholder="₹ Payout" step="1000" class="w-32 text-xs mono" />
             <button id="btnLogBankPayout" type="button" class="flex-1 py-2 rounded-xl text-xs font-black bg-emerald-600/35 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-400/50">
               🏦 +Lock Profit to Bank Account
             </button>
@@ -1276,75 +1346,50 @@
     function getDefaultState() {
       return {
         recurringBills: [
-          { id: 'b1', title: 'Wi-Fi / Broadband (Trading Setup)', amount: 899, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Utility' },
-          { id: 'b2', title: 'Mobile Data & Recharge', amount: 449, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Comm.' },
-          { id: 'b3', title: 'TradingView Pro & Market Data Feed', amount: 1499, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Software' },
-          { id: 'b4', title: 'Brokerage, STT (0.15%) & Exchange Fees', amount: 2450, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Direct' },
-          { id: 'b5', title: 'iPad & Laptop Depreciation (Monthly Share)', amount: 1800, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 32 Deprec.' },
-          { id: 'b6', title: 'Home-Office Electricity Share (25%)', amount: 800, category: 'ITR-3 Business Deduct', active: true, code: 'Sec 37 Power' },
-          { id: 'b7', title: 'Kirana, Ration & Cold-Pressed Multigrain Atta', amount: 6500, category: 'Bandhe Ghar Fixed', active: true, code: 'Ghar Need' },
-          { id: 'b8', title: 'Monthly Doodh & Dairy Hisab', amount: 2400, category: 'Bandhe Ghar Fixed', active: true, code: 'Ghar Need' },
-          { id: 'b9', title: 'Ghar Bijli Bill (75%) & LPG Cylinder', amount: 2600, category: 'Bandhe Ghar Fixed', active: true, code: 'Ghar Need' },
-          { id: 'b10', title: 'Daughter (Roshni) & Family Care / Education', amount: 3000, category: 'Bandhe Ghar Fixed', active: true, code: 'Family Care' },
-          { id: 'b11', title: '80C Equity/Index SIP & Sukanya Samriddhi', amount: 15000, category: 'SIP & 80C/80D Wealth', active: true, code: 'Sec 80C' },
-          { id: 'b12', title: 'Family Health Insurance (Mediclaim Monthly)', amount: 2500, category: 'SIP & 80C/80D Wealth', active: true, code: 'Sec 80D' }
+          { id: 'b1', title: 'Wi-Fi / Broadband (Trading Setup)', amount: 0, category: 'ITR-3 Business Deduct', active: false, code: 'Sec 37 Utility' },
+          { id: 'b2', title: 'Mobile Data & Recharge', amount: 0, category: 'ITR-3 Business Deduct', active: false, code: 'Sec 37 Comm.' },
+          { id: 'b3', title: 'TradingView Pro & Market Data Feed', amount: 0, category: 'ITR-3 Business Deduct', active: false, code: 'Sec 37 Software' },
+          { id: 'b4', title: 'Brokerage, STT (0.15%) & Exchange Fees', amount: 0, category: 'ITR-3 Business Deduct', active: false, code: 'Sec 37 Direct' },
+          { id: 'b5', title: 'iPad & Laptop Depreciation (Monthly Share)', amount: 0, category: 'ITR-3 Business Deduct', active: false, code: 'Sec 32 Deprec.' },
+          { id: 'b6', title: 'Home-Office Electricity Share (25%)', amount: 0, category: 'ITR-3 Business Deduct', active: false, code: 'Sec 37 Power' },
+          { id: 'b7', title: 'Kirana, Ration & Cold-Pressed Multigrain Atta', amount: 0, category: 'Bandhe Ghar Fixed', active: false, code: 'Ghar Need' },
+          { id: 'b8', title: 'Monthly Doodh & Dairy Hisab', amount: 0, category: 'Bandhe Ghar Fixed', active: false, code: 'Ghar Need' },
+          { id: 'b9', title: 'Ghar Bijli Bill (75%) & LPG Cylinder', amount: 0, category: 'Bandhe Ghar Fixed', active: false, code: 'Ghar Need' },
+          { id: 'b10', title: 'Family Care & Education', amount: 0, category: 'Bandhe Ghar Fixed', active: false, code: 'Family Care' },
+          { id: 'b11', title: '80C Equity/Index SIP & Sukanya Samriddhi', amount: 0, category: 'SIP & 80C/80D Wealth', active: false, code: 'Sec 80C' },
+          { id: 'b12', title: 'Family Health Insurance (Mediclaim Monthly)', amount: 0, category: 'SIP & 80C/80D Wealth', active: false, code: 'Sec 80D' }
         ],
-        trades: [
-          { id: 't1', date: '2026-11-11', strike: 'NIFTY 25000 CE', pnl: 18500, why: '3-Lock + 7-EMA Root', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: 'Gap-up breakout + 7-EMA root pullback T3 hit.' },
-          { id: 't2', date: '2026-11-12', strike: 'NIFTY 25300 PE', pnl: 16200, why: '3-Lock + 7-EMA Root', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: 'Supply rejection breakdown below Purple Box neckline.' },
-          { id: 't3', date: '2026-11-12', strike: 'NIFTY 25250 CE', pnl: -2200, why: 'Sideways Mid-Box Guess', slType: 'Bad Mistake SL', greed: 'Quota Greed (Overtraded)', note: 'Took mid-box trade after morning win; avoidable Bad SL.' },
-          { id: 't4', date: '2026-11-13', strike: 'NIFTY 25150 CE', pnl: 9200, why: '3-Lock + 7-EMA Root', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: '09:30 AM Purple Box reclaim T2 locked.' },
-          { id: 't5', date: '2026-11-13', strike: 'NIFTY 25200 PE', pnl: -1500, why: '3-Lock + 7-EMA Root', slType: 'Good System SL', greed: 'Disciplined Trail (Zero Greed)', note: 'Followed system rule; small 10-pt system SL respected.' },
-          { id: 't6', date: '2026-11-13', strike: 'NIFTY 25100 CE', pnl: 8000, why: 'Wyckoff Spring Reclaim', slType: 'Target Hit (T1/T2/T3)', greed: 'Disciplined Trail (Zero Greed)', note: '02:35 PM Wyckoff Spring reclaim captured cleanly.' }
-        ],
-        expenses: [
-          { id: 'e1', date: '2026-11-10', title: 'Taaza Sabzi & Fruits (Weekly Mandi)', amount: 1450, category: 'Rozmarra Essential' },
-          { id: 'e2', date: '2026-11-11', title: 'Scooter & Car Petrol Refill', amount: 1850, category: 'Rozmarra Essential' },
-          { id: 'e3', date: '2026-11-12', title: 'Family Pharmacy & Vitamins', amount: 900, category: 'Rozmarra Essential' },
-          { id: 'e4', date: '2026-11-13', title: 'Chhath / Kartik Parv & Shagun Buffer', amount: 2500, category: 'Tyohar & Emergency' },
-          { id: 'e5', date: '2026-11-14', title: 'Late-Night Zomato & Flash Sale Gadget', amount: 1850, category: 'Fizul Kharch' },
-          { id: 'e6', date: '2026-11-15', title: 'Morning Sabzi & Khula Doodh/Paneer', amount: 1000, category: 'Rozmarra Essential' }
-        ],
+        trades: [],
+        expenses: [],
         habits: [
-          { rule: '1. Waited for 3-Lock + 7-EMA Root', days: [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1] },
-          { rule: '2. Zero Sideways Mid-Box Trade', days: [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1] },
-          { rule: '3. Respected Pre-Defined Smart SL', days: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
-          { rule: '4. Zero Greed Overtrading After T2/T3', days: [1,1,1,1,1,1,1,1,1,1,1,0,1,1,1] },
-          { rule: '5. Logged Daily Rozmarra Kharch', days: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
-          { rule: '6. Zero Fizul Impulse Spending', days: [1,1,1,1,0,1,1,1,1,1,1,1,1,0,1] }
+          { rule: '1. Waited for 3-Lock + 7-EMA Root', days: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+          { rule: '2. Zero Sideways Mid-Box Trade', days: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+          { rule: '3. Respected Pre-Defined Smart SL', days: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+          { rule: '4. Zero Greed Overtrading After T2/T3', days: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+          { rule: '5. Logged Daily Rozmarra Kharch', days: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+          { rule: '6. Zero Fizul Impulse Spending', days: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] }
         ],
-        diaryLogs: [
-          {
-            id: 'd1',
-            date: '2026-11-13',
-            rawText: 'Subah 09:30 pe 25150 CE me +9200 aur 02:35 PM Wyckoff Spring me +8000 book kiya. Sham ko Chhath puja shagun 2500 diya aur 45 min walk kiya.',
-            activities: ['💪 Health: 45 min walk kiya', '👨‍👩‍👧 Parivar: Chhath puja shagun'],
-            summaryBadge: '2 Wins (+₹17,200) • 1 Tyohar Expense (₹2,500)'
-          }
-        ],
-        baseCapital: 100000,
-        bankPayoutLocked: 28000,
-        patienceDays: 2,
-        udhaariList: [
-          { id: 'u1', person: 'Vikram (Fuel & Highway Toll Split)', amount: 1500, type: 'vasooli', settled: false, date: '2026-11-11' },
-          { id: 'u2', person: 'Aman (Evening Cafe & Snacks)', amount: 600, type: 'vasooli', settled: false, date: '2026-11-14' }
-        ],
+        diaryLogs: [],
+        baseCapital: 0,
+        bankPayoutLocked: 0,
+        patienceDays: 0,
+        udhaariList: [],
         reconcileData: {
-          brokerGrossPnl: 54600,
-          brokerCharges: 6400,
-          brokerNetPnl: 48200,
-          brokerTradeCount: 8,
-          bankTotalUpiDebits: 24850,
-          bankChillarUpiCount: 38,
-          bankChillarUpiAmount: 1940,
-          bankPayoutCredited: 28000,
-          lastSyncedNote: 'Nov 2026 Angel One Tax P&L + HDFC Bank Statement Loaded'
+          brokerGrossPnl: 0,
+          brokerCharges: 0,
+          brokerNetPnl: 0,
+          brokerTradeCount: 0,
+          bankTotalUpiDebits: 0,
+          bankChillarUpiCount: 0,
+          bankChillarUpiAmount: 0,
+          bankPayoutCredited: 0,
+          lastSyncedNote: 'No Statement Uploaded Yet'
         }
       };
     }
 
-    const VAULT_CIPHER_KEY = 'raghava_trinetra_aes256_vault_v2';
-    const VAULT_META_KEY   = 'raghava_trinetra_aes256_meta_v2';
+    const VAULT_CIPHER_KEY = 'raghava_trinetra_aes256_vault_v3_clean';
+    const VAULT_META_KEY   = 'raghava_trinetra_aes256_meta_v3_clean';
     let state = getDefaultState();
     let activeSessionPin = '';
     let isVaultUnlocked = false;
@@ -1438,7 +1483,6 @@
         const encryptedPayload = await encryptStateWithPin(state, activeSessionPin);
         localStorage.setItem(VAULT_CIPHER_KEY, encryptedPayload);
         localStorage.setItem(VAULT_META_KEY, 'INITIALIZED');
-        // Remove any legacy unencrypted plaintext key so hackers/devtools never see raw data
         localStorage.removeItem(STORAGE_KEY);
       } catch (e) {}
     }
@@ -1448,7 +1492,8 @@
       if (!el) return;
       el.textContent = msg;
       el.classList.remove('hidden');
-      setTimeout(() => { el.classList.add('hidden'); }, 2800);
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => { el.classList.add('hidden'); }, 3200);
     }
 
     function formatINR(num) {
@@ -1457,8 +1502,19 @@
       return sign + '₹' + Math.abs(Math.round(n)).toLocaleString('en-IN');
     }
 
+    function getActiveMonthFilter() {
+      const sel = document.getElementById('activeMonthSelect');
+      return sel ? sel.value : 'ALL';
+    }
+
+    function matchesActiveMonth(dateStr) {
+      const f = getActiveMonthFilter();
+      if (!f || f === 'ALL') return true;
+      return String(dateStr || '').startsWith(f);
+    }
+
     // =========================================================================
-    // COMPUTE LIVE AGGREGATES FOR AI-CA, KPIs & CHARTS
+    // COMPUTE LIVE AGGREGATES FOR AI-CA, KPIs & CHARTS (RESPECTING MONTH FILTER)
     // =========================================================================
     function computeMetrics() {
       let sec37Auto = 0;
@@ -1468,8 +1524,8 @@
 
       state.recurringBills.forEach(b => {
         if (!b.active) return;
-        activeBillCount++;
         const amt = Number(b.amount) || 0;
+        if (amt > 0) activeBillCount++;
         if (b.category === 'ITR-3 Business Deduct') sec37Auto += amt;
         else if (b.category === 'Bandhe Ghar Fixed') bandheGhar += amt;
         else if (b.category === 'SIP & 80C/80D Wealth') sip80c += amt;
@@ -1480,24 +1536,36 @@
       let sipManual = 0;
       let tyohar = 0;
       let fizul = 0;
+      let parivarSeva = 0;
+      let personalShauk = 0;
+      let chillarUpi = 0;
 
-      state.expenses.forEach(e => {
+      const filteredExpenses = state.expenses.filter(e => matchesActiveMonth(e.date));
+      filteredExpenses.forEach(e => {
         const amt = Number(e.amount) || 0;
         if (e.category === 'Rozmarra Essential') rozmarra += amt;
         else if (e.category === 'ITR-3 Business Deduct') sec37Manual += amt;
         else if (e.category === 'SIP & 80C/80D Wealth') sipManual += amt;
         else if (e.category === 'Tyohar & Emergency') tyohar += amt;
         else if (e.category === 'Fizul Kharch') fizul += amt;
+        else if (e.category === 'Parivar Seva') { parivarSeva += amt; rozmarra += amt; }
+        else if (e.category === 'Personal Shauk') { personalShauk += amt; fizul += amt; }
+        else if (e.category === 'Chillar Micro-UPI') { chillarUpi += amt; fizul += amt; }
+
+        if (amt > 0 && amt <= 100 && e.category !== 'ITR-3 Business Deduct' && e.category !== 'Chillar Micro-UPI') {
+          chillarUpi += amt;
+        }
       });
 
       let grossWin = 0;
       let goodSlLoss = 0;
       let badSlLoss = 0;
       let wins = 0;
-      let totalTrades = state.trades.length;
+      const filteredTrades = state.trades.filter(t => matchesActiveMonth(t.date));
+      let totalTrades = filteredTrades.length;
       let greedCount = 0;
 
-      state.trades.forEach(t => {
+      filteredTrades.forEach(t => {
         const p = Number(t.pnl) || 0;
         if (p >= 0) {
           grossWin += p;
@@ -1512,10 +1580,9 @@
       });
 
       const netTradingPnl = grossWin - goodSlLoss - badSlLoss;
-      const winRate = totalTrades > 0 ? Math.round((wins / totalTrades) * 100) : 100;
+      const winRate = totalTrades > 0 ? Math.round((wins / totalTrades) * 100) : 0;
       const greedPct = totalTrades > 0 ? Math.round((greedCount / totalTrades) * 100) : 0;
 
-      // ICAI Section 44AB Turnover = |Gross Wins| + |All Losses| + Option Sale Premium (~1.8x)
       const monthlyTurnover = Math.round((grossWin + goodSlLoss + badSlLoss) * 2.8);
       const projectedAnnualTurnover = monthlyTurnover * 12;
 
@@ -1526,23 +1593,12 @@
       const totalLeakage = fizul + badSlLoss;
       const netTaxableFoIncome = Math.max(0, netTradingPnl - totalSec37);
 
-      let parivarSeva = 3000; // Includes Roshni/Family Care Bandha Bill
-      let personalShauk = 0;
-      let chillarUpi = 0;
-      state.expenses.forEach(e => {
-        const amt = Number(e.amount) || 0;
-        if (e.category === 'Parivar Seva') { parivarSeva += amt; rozmarra += amt; }
-        else if (e.category === 'Personal Shauk') { personalShauk += amt; fizul += amt; }
-        else if (e.category === 'Chillar Micro-UPI') { chillarUpi += amt; fizul += amt; }
-        else if (amt > 0 && amt <= 100 && e.category !== 'ITR-3 Business Deduct') { chillarUpi += amt; }
-      });
-
-      const baseCap = Math.max(10000, Number(state.baseCapital) || 100000);
-      const roiPct = ((netTradingPnl / baseCap) * 100).toFixed(1);
+      const baseCap = Math.max(0, Number(state.baseCapital) || 0);
+      const roiPct = baseCap > 0 ? ((netTradingPnl / baseCap) * 100).toFixed(1) : '0.0';
       const maxDailyRisk = Math.round(baseCap * 0.02);
       const bankPayoutLocked = Number(state.bankPayoutLocked) || 0;
       const payoutRatioPct = netTradingPnl > 0 ? Math.min(100, Math.round((bankPayoutLocked / netTradingPnl) * 100)) : 0;
-      const advanceTaxReserve = Math.round(Math.max(0, netTradingPnl - (sec37Auto + sec37Manual)) * 0.15);
+      const advanceTaxReserve = Math.round(netTaxableFoIncome * 0.15);
 
       const udhaariList = Array.isArray(state.udhaariList) ? state.udhaariList : [];
       const udhaariPending = udhaariList
@@ -1550,6 +1606,8 @@
         .reduce((acc, u) => acc + (u.type === 'vasooli' ? Number(u.amount) : -Number(u.amount)), 0);
 
       return {
+        filteredTrades,
+        filteredExpenses,
         parivarSeva,
         personalShauk,
         chillarUpi,
@@ -1583,32 +1641,46 @@
       };
     }
 
-    // =========================================================================
-    // RENDER ALL UI SECTIONS & CHARTS
-    // =========================================================================
     let dockChartInstance = null;
     let tabChartCashflowInstance = null;
     let tabChartPsychInstance = null;
 
-
     // =========================================================================
-    // 🌅 CHITRAGUPTA SANDHYA 7-8 PM HINGLISH NLU PARSER & AUTO-CLASSIFIER
+    // 🌐 TRI-LINGUAL NLU ENGINE (हिन्दी देवनागरी + PURE ENGLISH + HINGLISH)
     // =========================================================================
     const DIARY_SAMPLES = {
-      s1: "Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur T2 trail karke 4800 profit book kiya, par dopahar 1 baje sideways box me lalach me 25200 PE le liya jisme 1500 ka galat SL kat gaya. Shaam ko mandi se 220 ki sabzi aur phal laya, scooty me 300 ka petrol dalwaya, trading setup ka 899 wala Wi-Fi recharge kiya, aur raat ko Zomato se 380 ka pizza mangwa liya. Subah 45 min workout kiya aur Raghava Astra V21 test kiya.",
-      s2: "Aaj discipline ke saath subah Nifty 25100 CE me 3-lock setup par 6400 ka profit book kiya, phir 11:20 pe 25250 PE me Wyckoff spring reclaim par 4800 profit mila, aur ek trade me 1100 ka chhota system SL rule follow karke kata. Ghar ke liye 450 ki dawai aur medical vitamin laya, 180 ka doodh aur paneer laya, aur 15000 ki monthly 80C Nifty Index SIP auto-debit hui. Sham ko papa ke saath walk pe gaya.",
-      s3: "Aaj market sideways tha isliye zero overtrading ki aur sirf 1 sniper trade Nifty 25200 CE me 3-lock par 3900 profit leke terminal band kar diya. Mandi me 140 ki hari sabzi, 110 ke phal, 260 ka petrol dalwaya, parivar me 501 rupaye shagun gift diya, aur 1499 ka TradingView Pro subscription pay kiya. Raat ko 1 ghanta Python backtest code likha."
+      s_hi: "आज सुबह निफ्टी २५१५० कॉल में 3-लॉक सेटअप पर ४८०० का मुनाफा बुक किया, लेकिन दोपहर में साइडवेज बॉक्स में लालच में २५२०० पुट ले लिया जिसमें १५०० का गलत स्टॉप लॉस कट गया। शाम को मंडी से २२० की सब्जी और फल लाया, स्कूटी में ३०० का पेट्रोल डलवाया, ८९९ का वाई-फाई रिचार्ज किया, जोमैटो से ३८० का पिज्जा मंगाया, राहुल को ६०० उधार दिए और पापा को २००० घर खर्च के लिए भेजे। सुबह ४५ मिनट व्यायाम किया।",
+      s_en: "Booked 4800 profit in Nifty 25150 CE on 3-lock 7-EMA pullback today, but lost 1500 in Nifty 25200 PE due to sideways mid-box FOMO. Spent 220 on fresh vegetables and fruits, 300 on scooter petrol, paid 899 for broadband Wi-Fi bill, ordered 380 pizza on Zomato, lent 600 to friend Rahul, and sent 2000 to parents for home support. Completed 45 min morning workout.",
+      s_hg: "Aaj subah 9:25 pe Nifty 25150 CE me 3-lock 7-EMA root pe trade liya aur T2 trail karke 4800 profit book kiya, par dopahar 1 baje sideways box me lalach me 25200 PE le liya jisme 1500 ka galat SL kat gaya. Shaam ko mandi se 220 ki sabzi aur phal laya, scooty me 300 ka petrol dalwaya, trading setup ka 899 wala Wi-Fi recharge kiya, Zomato se 380 ka pizza mangwa liya, Rahul ko 600 udhaar diye aur Papa ko 2000 bheje. Subah 45 min workout kiya."
     };
 
-    function extractNonStrikeAmounts(str) {
-      let cleaned = String(str || '')
+    // Convert Devanagari numerals (०-९) to ASCII (0-9) and normalize thousand/hazar shorthand
+    function normalizeTriLingualText(raw) {
+      const devDigits = { '०':'0', '१':'1', '२':'2', '३':'3', '४':'4', '५':'5', '६':'6', '७':'7', '८':'8', '९':'9' };
+      let s = String(raw || '').replace(/[०-९]/g, ch => devDigits[ch] || ch);
+      s = s.replace(/(\d+(?:\.\d+)?)\s*(?:हज़ार|हजार|hazar|hazaar|thousand)\b/gi, (_, n) => String(Math.round(parseFloat(n) * 1000)));
+      return s;
+    }
+
+    function hasAnyKw(textLow, kwList) {
+      for (let i = 0; i < kwList.length; i++) {
+        if (textLow.indexOf(kwList[i]) !== -1) return true;
+      }
+      return false;
+    }
+
+    function extractNonStrikeAmounts(rawStr) {
+      const str = normalizeTriLingualText(rawStr);
+      let cleaned = str
         .replace(/\b\d{1,2}:\d{2}\b/g, ' ')
-        .replace(/\b\d{1,2}\s*(?:baje|am|pm|min|minute|ghanta|hr|hours|din|lock|ema|sniper)\b/gi, ' ')
-        .replace(/\b(?:3-lock|7-ema|80c|80d|itr-3|sec\s*\d+|v\d+)\b/gi, ' ');
-      const stkMatch = str.match(/\b(nifty|banknifty|sensex|finnifty)?\s*(\d{5})\s*(ce|pe|call|put)\b/i)
-        || str.match(/\b(nifty|banknifty|sensex|finnifty)\s*(\d{5})\b/i);
+        .replace(/\d{1,2}\s*(?:baje|am|pm|min|mins|minute|minutes|ghanta|hr|hours|din|lock|ema|sniper|बजे|मिनट|घंटा|घंटे|दिन|लॉक|ईएमए)/gi, ' ')
+        .replace(/(?:3-lock|3\s*lock|3-लॉक|तीन\s*लॉक|7-ema|7\s*ema|7-ईएमए|80c|80d|itr-3|sec\s*\d+|v\d+)/gi, ' ');
+
+      // Match 5-digit index strike in English, Hinglish or Devanagari Hindi
+      const stkMatch = str.match(/(?:(nifty|banknifty|sensex|finnifty|निफ्टी|बैंकनिफ्टी|बैंक\s*निफ्टी|सेंसेक्स|फिननिफ्टी)\s*)?(\b\d{5}\b)\s*(ce|pe|call|put|कॉल|पुट|सीई|पीई)?/i);
       const stkNum = stkMatch ? stkMatch[2] : null;
-      const numRe = /(?:₹|rs\.?\s*)?(\d+(?:,\d{3})*(?:\.\d+)?)(\s*k)?\b/gi;
+
+      const numRe = /(?:₹|rs\.?\s*|inr\s*)?(\d+(?:,\d{3})*(?:\.\d+)?)(\s*k)?/gi;
       const out = [];
       let m;
       while ((m = numRe.exec(cleaned)) !== null) {
@@ -1618,32 +1690,37 @@
         if (stkNum && String(rounded) === stkNum) continue;
         if (rounded >= 10) out.push(rounded);
       }
-      return { amounts: out, stkMatch };
+      return { amounts: out, stkMatch, normalizedStr: str };
     }
 
     function parseSandhyaDiaryText(rawText, entryDate, enableBandheDedup) {
-      const text = String(rawText || '').trim();
-      if (!text) return { trades: [], expenses: [], activities: [], habitUpdates: [1,1,1,1,1,1] };
+      const normText = normalizeTriLingualText(rawText).trim();
+      if (!normText) return { trades: [], expenses: [], activities: [], habitUpdates: [0,0,0,0,0,0] };
 
-      // Step 1: Split into sentences or major conjunctions (', par ', 'lekin', 'magar', 'phir', 'uske baad')
-      const rawSentences = text.split(/(?:[.;!\n]+|,\s*par\s+|\s+(?:lekin|magar|phir|uske baad)\s+)/i);
+      // Split into sentences across Hindi Purna Viram (।, ॥), periods, and major conjunctions in Hindi, English & Hinglish
+      const rawSentences = normText.split(/(?:[.;!\n।॥]+|,\s*(?:par|but|पर|लेकिन|मगर)\s+|\s+(?:lekin|magar|phir|uske baad|but|however|then|after that|later|while|whereas|लेकिन|मगर|परन्तु|किन्तु|फिर|उसके बाद)\s+)/i);
       const clauses = [];
+
       rawSentences.forEach(sent => {
         const s = sent.trim();
         if (!s) return;
-        const subParts = s.split(/(?:,\s*|\s+aur\s+)/i);
+        const subParts = s.split(/(?:,\s*|\s+(?:aur|and|plus|और|तथा|एवं)\s+)/i);
         let buffer = '';
         subParts.forEach(part => {
           const p = part.trim();
           if (!p) return;
           const pAmts = extractNonStrikeAmounts(p).amounts;
           const bufAmts = extractNonStrikeAmounts(buffer).amounts;
-          const isActivity = /(workout|walk|gym|yoga|code|test|study|papa|mummy|Sleep|meditat)/i.test(p) && pAmts.length === 0;
+          const isActivity = hasAnyKw(p.toLowerCase(), [
+            'workout','walk','gym','yoga','exercise','code','coding','test','backtest','study','papa','mummy','sleep','meditat',
+            'व्यायाम','कसरत','जिम','योग','वॉक','टहलने','कोड','टेस्ट','पढ़ाई','ध्यान'
+          ]) && pAmts.length === 0;
+
           if (buffer && ((pAmts.length > 0 && bufAmts.length > 0) || (isActivity && bufAmts.length === 0))) {
             clauses.push(buffer.trim());
             buffer = p;
           } else {
-            buffer = buffer ? (buffer + ' aur ' + p) : p;
+            buffer = buffer ? (buffer + ' और ' + p) : p;
           }
         });
         if (buffer.trim()) clauses.push(buffer.trim());
@@ -1654,40 +1731,67 @@
       const activities = [];
 
       clauses.forEach(clause => {
-        const cLow = clause.toLowerCase();
-        const { amounts, stkMatch } = extractNonStrikeAmounts(clause);
+        const { amounts, stkMatch, normalizedStr } = extractNonStrikeAmounts(clause);
+        const cLow = normalizedStr.toLowerCase();
 
+        // Detect Strike / Instrument across Hindi, English & Hinglish
         let strike = '';
         if (stkMatch) {
-          const idxName = (stkMatch[1] || 'NIFTY').toUpperCase();
+          let rawIdx = (stkMatch[1] || 'NIFTY').toUpperCase();
+          if (rawIdx.indexOf('बैंक') !== -1 || rawIdx.indexOf('BANK') !== -1) rawIdx = 'BANKNIFTY';
+          else if (rawIdx.indexOf('सेंसेक्स') !== -1 || rawIdx.indexOf('SENSEX') !== -1) rawIdx = 'SENSEX';
+          else if (rawIdx.indexOf('फिन') !== -1 || rawIdx.indexOf('FIN') !== -1) rawIdx = 'FINNIFTY';
+          else rawIdx = 'NIFTY';
+
           const stkNum = stkMatch[2];
-          let optType = (stkMatch[3] || '').toUpperCase();
-          if (optType === 'CALL') optType = 'CE';
-          if (optType === 'PUT') optType = 'PE';
-          if (!optType) optType = /\b(pe|put)\b/i.test(clause) ? 'PE' : 'CE';
-          strike = `${idxName} ${stkNum} ${optType}`;
-        } else if (/\b(nifty|banknifty|sensex)\b/i.test(clause) && /\b(ce|pe|call|put)\b/i.test(clause)) {
-          strike = `NIFTY ATM ${/\b(pe|put)\b/i.test(clause) ? 'PE' : 'CE'}`;
+          let rawOpt = (stkMatch[3] || '').toLowerCase();
+          let optType = 'CE';
+          if (rawOpt === 'pe' || rawOpt === 'put' || rawOpt === 'पुट' || rawOpt === 'पीई' || hasAnyKw(cLow, [' put', ' pe', 'पुट', 'पीई'])) {
+            optType = 'PE';
+          }
+          strike = `${rawIdx} ${stkNum} ${optType}`;
+        } else if (hasAnyKw(cLow, ['nifty','banknifty','sensex','निफ्टी','बैंकनिफ्टी','सेंसेक्स']) && hasAnyKw(cLow, ['ce','pe','call','put','कॉल','पुट','सीई','पीई'])) {
+          const isPe = hasAnyKw(cLow, [' pe',' put','पुट','पीई']);
+          strike = `NIFTY ATM ${isPe ? 'PE' : 'CE'}`;
         }
 
-        const isTradeCue = /\b(trade|profit|loss|sl|stoploss|stop\s*loss|target|t1|t2|t3|3-lock|7-ema|wyckoff|spring|sniper|intraday|ce|pe|call|put|book\s*kiya|kat\s*gaya)\b/i.test(cLow)
-          && !/\b(tradingview|setup\s*ka|wifi|wi-fi|recharge|subscription|sip)\b/i.test(cLow);
+        const isTradeCue = hasAnyKw(cLow, [
+          'trade','profit','loss','won','lost','earned','booked','stoploss','stop loss','target','t1','t2','t3',
+          '3-lock','7-ema','wyckoff','spring','sniper','intraday','option','book kiya','kat gaya',' sl ',
+          'ट्रेड','मुनाफा','फायदा','प्रॉफिट','लाभ','नुकसान','घाटा','लॉस','स्टॉप लॉस','एसएल','टारगेट',
+          'कॉल','पुट','सीई','पीई','बुक किया','कट गया','कमाए','गंवाए'
+        ]) && !hasAnyKw(cLow, [
+          'tradingview','ट्रेडिंगव्यू','wifi','wi-fi','वाई-फाई','वाईफाई','broadband','ब्रॉडबैंड','recharge','रिचार्ज','subscription','सब्सक्रिप्शन','sip','एसआईपी'
+        ]);
 
         if (isTradeCue && amounts.length > 0) {
           const amt = amounts[amounts.length - 1];
-          const isLoss = /\b(loss|sl|stoploss|stop\s*loss|kat\s*gaya|kata|chala\s*gaya|nuksan|minus)\b/i.test(cLow) && !/\b(zero\s*sl|no\s*sl)\b/i.test(cLow);
+          const isLoss = hasAnyKw(cLow, [
+            'loss','lost','stoploss','stop loss','hit sl','stopped out','minus','negative','kat gaya','kata','chala gaya','nuksan','ghata','gawaye',
+            'नुकसान','घाटा','लॉस','स्टॉप लॉस','एसएल','कट गया','कटा','चला गया','गंवाए','माइनस'
+          ]) || (/\bsl\b/i.test(cLow) && !/\b(zero|no)\s*sl\b/i.test(cLow));
+
           const pnl = isLoss ? -Math.abs(amt) : Math.abs(amt);
 
           let why = '3-Lock + 7-EMA Root';
-          if (/(spring|wyckoff|reclaim|shakeout)/i.test(cLow)) why = 'Wyckoff Spring Reclaim';
-          else if (/(3-lock|7-ema|sniper|srb)/i.test(cLow)) why = '3-Lock + 7-EMA Root';
-          else if (/(sideways|mid-box|box\s*ke\s*beech|box\s*me|range|chop)/i.test(cLow)) why = 'Sideways Mid-Box Guess';
-          else if (/(fomo|running\s*candle|bhagte|top\s*chase|chase)/i.test(cLow)) why = 'Running Candle FOMO';
-          else if (/(revenge|gusse|turant\s*baad|cover\s*karne)/i.test(cLow)) why = 'Revenge Trade';
+          if (hasAnyKw(cLow, ['spring','wyckoff','reclaim','shakeout','स्प्रिंग','वाइकॉफ','रिक्लेम','शेकआउट'])) {
+            why = 'Wyckoff Spring Reclaim';
+          } else if (hasAnyKw(cLow, ['3-lock','3 lock','7-ema','7 ema','sniper','srb','pullback','3-लॉक','तीन लॉक','7-ईएमए','स्नाइपर','पुलबैक'])) {
+            why = '3-Lock + 7-EMA Root';
+          } else if (hasAnyKw(cLow, ['sideways','mid-box','mid box','box ke beech','box me','range','chop','साइडवेज','बॉक्स के बीच','बॉक्स में','रेंज'])) {
+            why = 'Sideways Mid-Box Guess';
+          } else if (hasAnyKw(cLow, ['fomo','running candle','bhagte','top chase','chase','chased','फोमो','भागते','चलती कैंडल','चेज़'])) {
+            why = 'Running Candle FOMO';
+          } else if (hasAnyKw(cLow, ['revenge','gusse','angry','turant baad','cover karne','रिवेंज','गुस्से','बदले','तुरंत बाद'])) {
+            why = 'Revenge Trade';
+          }
 
           let slType = 'Target Hit (T1/T2/T3)';
           if (pnl < 0) {
-            if (/(galat|bad|mistake|lalach|fomo|sideways|box|revenge|rule\s*toda|bina\s*setup)/i.test(cLow) || why === 'Sideways Mid-Box Guess' || why === 'Running Candle FOMO' || why === 'Revenge Trade') {
+            if (hasAnyKw(cLow, [
+              'galat','bad','mistake','wrong','lalach','greed','fomo','sideways','box','revenge','rule toda','bina setup',
+              'गलत','लालच','फोमो','साइडवेज','बॉक्स','रिवेंज','नियम तोड़ा','बिना सेटअप','गलती'
+            ]) || why === 'Sideways Mid-Box Guess' || why === 'Running Candle FOMO' || why === 'Revenge Trade') {
               slType = 'Bad Mistake SL';
             } else {
               slType = 'Good System SL';
@@ -1695,9 +1799,9 @@
           }
 
           let greed = 'Disciplined Trail (Zero Greed)';
-          if (/(overtrade|overtrading|lalach|quota|bar\s*bar|sideways|revenge)/i.test(cLow) && pnl < 0) {
+          if (hasAnyKw(cLow, ['overtrade','overtrading','overtraded','lalach','greed','quota','bar bar','sideways','revenge','ओवरट्रेड','लालच','साइडवेज','रिवेंज']) && pnl < 0) {
             greed = 'Quota Greed (Overtraded)';
-          } else if (/(trail\s*nahi|wapas\s*loss|target\s*greed)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['trail nahi','didn\'t trail','did not trail','wapas loss','target greed','ट्रेल नहीं','वापस लॉस'])) {
             greed = "Target Greed (Didn't Trail)";
           }
 
@@ -1714,82 +1818,85 @@
           return;
         }
 
+        // Expense Clause Classification (Tri-Lingual: Hindi Devanagari + English + Hinglish)
         if (amounts.length > 0) {
           const amt = amounts[0];
           let category = 'Rozmarra Essential';
           let cleanTitle = 'Rozmarra Grihasthi Item';
           let bandhaMatchKeyword = '';
 
-          if (/(wifi|wi-fi|broadband|internet|airtel|jio\s*fiber)/i.test(cLow)) {
+          if (hasAnyKw(cLow, ['wifi','wi-fi','broadband','internet','airtel','jio fiber','वाई-फाई','वाईफाई','ब्रॉडबैंड','इंटरनेट'])) {
             category = 'ITR-3 Business Deduct';
             cleanTitle = 'Wi-Fi / Broadband (Trading Setup)';
             bandhaMatchKeyword = 'wi-fi';
-          } else if (/(mobile\s*data|mobile\s*recharge|sim\s*recharge|data\s*pack)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['mobile data','mobile recharge','sim recharge','data pack','phone recharge','मोबाइल डेटा','मोबाइल रिचार्ज','डेटा पैक','सिम रिचार्ज'])) {
             category = 'ITR-3 Business Deduct';
             cleanTitle = 'Mobile Data & Recharge';
             bandhaMatchKeyword = 'mobile data';
-          } else if (/(tradingview|market\s*data|sensibull|opstra|chartink)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['tradingview','market data','sensibull','opstra','chartink','ट्रेडिंगव्यू','मार्केट डेटा','सेंसिबुल'])) {
             category = 'ITR-3 Business Deduct';
             cleanTitle = 'TradingView Pro & Market Data Feed';
             bandhaMatchKeyword = 'tradingview';
-          } else if (/(brokerage|stt|exchange\s*fee)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['brokerage','stt','exchange fee','ब्रोकरेज','एस.टी.टी','चार्जेस'])) {
             category = 'ITR-3 Business Deduct';
             cleanTitle = 'Brokerage, STT & Exchange Fees';
             bandhaMatchKeyword = 'brokerage';
-          } else if (/(ipad|laptop|macbook|monitor|ups|keyboard|mouse|cooling\s*pad)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['ipad','laptop','macbook','monitor','ups','keyboard','mouse','cooling pad','आईपैड','लैपटॉप','मैकबुक','मॉनिटर','यूपीएस','कीबोर्ड','माउस'])) {
             category = 'ITR-3 Business Deduct';
             cleanTitle = 'Trading Hardware / Tech Accessory';
-          } else if (/(sip|index\s*fund|mutual\s*fund|sukanya|ppf|elss|nps|80c)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['sip','index fund','mutual fund','sukanya','ppf','elss','nps','80c','एसआईपी','म्यूचुअल फंड','इंडेक्स फंड','सुकन्या','पीपीएफ','निवेश'])) {
             category = 'SIP & 80C/80D Wealth';
             cleanTitle = '80C Equity/Index SIP & Sukanya';
             bandhaMatchKeyword = '80c';
-          } else if (/(mediclaim|health\s*insurance|lic|term\s*plan|80d)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['mediclaim','health insurance','lic','term plan','80d','मेडिक्लेम','स्वास्थ्य बीमा','हेल्थ इंश्योरेंस','एलआईसी','बीमा'])) {
             category = 'SIP & 80C/80D Wealth';
             cleanTitle = 'Family Health Insurance (Mediclaim)';
             bandhaMatchKeyword = 'insurance';
-          } else if (/(zomato|swiggy|pizza|burger|junk|momos|cold\s*drink|party|faltu|fizul|impulse|flash\s*sale)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['zomato','swiggy','pizza','burger','junk','momos','fries','cold drink','pepsi','coke','party','club','movie','faltu','fizul','impulse','wasteful','unplanned','flash sale','जोमैटो','स्विगी','पिज्जा','बर्गर','मोमोज','जंक फूड','कोल्ड ड्रिंक','पार्टी','फालतू','फिजूल','बिना जरूरत','मूवी'])) {
             category = 'Fizul Kharch';
-            if (/pizza/i.test(cLow)) cleanTitle = 'Zomato / Pizza (Fizul Order)';
-            else if (/(zomato|swiggy)/i.test(cLow)) cleanTitle = 'Zomato / Swiggy Impulse Order';
+            if (hasAnyKw(cLow, ['pizza','पिज्जा'])) cleanTitle = 'Zomato / Pizza (Fizul Order)';
+            else if (hasAnyKw(cLow, ['zomato','swiggy','जोमैटो','स्विगी'])) cleanTitle = 'Zomato / Swiggy Impulse Order';
             else cleanTitle = 'Unplanned Fizul / Impulse Spend';
-          } else if (/(udhaar|udhari|split|wapas\s*lena|dost\s*ko\s*diye)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['udhaar','udhari','lent','loaned','split bill','to collect','wapas lena','dost ko diye','उधार','उधारी','दोस्त को दिए','वापस लेना','बिल बांटा','स्प्लिट'])) {
             category = 'Udhaari Receivable';
-            cleanTitle = 'Dost Udhaari / Bill Split (Vasooli)';
-          } else if (/(papa|mummy|parents|maa|pitaji|parivar\s*seva|ghar\s*bheje)/i.test(cLow)) {
+            cleanTitle = clause.trim().slice(0, 42) || 'Dost Udhaari / Bill Split (Vasooli)';
+          } else if (hasAnyKw(cLow, ['papa','mummy','parents','father','mother','maa','pitaji','parivar seva','sent home','family support','ghar bheje','school fees','पापा','मम्मी','माता','पिताजी','परिवार सेवा','घर भेजे','घर खर्च','स्कूल फीस'])) {
             category = 'Parivar Seva';
             cleanTitle = 'Papa/Mummy & Parivar Seva';
-          } else if (/(chai|tapri|sutta|maggi|biscuit|chillar)/i.test(cLow) || amt <= 95) {
+          } else if (hasAnyKw(cLow, ['chai','tea','coffee','tapri','sutta','maggi','biscuit','samosa','snack','chillar','चाय','टपरी','कॉफी','बिस्किट','मैगी','समोसा','नाश्ता','चिल्लर']) || amt <= 95) {
             category = 'Chillar Micro-UPI';
             cleanTitle = 'Chai / Tapri / Chillar Micro-UPI';
-          } else if (/(shauk|earphone|shoes|shirt|tshirt|jeans|cafe|outing|watch)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['shauk','clothes','shirt','tshirt','jeans','shoes','watch','earphone','headphones','gadget','cafe','outing','salon','saloon','haircut','शौक','कपड़े','शर्ट','जींस','जूते','घड़ी','ईयरफोन','कैफे','सैलून','हेयरकट'])) {
             category = 'Personal Shauk';
             cleanTitle = 'Personal Shauk & Lifestyle';
-          } else if (/(tyohar|puja|shagun|gift|diwali|holi|chhath|rakhi|mehman|shadi|yatra|emergency)/i.test(cLow)) {
+          } else if (hasAnyKw(cLow, ['tyohar','festival','puja','temple','mandir','prasad','shagun','gift','diwali','holi','chhath','rakhi','guests','mehman','wedding','shadi','travel','yatra','trip','emergency','repair','त्योहार','पूजा','मंदिर','प्रसाद','शगुन','उपहार','गिफ्ट','दिवाली','होली','छठ','राखी','मेहमान','शादी','यात्रा','इमरजेंसी','रिपेयर'])) {
             category = 'Tyohar & Emergency';
-            if (/shagun|gift/i.test(cLow)) cleanTitle = 'Parivar Shagun / Gift';
-            else if (/puja|chhath|diwali/i.test(cLow)) cleanTitle = 'Tyohar & Puja Samagri';
+            if (hasAnyKw(cLow, ['shagun','gift','शगुन','उपहार','गिफ्ट'])) cleanTitle = 'Parivar Shagun / Gift';
+            else if (hasAnyKw(cLow, ['puja','chhath','diwali','temple','पूजा','छठ','दिवाली','मंदिर'])) cleanTitle = 'Tyohar & Puja Samagri';
             else cleanTitle = 'Tyohar / Family Emergency Buffer';
           } else {
             category = 'Rozmarra Essential';
-            if (/(sabzi|phal|fruit|mandi|vegetable)/i.test(cLow)) cleanTitle = 'Taaza Sabzi & Phal (Mandi)';
-            else if (/(petrol|diesel|fuel|scooty|scooter|car|cng)/i.test(cLow)) cleanTitle = 'Petrol / Vehicle Fuel';
-            else if (/(dawai|medicine|medical|pharmacy|vitamin|doctor)/i.test(cLow)) cleanTitle = 'Family Medical & Pharmacy';
-            else if (/(doodh|paneer|dairy|curd|dahi)/i.test(cLow)) {
+            if (hasAnyKw(cLow, ['sabzi','phal','fruit','fruits','vegetable','vegetables','mandi','grocery','groceries','सब्जी','सब्ज़ी','फल','मंडी'])) cleanTitle = 'Taaza Sabzi & Phal (Mandi)';
+            else if (hasAnyKw(cLow, ['petrol','diesel','fuel','scooty','scooter','car','cng','पेट्रोल','डीजल','स्कूटी','गाड़ी','ईंधन'])) cleanTitle = 'Petrol / Vehicle Fuel';
+            else if (hasAnyKw(cLow, ['dawai','medicine','medical','pharmacy','vitamin','doctor','दवाई','दवा','मेडिकल','डॉक्टर','विटामिन'])) cleanTitle = 'Family Medical & Pharmacy';
+            else if (hasAnyKw(cLow, ['doodh','milk','paneer','dairy','curd','dahi','दूध','पनीर','दही','डेयरी'])) {
               cleanTitle = 'Doodh & Dairy';
-              if (/monthly|mahine/i.test(cLow)) bandhaMatchKeyword = 'doodh';
-            } else if (/(kirana|ration|atta|dal|oil)/i.test(cLow)) {
+              if (hasAnyKw(cLow, ['monthly','mahine','मासिक','महीने'])) bandhaMatchKeyword = 'doodh';
+            } else if (hasAnyKw(cLow, ['kirana','ration','atta','flour','dal','oil','किराना','राशन','आटा','दाल','तेल'])) {
               cleanTitle = 'Kirana & Ghar Ration';
-              if (/monthly|mahine/i.test(cLow)) bandhaMatchKeyword = 'kirana';
-            } else if (/(auto|cab|bus|metro|rickshaw)/i.test(cLow)) {
+              if (hasAnyKw(cLow, ['monthly','mahine','मासिक','महीने'])) bandhaMatchKeyword = 'kirana';
+            } else if (hasAnyKw(cLow, ['auto','cab','bus','metro','rickshaw','ऑटो','कैब','बस','मेट्रो','रिक्शा'])) {
               cleanTitle = 'Local Transit / Auto';
+            } else if (hasAnyKw(cLow, ['bijli','electricity','lpg','gas','cylinder','water','बिजली','गैस','सिलेंडर','पानी'])) {
+              cleanTitle = 'Ghar Utility (Bijli / Gas / Water)';
             } else {
-              cleanTitle = 'Rozmarra Ghar Kharch';
+              cleanTitle = clause.replace(/\d+/g, '').replace(/[₹]/g, '').trim().slice(0, 34) || 'Rozmarra Ghar Kharch';
             }
           }
 
           let matchedBandha = null;
           if (enableBandheDedup && bandhaMatchKeyword) {
-            matchedBandha = state.recurringBills.find(b => b.active && b.title.toLowerCase().includes(bandhaMatchKeyword));
+            matchedBandha = state.recurringBills.find(b => b.title.toLowerCase().includes(bandhaMatchKeyword));
           }
 
           expenses.push({
@@ -1805,11 +1912,11 @@
           return;
         }
 
-        if (clause.length >= 6) {
+        if (clause.length >= 4) {
           let tag = '📖 Dinacharya';
-          if (/(workout|walk|gym|run|yoga|exercise|health)/i.test(cLow)) tag = '💪 Health';
-          else if (/(code|python|raghava|astra|trinetra|backtest|test|chart|study)/i.test(cLow)) tag = '💻 Quant R&D';
-          else if (/(papa|mummy|roshni|parivar|family|temple|mandir|puja)/i.test(cLow)) tag = '👨‍👩‍👧 Parivar';
+          if (hasAnyKw(cLow, ['workout','walk','gym','run','yoga','exercise','health','व्यायाम','कसरत','जिम','योग','वॉक','टहल'])) tag = '💪 Health';
+          else if (hasAnyKw(cLow, ['code','coding','python','raghava','astra','trinetra','backtest','test','chart','study','कोड','पायथन','बैकटेस्ट','टेस्ट','चार्ट','पढ़ाई'])) tag = '💻 Quant R&D';
+          else if (hasAnyKw(cLow, ['papa','mummy','roshni','parivar','family','parents','temple','mandir','puja','पापा','मम्मी','परिवार','मंदिर','पूजा'])) tag = '👨‍👩‍👧 Parivar';
           activities.push(`${tag}: ${clause.trim()}`);
         }
       });
@@ -1842,46 +1949,49 @@
 
       const entryDate = (dateEl && dateEl.value) ? dateEl.value : '2026-11-15';
       const dedup = dedupEl ? dedupEl.checked : true;
-      const parsed = parseSandhyaDiaryText(txtEl.value, entryDate, dedup);
+      const rawVal = (txtEl.value || '').trim();
+      const parsed = parseSandhyaDiaryText(rawVal, entryDate, dedup);
 
       const tradesHtml = parsed.trades.length === 0
-        ? `<div class="text-slate-500 italic">No trade mentioned in text</div>`
+        ? `<div class="text-slate-400 italic py-1">Aaj ka trade likhein (हिन्दी / Eng / Hinglish)...</div>`
         : parsed.trades.map(t => {
             const isWin = t.pnl >= 0;
             const col = isWin ? 'text-emerald-300 border-emerald-500/40 bg-emerald-950/40' : (t.slType === 'Bad Mistake SL' ? 'text-rose-300 border-rose-500/40 bg-rose-950/40' : 'text-cyan-300 border-cyan-500/40 bg-cyan-950/40');
             return `<div class="p-2 rounded-xl border ${col} mb-1.5">
-              <div class="flex justify-between font-black"><span>${t.strike}</span><span class="mono">${isWin ? '+' : ''}${formatINR(t.pnl)}</span></div>
+              <div class="flex items-center justify-between gap-2 font-black"><span>${t.strike}</span><span class="mono whitespace-nowrap">${isWin ? '+' : ''}${formatINR(t.pnl)}</span></div>
               <div class="text-[10px] text-slate-300 mt-0.5">${t.why} • <strong>${t.slType}</strong></div>
             </div>`;
           }).join('');
 
       const expHtml = parsed.expenses.length === 0
-        ? `<div class="text-slate-500 italic">No ₹ expense mentioned</div>`
+        ? `<div class="text-slate-400 italic py-1">Aaj ke ₹ kharche likhein (सब्जी, पेट्रोल, Wi-Fi)...</div>`
         : parsed.expenses.map(e => {
             const isDedup = Boolean(e.matchedBandhaId);
             const col = e.category === 'Fizul Kharch'
               ? 'border-rose-500/40 bg-rose-950/40 text-rose-200'
               : (e.category === 'ITR-3 Business Deduct' ? 'border-violet-500/40 bg-violet-950/40 text-violet-200' : 'border-cyan-500/40 bg-cyan-950/40 text-cyan-200');
             return `<div class="p-2 rounded-xl border ${col} mb-1.5">
-              <div class="flex justify-between font-bold"><span>${e.title}</span><span class="mono font-black">${formatINR(e.amount)}</span></div>
-              <div class="text-[10px] mt-0.5 flex items-center justify-between">
+              <div class="flex items-center justify-between gap-2 font-bold"><span class="truncate">${e.title}</span><span class="mono font-black whitespace-nowrap">${formatINR(e.amount)}</span></div>
+              <div class="text-[10px] mt-1 flex items-center justify-between flex-wrap gap-1">
                 <span>${e.category}</span>
-                ${isDedup ? `<span class="px-1.5 py-0.2 rounded bg-emerald-500/30 text-emerald-200 font-black">🔄 Bandha Bill Sync (No Double Count)</span>` : ''}
+                ${isDedup ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-200 font-black whitespace-nowrap">🔄 Bandha Sync</span>` : ''}
               </div>
             </div>`;
           }).join('');
 
       const actHtml = parsed.activities.length === 0
-        ? `<div class="text-slate-500 italic">Write workout/coding/family notes to log Dinacharya</div>`
+        ? `<div class="text-slate-400 italic py-1">Workout, coding ya parivar notes likhein...</div>`
         : parsed.activities.map(a => `<div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-200 mb-1.5 font-semibold">${a}</div>`).join('');
 
       const dayNum = Math.max(1, Math.min(31, parseInt(entryDate.split('-')[2] || '15', 10)));
-      const passCount = parsed.habitUpdates.filter(x => x === 1).length;
+      const passCount = rawVal ? parsed.habitUpdates.filter(x => x === 1).length : 0;
       const habitNames = ['3-Lock Wait', 'Zero Mid-Box', 'Smart SL', 'Zero Greed', 'Kharch Logged', 'Zero Fizul'];
-      const habitsHtml = parsed.habitUpdates.map((val, idx) => {
-        const badge = val === 1 ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40' : 'bg-rose-500/25 text-rose-300 border-rose-500/40';
-        return `<span class="inline-block px-2 py-1 rounded-lg border text-[10px] font-bold mr-1 mb-1 ${badge}">${val === 1 ? '✓' : '✕'} ${habitNames[idx]}</span>`;
-      }).join('');
+      const habitsHtml = !rawVal
+        ? `<div class="text-slate-400 italic py-1">Diary likhte hi Day D${dayNum} ke 6 rules auto-check honge</div>`
+        : parsed.habitUpdates.map((val, idx) => {
+            const badge = val === 1 ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40' : 'bg-rose-500/25 text-rose-300 border-rose-500/40';
+            return `<span class="inline-block px-2 py-1 rounded-lg border text-[10px] font-bold mr-1 mb-1 ${badge}">${val === 1 ? '✓' : '✕'} ${habitNames[idx]}</span>`;
+          }).join('');
 
       box.innerHTML = `
         <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-emerald-500/30">
@@ -1984,7 +2094,7 @@
       `;
 
       // Render Tab 1 Tables (Recent Trades & Expenses)
-      document.getElementById('dailyTradesTable').innerHTML = state.trades.slice().reverse().map(t => {
+      document.getElementById('dailyTradesTable').innerHTML = (m.filteredTrades.length === 0 ? `<div class='text-xs text-slate-400 italic py-2'>Abhi koi trade darj nahi hai (₹0). Upar 7–8 PM Diary me likhein ya form se add karein.</div>` : m.filteredTrades.slice().reverse().map(t => {
         const isWin = Number(t.pnl) >= 0;
         const badge = isWin ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : (t.slType === 'Bad Mistake SL' ? 'bg-rose-500/25 text-rose-300 border-rose-500/40' : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40');
         return `
@@ -2003,9 +2113,9 @@
             </div>
           </div>
         `;
-      }).join('');
+      }).join(''));
 
-      document.getElementById('dailyExpensesTable').innerHTML = state.expenses.slice().reverse().map(e => {
+      document.getElementById('dailyExpensesTable').innerHTML = (m.filteredExpenses.length === 0 ? `<div class='text-xs text-slate-400 italic py-2'>Abhi koi kharch darj nahi hai (₹0). Upar हिन्दी / English / Hinglish me likhein.</div>` : m.filteredExpenses.slice().reverse().map(e => {
         const isFizul = e.category === 'Fizul Kharch';
         const isItr = e.category === 'ITR-3 Business Deduct';
         const badge = isFizul ? 'bg-rose-500/25 text-rose-300 border-rose-500/40' : (isItr ? 'bg-violet-500/25 text-violet-300 border-violet-500/40' : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40');
@@ -2024,7 +2134,7 @@
             </div>
           </div>
         `;
-      }).join('');
+      }).join(''));
 
       // Render Tab 2: Full Bandhe Monthly Bills Grid
       document.getElementById('bandheSec37Sum').textContent = formatINR(m.sec37Auto);
@@ -2401,6 +2511,7 @@
     function switchTab(tabId) {
       const rad = document.getElementById('rad-tab-' + tabId);
       if (rad) rad.checked = true;
+      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
       document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
       const target = document.getElementById('view-' + tabId);
       if (target) target.classList.remove('hidden');
@@ -2662,12 +2773,47 @@
       document.getElementById('btnQuickExportITR').addEventListener('click', exportItrCsv);
       document.getElementById('btnExportItrFromVault').addEventListener('click', exportItrCsv);
 
-      document.getElementById('btnResetDemoData').addEventListener('click', () => {
+      document.getElementById('btnResetDemoData').addEventListener('click', async () => {
         state = getDefaultState();
-        saveState();
+        const diaryEl = document.getElementById('diaryTextInput');
+        if (diaryEl) diaryEl.value = '';
+        await saveState();
         renderAll();
-        showToast('Restored default Indian Family + Trader dataset');
+        showToast('🗑️ All Dummy & Old Data Wiped! Journal Reset to ₹0 Clean Slate.');
       });
+
+      const monthSelEl = document.getElementById('activeMonthSelect');
+      if (monthSelEl) {
+        monthSelEl.addEventListener('change', () => {
+          renderAll();
+          showToast(`📅 Filtered Journal View: ${monthSelEl.options[monthSelEl.selectedIndex].text}`);
+        });
+      }
+
+      const btnClearDiary = document.getElementById('btnClearDiaryBox');
+      if (btnClearDiary) {
+        btnClearDiary.addEventListener('click', () => {
+          const diaryEl = document.getElementById('diaryTextInput');
+          if (diaryEl) diaryEl.value = '';
+          renderDiaryStagingPreview();
+          showToast('Cleared Diary Input Box');
+        });
+      }
+
+      const btnBackupJson = document.getElementById('btnBackupJson');
+      if (btnBackupJson) {
+        btnBackupJson.addEventListener('click', () => {
+          const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'TRINETRA_JOURNAL_BACKUP.json';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          showToast('💾 Downloaded Full Journal Backup (.json)!');
+        });
+      }
 
       // Sandhya 7-8 PM AI Diary Events
       const diaryInputEl = document.getElementById('diaryTextInput');
@@ -2768,6 +2914,7 @@
             summaryBadge: `${parsed.trades.length} Trades • ${newExpCount} Kharch • ${syncedBandhaCount} Bandhe Synced`
           });
 
+          if (diaryInputEl) diaryInputEl.value = '';
           saveState();
           renderAll();
           showToast(`✅ AI Committed: ${parsed.trades.length} Trades, ${newExpCount} Kharch (${syncedBandhaCount} Bandhe Bill Synced) & Day D${dayIdx + 1} Habits!`);
@@ -2784,7 +2931,8 @@
           }
           try {
             const rec = new SpeechRec();
-            rec.lang = 'hi-IN';
+            const langSel = document.getElementById('voiceLangSelect');
+            rec.lang = langSel ? langSel.value : 'hi-IN';
             rec.interimResults = false;
             btnMic.textContent = '🔴 Listening... Speak Now';
             rec.onresult = (ev) => {
