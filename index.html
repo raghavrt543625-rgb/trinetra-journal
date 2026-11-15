@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>🏹 RAGHAVA ASTRA • TRINETRA AI — Master Wealth, Trading & AI-CA Dock</title>
+  <title>🏹 RAGHAVA ASTRA • TRINETRA AI — V6.0 Simple 3D Daily Journal & Statement Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-deep: #060913;
-      --bg-card: rgba(15, 23, 42, 0.86);
+      --bg-deep: #050811;
       --emerald: #10b981;
       --cyan: #06b6d4;
       --blue: #3b82f6;
@@ -18,1690 +17,884 @@
       --amber: #f59e0b;
       --coral: #f43f5e;
     }
-    * { box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
-    body {
-      background: radial-gradient(circle at 15% 0%, rgba(139, 92, 246, 0.16) 0%, transparent 40%),
-                  radial-gradient(circle at 85% 5%, rgba(6, 182, 212, 0.15) 0%, transparent 42%),
-                  radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-                  #050811;
+    * {
+      box-sizing: border-box !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      max-width: 100%;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.20) 0%, transparent 45%),
+        radial-gradient(circle at 85% 10%, rgba(6, 182, 212, 0.16) 0%, transparent 45%),
+        #050811;
       color: #f8fafc;
       min-height: 100vh;
-      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
-    .mono { font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+    .mono {
+      font-family: 'IBM Plex Mono', monospace !important;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* =========================================================================
+       1. 3D EMBOSSED ("उभरा हुआ") TEXT & CENTER-ALIGNED ARCHITECTURE
+       ========================================================================= */
+    h1, h2, h3, h4, .embossed-3d {
+      text-align: center !important;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.22),
+        0 2px 0 rgba(2, 6, 23, 0.96),
+        0 4px 10px rgba(0, 0, 0, 0.85) !important;
+      letter-spacing: -0.01em;
+      word-break: break-word;
+    }
+    .kpi-3d-num {
+      text-align: center !important;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.28),
+        0 3px 0 rgba(2, 6, 23, 0.98),
+        0 6px 14px rgba(0, 0, 0, 0.90),
+        0 0 18px rgba(6, 182, 212, 0.30) !important;
+    }
+    .center-stack {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+
+    /* =========================================================================
+       2. 3D BEVELED BENTO CARDS (ZERO HORIZONTAL OVERFLOW)
+       ========================================================================= */
     .bento-card {
-      background: linear-gradient(160deg, rgba(17, 25, 44, 0.92) 0%, rgba(9, 14, 26, 0.96) 100%);
-      backdrop-filter: blur(16px);
-      border-radius: 18px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.12);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+      width: 100%;
+      overflow: hidden !important;
+      background: linear-gradient(165deg, rgba(19, 28, 51, 0.96) 0%, rgba(8, 13, 26, 0.99) 100%);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow:
+        0 6px 0 rgba(2, 6, 18, 0.98),
+        0 14px 30px rgba(0, 0, 0, 0.80),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.22),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.65);
     }
-    .bento-emerald { border: 1.5px solid rgba(16, 185, 129, 0.45); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(16, 185, 129, 0.25); }
-    .bento-cyan { border: 1.5px solid rgba(6, 182, 212, 0.48); box-shadow: 0 8px 25px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(6, 182, 212, 0.25); }
-    .bento-blue { border: 1.5px solid rgba(59, 130, 246, 0.48); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.12), inset 0 1px 0 rgba(59, 130, 246, 0.25); }
-    .bento-violet { border: 1.5px solid rgba(139, 92, 246, 0.52); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.14), inset 0 1px 0 rgba(139, 92, 246, 0.28); }
-    .bento-amber { border: 1.5px solid rgba(245, 158, 11, 0.48); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(245, 158, 11, 0.25); }
-    .bento-coral { border: 1.5px solid rgba(244, 63, 94, 0.50); box-shadow: 0 8px 25px rgba(244, 63, 94, 0.14), inset 0 1px 0 rgba(244, 63, 94, 0.25); }
-    .bento-design6-hero {
-      background: linear-gradient(155deg, rgba(88, 28, 135, 0.38) 0%, rgba(15, 23, 42, 0.95) 52%, rgba(8, 51, 68, 0.38) 100%);
-      border: 1.8px solid rgba(139, 92, 246, 0.65);
-      box-shadow: 0 12px 32px rgba(139, 92, 246, 0.20), 0 0 18px rgba(6, 182, 212, 0.15);
+    .bento-emerald { border: 1.8px solid rgba(16, 185, 129, 0.60); }
+    .bento-cyan    { border: 1.8px solid rgba(6, 182, 212, 0.60); }
+    .bento-blue    { border: 1.8px solid rgba(59, 130, 246, 0.60); }
+    .bento-violet  { border: 1.8px solid rgba(139, 92, 246, 0.65); }
+    .bento-amber   { border: 1.8px solid rgba(245, 158, 11, 0.60); }
+    .bento-coral   { border: 1.8px solid rgba(244, 63, 94, 0.60); }
+    .bento-hero {
+      background: linear-gradient(160deg, rgba(76, 29, 149, 0.36) 0%, rgba(15, 23, 42, 0.97) 52%, rgba(8, 51, 68, 0.38) 100%);
+      border: 2px solid rgba(34, 211, 238, 0.72);
+      box-shadow:
+        0 7px 0 rgba(2, 6, 20, 0.98),
+        0 16px 36px rgba(0, 0, 0, 0.85),
+        0 0 24px rgba(6, 182, 212, 0.18),
+        inset 0 2px 1px rgba(255, 255, 255, 0.28);
     }
-    .pill-tab {
-      border-radius: 9999px;
-      padding: 8px 15px;
-      font-weight: 800;
-      font-size: 0.78rem;
-      letter-spacing: 0.2px;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .tab-emerald { border: 1.5px solid #10b981; color: #a7f3d0; background: rgba(16, 185, 129, 0.10); }
-    .tab-emerald.active { background: linear-gradient(135deg, #059669, #10b981); color: #022c22; box-shadow: 0 0 18px rgba(16, 185, 129, 0.6); }
-    .tab-cyan { border: 1.5px solid #06b6d4; color: #a5f3fc; background: rgba(6, 182, 212, 0.10); }
-    .tab-cyan.active { background: linear-gradient(135deg, #0891b2, #06b6d4); color: #083344; box-shadow: 0 0 18px rgba(6, 182, 212, 0.6); }
-    .tab-blue { border: 1.5px solid #3b82f6; color: #bfdbfe; background: rgba(59, 130, 246, 0.10); }
-    .tab-blue.active { background: linear-gradient(135deg, #2563eb, #60a5fa); color: #0f172a; box-shadow: 0 0 18px rgba(59, 130, 246, 0.6); }
-    .tab-violet { border: 1.5px solid #8b5cf6; color: #ddd6fe; background: rgba(139, 92, 246, 0.10); }
-    .tab-violet.active { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #1e1b4b; box-shadow: 0 0 18px rgba(139, 92, 246, 0.6); }
-    .tab-amber { border: 1.5px solid #f59e0b; color: #fde68a; background: rgba(245, 158, 11, 0.10); }
-    .tab-amber.active { background: linear-gradient(135deg, #d97706, #fbbf24); color: #451a03; box-shadow: 0 0 18px rgba(245, 158, 11, 0.6); }
-    .tab-master { border: 1.5px solid #ec4899; color: #fbcfe8; background: rgba(236, 72, 153, 0.12); }
-    .tab-master.active { background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981); color: #ffffff; box-shadow: 0 0 22px rgba(6, 182, 212, 0.65); }
-    .toggle-switch {
-      width: 46px; height: 24px; border-radius: 999px; position: relative; cursor: pointer; transition: all 0.22s ease;
-    }
-    .toggle-switch.on { background: linear-gradient(90deg, #06b6d4, #10b981); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
-    .toggle-switch.off { background: #334155; }
-    .toggle-knob {
-      width: 18px; height: 18px; border-radius: 50%; background: #fff; position: absolute; top: 3px; transition: all 0.22s ease;
-    }
-    .toggle-switch.on .toggle-knob { left: 25px; }
-    .toggle-switch.off .toggle-knob { left: 3px; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #090d16; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
-  
+
     /* =========================================================================
-       iPadOS QuickLook & Zero-CDN Offline Fallback Stylesheet
-       Ensures 100% Dark Bento Layout even when cdn.tailwindcss.com is blocked
+       3. REAL 3D MECHANICAL PUSH-BUTTONS ("दबने वाला 3D बटन + प्रॉपर बॉर्डर")
        ========================================================================= */
-    .hidden { display: none !important; }
-    .block { display: block; }
-    .inline-block { display: inline-block; }
-    .flex { display: flex; }
-    .flex-1 { flex: 1 1 0%; }
-    .flex-col { flex-direction: column; }
-    .flex-wrap { flex-wrap: wrap; }
-    .items-center { align-items: center; }
-    .items-start { align-items: flex-start; }
-    .items-end { align-items: flex-end; }
-    .justify-between { justify-content: space-between; }
-    .justify-center { justify-content: center; }
-    .shrink-0 { flex-shrink: 0; }
-    .min-w-0 { min-width: 0; }
-    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .w-full { width: 100%; }
-    .max-w-\[1600px\] { max-width: 1600px; }
-    .mx-auto { margin-left: auto; margin-right: auto; }
-    .mb-1 { margin-bottom: 0.25rem; }
-    .mb-1\.5 { margin-bottom: 0.375rem; }
-    .mb-2 { margin-bottom: 0.5rem; }
-    .mb-3 { margin-bottom: 0.75rem; }
-    .mb-4 { margin-bottom: 1rem; }
-    .mt-0\.5 { margin-top: 0.125rem; }
-    .mt-1 { margin-top: 0.25rem; }
-    .mt-1\.5 { margin-top: 0.375rem; }
-    .mt-2 { margin-top: 0.5rem; }
-    .mt-2\.5 { margin-top: 0.625rem; }
-    .mt-3 { margin-top: 0.75rem; }
-    .mt-4 { margin-top: 1rem; }
-    .mr-1 { margin-right: 0.25rem; }
-    .p-2 { padding: 0.5rem; }
-    .p-2\.5 { padding: 0.625rem; }
-    .p-3 { padding: 0.75rem; }
-    .p-3\.5 { padding: 0.875rem; }
-    .p-4 { padding: 1rem; }
-    .p-5 { padding: 1.25rem; }
-    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-    .px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
-    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-    .px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
-    .px-4 { padding-left: 1rem; padding-right: 1rem; }
-    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
-    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-    .py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
-    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-    .py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
-    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-    .pt-2 { padding-top: 0.5rem; }
-    .pt-3 { padding-top: 0.75rem; }
-    .pb-1\.5 { padding-bottom: 0.375rem; }
-    .gap-1 { gap: 0.25rem; }
-    .gap-1\.5 { gap: 0.375rem; }
-    .gap-2 { gap: 0.5rem; }
-    .gap-2\.5 { gap: 0.625rem; }
-    .gap-3 { gap: 0.75rem; }
-    .gap-4 { gap: 1rem; }
-    .space-y-2 > * + * { margin-top: 0.5rem; }
-    .space-y-2\.5 > * + * { margin-top: 0.625rem; }
-    .space-y-4 > * + * { margin-top: 1rem; }
-    .grid { display: grid; }
-    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    @media (min-width: 640px) {
-      .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .sm\:flex-row { flex-direction: row; }
-      .sm\:items-center { align-items: center; }
-    }
-    @media (min-width: 768px) {
-      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .md\:flex-row { flex-direction: row; }
-      .md\:items-center { align-items: center; }
-    }
-    @media (min-width: 1024px) {
-      .lg\:flex-row { flex-direction: row; }
-      .lg\:items-center { align-items: center; }
-      .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-      .lg\:col-span-4 { grid-column: span 4 / span 4; }
-      .lg\:col-span-5 { grid-column: span 5 / span 5; }
-      .lg\:col-span-6 { grid-column: span 6 / span 6; }
-      .lg\:col-span-7 { grid-column: span 7 / span 7; }
-      .lg\:col-span-12 { grid-column: span 12 / span 12; }
-    }
-    @media (min-width: 1280px) {
-      .xl\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .xl\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
-    /* Dark-Mode Inputs, Selects, Textareas & Buttons (Never White on iPad!) */
-    input, select, textarea {
-      background-color: #0b1120 !important;
-      color: #f8fafc !important;
-      border: 1.5px solid rgba(56, 189, 248, 0.38) !important;
-      border-radius: 12px !important;
-      padding: 8px 11px !important;
-      font-size: 0.78rem !important;
-      font-weight: 700 !important;
-      outline: none !important;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    input[type="checkbox"] {
-      width: 16px !important;
-      height: 16px !important;
-      padding: 0 !important;
-      border-radius: 4px !important;
-      -webkit-appearance: checkbox !important;
-      appearance: checkbox !important;
-      accent-color: #06b6d4;
-    }
-    button {
-      background-color: rgba(15, 23, 42, 0.92);
-      color: #e2e8f0;
-      border: 1.5px solid rgba(139, 92, 246, 0.45);
-      border-radius: 12px;
-      padding: 8px 13px;
-      font-weight: 800;
-      font-size: 0.76rem;
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-    button:hover { filter: brightness(1.12); }
-    .text-emerald-300, .text-emerald-400 { color: #34d399; }
-    .text-cyan-200, .text-cyan-300, .text-cyan-400 { color: #22d3ee; }
-    .text-violet-200, .text-violet-300, .text-violet-400 { color: #c084fc; }
-    .text-rose-200, .text-rose-300, .text-rose-400 { color: #fb7185; }
-    .text-amber-200, .text-amber-300, .text-amber-400 { color: #fbbf24; }
-    .text-slate-200, .text-slate-300 { color: #cbd5e1; }
-    .text-slate-400, .text-slate-500 { color: #94a3b8; }
-    .text-white { color: #ffffff; }
-    .font-black { font-weight: 900; }
-    .font-extrabold { font-weight: 800; }
-    .font-bold { font-weight: 700; }
-    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
-    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-    .text-lg { font-size: 1.125rem; line-height: 1.6rem; }
-    .text-sm { font-size: 0.875rem; }
-    .text-xs { font-size: 0.75rem; }
-    .text-\[11px\] { font-size: 11px; }
-    .text-\[10px\] { font-size: 10px; }
-    .rounded-xl { border-radius: 12px; }
-    .rounded-2xl { border-radius: 16px; }
-    .rounded-full { border-radius: 9999px; }
-    .overflow-x-auto { overflow-x: auto; }
-    .overflow-y-auto { overflow-y: auto; }
-    .max-h-72 { max-height: 18rem; }
-    .max-h-\[430px\] { max-height: 430px; }
-
-  
-    /* =========================================================================
-       PURE-CSS TAB ENGINE FOR iPadOS FILES QUICKLOOK (WORKS WITH 0% JAVASCRIPT!)
-       ========================================================================= */
-    .css-tab-radio { display: none !important; }
-    .tab-view { display: none !important; }
-    #rad-tab-dock:checked ~ #view-dock { display: grid !important; }
-    #rad-tab-daily:checked ~ #view-daily { display: grid !important; }
-    #rad-tab-bandhe:checked ~ #view-bandhe { display: block !important; }
-    #rad-tab-charts:checked ~ #view-charts { display: grid !important; }
-    #rad-tab-aica:checked ~ #view-aica { display: grid !important; }
-    #rad-tab-rules:checked ~ #view-rules { display: block !important; }
-    #rad-tab-reconcile:checked ~ #view-reconcile { display: block !important; }
-
-    #rad-tab-dock:checked ~ nav label[for="rad-tab-dock"],
-    #rad-tab-daily:checked ~ nav label[for="rad-tab-daily"],
-    #rad-tab-bandhe:checked ~ nav label[for="rad-tab-bandhe"],
-    #rad-tab-charts:checked ~ nav label[for="rad-tab-charts"],
-    #rad-tab-aica:checked ~ nav label[for="rad-tab-aica"],
-    #rad-tab-rules:checked ~ nav label[for="rad-tab-rules"],
-    #rad-tab-reconcile:checked ~ nav label[for="rad-tab-reconcile"] {
-      background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981) !important;
-      color: #ffffff !important;
-      box-shadow: 0 0 18px rgba(6, 182, 212, 0.65) !important;
-    }
-    label.pill-tab { display: inline-block; user-select: none; -webkit-user-select: none; }
-
-  
-    /* =========================================================================
-       V4 COMPLETE SELF-CONTAINED ZERO-CDN & SAFARI PIXEL-PERFECT STYLESHEET
-       Guarantees 100% Identical Layout Even When External CDNs Are Blocked
-       ========================================================================= */
-    .relative { position: relative !important; }
-    .fixed { position: fixed !important; }
-    .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
-    .top-4 { top: 1rem !important; }
-    .right-4 { right: 1rem !important; }
-    .z-50 { z-index: 50 !important; }
-    .h-full { height: 100% !important; }
-    .w-full { width: 100% !important; }
-    .w-6 { width: 26px !important; min-width: 26px !important; }
-    .h-6 { height: 26px !important; min-height: 26px !important; }
-    .w-12 { width: 48px !important; min-width: 48px !important; }
-    .h-12 { height: 48px !important; min-height: 48px !important; }
-    .w-14 { width: 56px !important; min-width: 56px !important; }
-    .h-14 { height: 56px !important; min-height: 56px !important; }
-    .w-20 { width: 5rem !important; }
-    .w-24 { width: 6rem !important; }
-    .w-28 { width: 7rem !important; }
-    .w-32 { width: 8rem !important; }
-    .h-56 { height: 248px !important; max-height: 248px !important; position: relative !important; }
-    .h-72 { height: 304px !important; max-height: 304px !important; position: relative !important; }
-    .max-h-48 { max-height: 12rem !important; }
-    .max-h-72 { max-height: 18rem !important; }
-    .max-h-\[430px\] { max-height: 430px !important; }
-    .max-h-\[90vh\] { max-height: 90vh !important; }
-    .min-h-\[210px\] { min-height: 210px !important; }
-    .min-w-\[210px\] { min-width: 210px !important; }
-    .max-w-md { max-width: 28rem !important; }
-    .max-w-2xl { max-width: 42rem !important; }
-    .max-w-\[1600px\] { max-width: 1600px !important; }
-
-    .p-0\.5 { padding: 2px !important; }
-    .px-1 { padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
-    .px-1\.5 { padding-left: 0.375rem !important; padding-right: 0.375rem !important; }
-    .py-0\.2 { padding-top: 1px !important; padding-bottom: 1px !important; }
-    .py-0\.5 { padding-top: 0.125rem !important; padding-bottom: 0.125rem !important; }
-    .pr-1 { padding-right: 0.25rem !important; }
-    .pr-3 { padding-right: 0.75rem !important; }
-    .pt-2\.5 { padding-top: 0.625rem !important; }
-    .space-y-1 > * + * { margin-top: 0.25rem !important; }
-    .space-y-1\.5 > * + * { margin-top: 0.375rem !important; }
-    .space-y-2 > * + * { margin-top: 0.5rem !important; }
-    .space-y-2\.5 > * + * { margin-top: 0.625rem !important; }
-    .space-y-3 > * + * { margin-top: 0.75rem !important; }
-    .space-y-4 > * + * { margin-top: 1rem !important; }
-
-    .rounded { border-radius: 0.25rem !important; }
-    .rounded-md { border-radius: 0.375rem !important; }
-    .rounded-lg { border-radius: 0.5rem !important; }
-    .rounded-xl { border-radius: 0.75rem !important; }
-    .rounded-2xl { border-radius: 1rem !important; }
-    .rounded-\[14px\] { border-radius: 14px !important; }
-    .rounded-full { border-radius: 9999px !important; }
-
-    .border { border-width: 1px !important; border-style: solid !important; }
-    .border-2 { border-width: 2px !important; border-style: solid !important; }
-    .border-4 { border-width: 4px !important; border-style: solid !important; }
-    .border-t { border-top-width: 1px !important; border-top-style: solid !important; }
-    .border-b { border-bottom-width: 1px !important; border-bottom-style: solid !important; }
-    .border-collapse { border-collapse: collapse !important; }
-    .divide-y > * + * { border-top: 1px solid rgba(30, 41, 59, 0.75) !important; }
-
-    .border-slate-600, .border-slate-600\/50 { border-color: rgba(71, 85, 105, 0.6) !important; }
-    .border-slate-700, .border-slate-700\/70 { border-color: rgba(51, 65, 85, 0.75) !important; }
-    .border-slate-800, .border-slate-800\/80, .border-slate-800\/90 { border-color: rgba(30, 41, 59, 0.85) !important; }
-    .border-emerald-400\/40, .border-emerald-400\/50, .border-emerald-500\/30, .border-emerald-500\/40, .border-emerald-500\/45, .border-emerald-500\/50 { border-color: rgba(16, 185, 129, 0.45) !important; }
-    .border-cyan-400\/40, .border-cyan-400\/50, .border-cyan-400\/60, .border-cyan-500\/30, .border-cyan-500\/40, .border-cyan-500\/45, .border-cyan-500\/50 { border-color: rgba(6, 182, 212, 0.48) !important; }
-    .border-violet-400\/40, .border-violet-400\/50, .border-violet-500\/30, .border-violet-500\/40, .border-violet-500\/45, .border-violet-500\/50 { border-color: rgba(139, 92, 246, 0.48) !important; }
-    .border-amber-400\/40, .border-amber-400\/50, .border-amber-500\/30, .border-amber-500\/40, .border-amber-500\/50 { border-color: rgba(245, 158, 11, 0.48) !important; }
-    .border-rose-400\/50, .border-rose-500\/30, .border-rose-500\/40, .border-rose-500\/50 { border-color: rgba(244, 63, 94, 0.48) !important; }
-    .border-blue-500\/40 { border-color: rgba(59, 130, 246, 0.45) !important; }
-    .border-teal-500\/40 { border-color: rgba(20, 184, 166, 0.45) !important; }
-
-    .bg-slate-800, .bg-slate-800\/90 { background-color: rgba(30, 41, 59, 0.92) !important; }
-    .bg-slate-900, .bg-slate-900\/90, .bg-slate-900\/95 { background-color: rgba(15, 23, 42, 0.94) !important; }
-    .bg-slate-950, .bg-slate-950\/75, .bg-slate-950\/80, .bg-slate-950\/85, .bg-slate-950\/90, .bg-slate-950\/95 { background-color: rgba(4, 9, 20, 0.92) !important; }
-    .bg-emerald-500\/20, .bg-emerald-500\/25, .bg-emerald-500\/30, .bg-emerald-600\/25, .bg-emerald-600\/35 { background-color: rgba(16, 185, 129, 0.22) !important; }
-    .bg-emerald-600 { background-color: #059669 !important; }
-    .bg-emerald-950, .bg-emerald-950\/25, .bg-emerald-950\/40, .bg-emerald-950\/50, .bg-emerald-950\/90 { background-color: rgba(2, 44, 34, 0.65) !important; }
-    .bg-cyan-500\/20, .bg-cyan-500\/25, .bg-cyan-600\/25, .bg-cyan-600\/30 { background-color: rgba(6, 182, 212, 0.22) !important; }
-    .bg-cyan-950, .bg-cyan-950\/25, .bg-cyan-950\/40, .bg-cyan-950\/45, .bg-cyan-950\/70, .bg-cyan-950\/80, .bg-cyan-950\/90 { background-color: rgba(8, 51, 68, 0.65) !important; }
-    .bg-violet-500\/20, .bg-violet-500\/25, .bg-violet-500\/30, .bg-violet-600\/30, .bg-violet-600\/35 { background-color: rgba(139, 92, 246, 0.24) !important; }
-    .bg-violet-950, .bg-violet-950\/25, .bg-violet-950\/40, .bg-violet-950\/45, .bg-violet-950\/70, .bg-violet-950\/90 { background-color: rgba(46, 16, 101, 0.60) !important; }
-    .bg-amber-500\/10, .bg-amber-500\/15, .bg-amber-500\/20, .bg-amber-500\/25 { background-color: rgba(245, 158, 11, 0.20) !important; }
-    .bg-amber-950, .bg-amber-950\/30, .bg-amber-950\/40, .bg-amber-950\/70, .bg-amber-950\/80, .bg-amber-950\/90 { background-color: rgba(69, 26, 3, 0.65) !important; }
-    .bg-rose-500\/25, .bg-rose-600\/25, .bg-rose-600\/30 { background-color: rgba(244, 63, 94, 0.24) !important; }
-    .bg-rose-950, .bg-rose-950\/40, .bg-rose-950\/45, .bg-rose-950\/80, .bg-rose-950\/90 { background-color: rgba(76, 5, 25, 0.65) !important; }
-    .bg-blue-950, .bg-blue-950\/80 { background-color: rgba(23, 37, 84, 0.70) !important; }
-    .bg-teal-950 { background-color: rgba(4, 47, 46, 0.70) !important; }
-    .bg-black\/80 { background-color: rgba(0, 0, 0, 0.82) !important; }
-
-    .bg-gradient-to-r { background-image: linear-gradient(90deg, #7c3aed, #0891b2, #059669) !important; }
-    .bg-gradient-to-br { background-image: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981) !important; }
-    h1.bg-clip-text {
-      background: linear-gradient(90deg, #ffffff 0%, #67e8f9 52%, #6ee7b7 100%) !important;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      color: #ffffff;
-    }
-
-    .text-base { font-size: 1rem !important; line-height: 1.45rem !important; }
-    .text-left { text-align: left !important; }
-    .text-center { text-align: center !important; }
-    .text-right { text-align: right !important; }
-    .uppercase { text-transform: uppercase !important; }
-    .italic { font-style: italic !important; }
-    .line-through { text-decoration: line-through !important; }
-    .font-semibold { font-weight: 600 !important; }
-    .font-medium { font-weight: 500 !important; }
-    .leading-snug { line-height: 1.375 !important; }
-    .leading-relaxed { line-height: 1.55 !important; }
-    .tracking-tight { letter-spacing: -0.02em !important; }
-    .tracking-wider { letter-spacing: 0.05em !important; }
-    .tracking-\[0\.55em\] { letter-spacing: 0.55em !important; }
-    .whitespace-nowrap { white-space: nowrap !important; }
-    .select-none { user-select: none !important; -webkit-user-select: none !important; }
-    .cursor-pointer { cursor: pointer !important; }
-    .text-emerald-200 { color: #a7f3d0 !important; }
-    .text-blue-200 { color: #bfdbfe !important; }
-    .text-teal-200 { color: #99f6e4 !important; }
-    .text-slate-950 { color: #020617 !important; }
-
-    /* Center all buttons & pill tabs cleanly without breaking left-aligned prompt buttons */
-    button, label.pill-tab {
+    button, label.nav-3d-tab {
+      position: relative !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
       text-align: center !important;
       gap: 6px;
+      padding: 10px 14px;
+      font-weight: 800 !important;
+      font-size: 0.80rem;
       line-height: 1.25 !important;
-      vertical-align: middle;
-    }
-    button.ca-prompt-btn {
-      justify-content: flex-start !important;
-      text-align: left !important;
-      width: 100% !important;
-    }
-
-    /* Keep status badges & header pills strictly on 1 line so they NEVER squish into 2-3 lines */
-    .status-pill-nowrap,
-    #dockAutoBillCount,
-    #dockGreedStatusPill,
-    #udhaariNetBadge,
-    #payoutLockRatioBadge,
-    #patienceDaysBadge,
-    #habitStreakScore,
-    #liveMarketStatusBadge,
-    #dockSec37Total,
-    #kpiTradingPnl,
-    #kpiGrihasthiTotal,
-    #kpiTaxDeductTotal,
-    #kpiLeakageTotal {
-      white-space: nowrap !important;
-      flex-shrink: 0 !important;
-    }
-
-    /* Ensure flex rows inside cards NEVER stack icons above text */
-    .info-row-inline {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      gap: 8px !important;
-      text-align: left !important;
-    }
-
-    /* Toast notification pinned top-center */
-    #toastBanner {
-      position: fixed !important;
-      top: 16px !important;
-      left: 50% !important;
-      right: auto !important;
-      transform: translateX(-50%) !important;
-      z-index: 99999 !important;
-      max-width: 92vw !important;
-      text-align: center !important;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(16, 185, 129, 0.45) !important;
-    }
-
-    /* Chart containers: generous height + padding so X-axis labels are 100% visible & never clipped */
-    #dockMainBarChart, #tabChartCashflow, #tabChartPsychology {
-      max-height: 100% !important;
-      width: 100% !important;
-    }
-    .native-svg-chart-fallback {
-      width: 100% !important;
-      height: 100% !important;
-      overflow: hidden !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-  
-    /* =========================================================================
-       V5.0 3D EMBOSSED TYPOGRAPHY, MECHANICAL PUSH-BUTTONS & MOBILE CONTAINMENT
-       ========================================================================= */
-
-    /* 1. Global Mobile Overflow Lock: Nothing can ever spill outside screen or cards */
-    html, body {
-      max-width: 100vw !important;
-      overflow-x: hidden !important;
-    }
-    .bento-card {
-      position: relative;
-      max-width: 100% !important;
-      overflow: hidden !important;
-      /* 3D Raised Beveled Card Chassis */
-      background: linear-gradient(165deg, rgba(20, 30, 55, 0.96) 0%, rgba(8, 13, 26, 0.98) 100%) !important;
+      color: #f8fafc;
+      background-color: rgba(15, 23, 42, 0.95);
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.0) 52%, rgba(0, 0, 0, 0.30) 100%);
+      border: 2px solid rgba(56, 189, 248, 0.72) !important;
+      border-radius: 14px !important;
       box-shadow:
-        0 6px 0 rgba(2, 6, 18, 0.95),
-        0 14px 28px rgba(0, 0, 0, 0.78),
-        inset 0 1.5px 1px rgba(255, 255, 255, 0.22),
-        inset 0 -1px 1px rgba(0, 0, 0, 0.6) !important;
-    }
-
-    /* 2. 3D Embossed / Raised Text ("उभरा हुआ 3D टेक्स्ट") */
-    h1, h2, h3, h4 {
-      text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.16),
-        0 2px 0 rgba(2, 6, 23, 0.95),
-        0 4px 8px rgba(0, 0, 0, 0.75) !important;
-      letter-spacing: -0.01em;
-    }
-    #kpiTradingPnl, #kpiGrihasthiTotal, #kpiTaxDeductTotal, #kpiLeakageTotal,
-    #dockSec37Total, #bandheSec37Sum, #bandheGharSipSum, #bandheLoanEmiSum {
-      text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.22),
-        0 2px 0 rgba(2, 6, 23, 0.95),
-        0 5px 12px rgba(0, 0, 0, 0.85),
-        0 0 14px rgba(6, 182, 212, 0.28) !important;
-    }
-
-    /* 3. Proper Crisp Borders + 3D Mechanical Push-Button Physics ("दबने वाला 3D बटन") */
-    button, label.pill-tab {
-      position: relative !important;
-      border: 1.8px solid rgba(56, 189, 248, 0.55) !important;
-      border-radius: 12px !important;
-      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.0) 55%, rgba(0, 0, 0, 0.25) 100%);
-      box-shadow:
-        0 4px 0 rgba(2, 6, 20, 0.96),
-        0 6px 12px rgba(0, 0, 0, 0.62),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.30),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.45) !important;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85) !important;
+        0 5px 0 #020617,
+        0 8px 16px rgba(0, 0, 0, 0.72),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.50) !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.90) !important;
       transform: translateY(0px) scale(1) !important;
-      transition: transform 0.09s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.09s ease, filter 0.12s ease, border-color 0.12s ease !important;
+      transition: transform 0.08s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.08s ease, filter 0.12s ease !important;
       cursor: pointer !important;
-      max-width: 100% !important;
-      -webkit-tap-highlight-color: transparent !important;
+      user-select: none;
+      -webkit-user-select: none;
+      white-space: normal !important;
+      word-break: break-word !important;
     }
-    label.pill-tab {
-      border-radius: 9999px !important;
-    }
-
-    /* Color-Matched Crisp Borders for Button Variants */
-    button.border-emerald-400\/50, button.border-emerald-500\/40, button.border-emerald-500\/50, button.bg-emerald-600, .tab-emerald {
-      border-color: rgba(16, 185, 129, 0.78) !important;
-      box-shadow: 0 4px 0 #022c22, 0 6px 12px rgba(0,0,0,0.65), inset 0 1.5px 0 rgba(255,255,255,0.32) !important;
-    }
-    button.border-cyan-400\/40, button.border-cyan-400\/50, button.border-cyan-500\/40, button.border-cyan-500\/30, .tab-cyan {
-      border-color: rgba(6, 182, 212, 0.80) !important;
-      box-shadow: 0 4px 0 #083344, 0 6px 12px rgba(0,0,0,0.65), inset 0 1.5px 0 rgba(255,255,255,0.32) !important;
-    }
-    button.border-violet-400\/40, button.border-violet-400\/50, button.border-violet-500\/40, .tab-violet {
-      border-color: rgba(167, 139, 250, 0.80) !important;
-      box-shadow: 0 4px 0 #2e1065, 0 6px 12px rgba(0,0,0,0.65), inset 0 1.5px 0 rgba(255,255,255,0.32) !important;
-    }
-    button.border-amber-400\/40, button.border-amber-400\/50, button.border-amber-500\/40, button.border-amber-500\/30, .tab-amber {
-      border-color: rgba(251, 191, 36, 0.80) !important;
-      box-shadow: 0 4px 0 #451a03, 0 6px 12px rgba(0,0,0,0.65), inset 0 1.5px 0 rgba(255,255,255,0.32) !important;
-    }
-    button.border-rose-400\/50, button.border-rose-500\/30, button.border-rose-500\/40, button.border-rose-500\/50 {
-      border-color: rgba(251, 113, 133, 0.82) !important;
-      box-shadow: 0 4px 0 #4c0519, 0 6px 12px rgba(0,0,0,0.65), inset 0 1.5px 0 rgba(255,255,255,0.32) !important;
-    }
-    button.bg-gradient-to-r, .tab-master.active {
-      border: 1.8px solid rgba(165, 243, 252, 0.88) !important;
-      box-shadow: 0 4px 0 #0f172a, 0 6px 16px rgba(6, 182, 212, 0.35), inset 0 1.5px 0 rgba(255, 255, 255, 0.42) !important;
+    button:hover, label.nav-3d-tab:hover {
+      filter: brightness(1.12);
     }
 
-    /* ACTIVE / PRESSED STATE: Physical 4px Downward Push + Inner Shadow + Glow */
+    /* Color-Matched 3D Button Borders & Ledges */
+    .btn-emerald {
+      background-color: rgba(5, 150, 105, 0.32) !important;
+      border-color: #34d399 !important;
+      color: #d1fae5 !important;
+      box-shadow: 0 5px 0 #022c22, 0 8px 16px rgba(0,0,0,0.72), inset 0 1.5px 0 rgba(255,255,255,0.38) !important;
+    }
+    .btn-cyan {
+      background-color: rgba(8, 145, 178, 0.32) !important;
+      border-color: #22d3ee !important;
+      color: #cffafe !important;
+      box-shadow: 0 5px 0 #083344, 0 8px 16px rgba(0,0,0,0.72), inset 0 1.5px 0 rgba(255,255,255,0.38) !important;
+    }
+    .btn-violet {
+      background-color: rgba(124, 58, 237, 0.32) !important;
+      border-color: #c084fc !important;
+      color: #ede9fe !important;
+      box-shadow: 0 5px 0 #2e1065, 0 8px 16px rgba(0,0,0,0.72), inset 0 1.5px 0 rgba(255,255,255,0.38) !important;
+    }
+    .btn-amber {
+      background-color: rgba(217, 119, 6, 0.30) !important;
+      border-color: #fbbf24 !important;
+      color: #fef3c7 !important;
+      box-shadow: 0 5px 0 #451a03, 0 8px 16px rgba(0,0,0,0.72), inset 0 1.5px 0 rgba(255,255,255,0.38) !important;
+    }
+    .btn-rose {
+      background-color: rgba(225, 29, 72, 0.32) !important;
+      border-color: #fb7185 !important;
+      color: #ffe4e6 !important;
+      box-shadow: 0 5px 0 #4c0519, 0 8px 16px rgba(0,0,0,0.72), inset 0 1.5px 0 rgba(255,255,255,0.38) !important;
+    }
+    .btn-hero-save {
+      background: linear-gradient(135deg, #059669 0%, #0891b2 50%, #7c3aed 100%) !important;
+      border: 2px solid #a5f3fc !important;
+      color: #ffffff !important;
+      font-size: 0.88rem !important;
+      box-shadow: 0 5px 0 #022c22, 0 10px 22px rgba(6, 182, 212, 0.40), inset 0 2px 0 rgba(255, 255, 255, 0.45) !important;
+    }
+
+    /* ACTIVE / PRESSED 3D STATE ("दबने वाला इफ़ेक्ट") */
     button:active,
-    label.pill-tab:active,
+    label.nav-3d-tab:active,
     .btn-3d-pressed {
-      transform: translateY(4px) scale(0.97) !important;
+      transform: translateY(5px) scale(0.97) !important;
       box-shadow:
-        0 0px 0 rgba(2, 6, 20, 0.98),
-        0 1px 4px rgba(0, 0, 0, 0.75),
-        inset 0 2px 5px rgba(0, 0, 0, 0.65),
-        0 0 16px rgba(56, 189, 248, 0.60) !important;
+        0 0px 0 #020617,
+        0 1px 4px rgba(0, 0, 0, 0.80),
+        inset 0 3px 6px rgba(0, 0, 0, 0.75),
+        0 0 18px rgba(34, 211, 238, 0.65) !important;
       filter: brightness(1.22) !important;
     }
 
-    /* Delete "✕" mini buttons stay compact but still get a crisp border */
-    .del-trade-btn, .del-exp-btn, .del-hol-btn, .del-trip-btn, .del-loan-btn {
-      padding: 2px 7px !important;
-      min-width: 26px !important;
-      height: 26px !important;
-      border-radius: 8px !important;
-      border: 1.5px solid rgba(244, 63, 94, 0.55) !important;
-      background: rgba(76, 5, 25, 0.55) !important;
+    /* Mini Delete Button */
+    .del-mini-btn {
+      padding: 4px 9px !important;
+      min-width: 30px !important;
+      height: 30px !important;
+      font-size: 0.72rem !important;
+      border-radius: 9px !important;
+      border: 1.5px solid #fb7185 !important;
+      background: rgba(76, 5, 25, 0.65) !important;
       color: #fda4af !important;
+      box-shadow: 0 3px 0 #4c0519 !important;
     }
 
-    /* 4. Inputs & Selects: Crisp Recessed 3D Slot Look + Never Overflow Mobile Width */
+    /* =========================================================================
+       4. 3-TAB PURE-CSS + JS NAVIGATION BAR (SYMMETRIC & CENTERED)
+       ========================================================================= */
+    .css-tab-radio { display: none !important; }
+    .tab-view { display: none !important; }
+    #rad-tab-journal:checked ~ #view-journal { display: block !important; }
+    #rad-tab-statement:checked ~ #view-statement { display: block !important; }
+    #rad-tab-vault:checked ~ #view-vault { display: block !important; }
+
+    #rad-tab-journal:checked ~ nav label[for="rad-tab-journal"],
+    #rad-tab-statement:checked ~ nav label[for="rad-tab-statement"],
+    #rad-tab-vault:checked ~ nav label[for="rad-tab-vault"] {
+      background: linear-gradient(135deg, #7c3aed 0%, #0891b2 52%, #059669 100%) !important;
+      border-color: #a5f3fc !important;
+      color: #ffffff !important;
+      box-shadow:
+        0 5px 0 #083344,
+        0 0 20px rgba(6, 182, 212, 0.55),
+        inset 0 2px 0 rgba(255, 255, 255, 0.45) !important;
+    }
+
+    /* =========================================================================
+       5. INPUTS, SELECTS & TEXTAREAS (CENTER-ALIGNED & RECESSED 3D SLOT)
+       ========================================================================= */
     input, select, textarea {
-      max-width: 100% !important;
-      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.75), 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-      border: 1.6px solid rgba(56, 189, 248, 0.45) !important;
+      width: 100%;
+      background-color: #070c18 !important;
+      color: #f8fafc !important;
+      border: 1.8px solid rgba(56, 189, 248, 0.48) !important;
+      border-radius: 13px !important;
+      padding: 9px 12px !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      text-align: center !important;
+      outline: none !important;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.10) !important;
     }
-    select {
-      text-overflow: ellipsis !important;
-      overflow: hidden !important;
-      white-space: nowrap !important;
+    textarea#diaryTextInput {
+      font-size: 0.90rem !important;
+      line-height: 1.5 !important;
+      padding: 12px 14px !important;
+      text-align: center !important;
     }
-
-    /* 5. MOBILE SCREEN (< 640px) TEXT CONTAINMENT & RESPONSIVE GRID FIXES */
-    @media (max-width: 640px) {
-      body {
-        padding: 8px !important;
-      }
-      .bento-card {
-        padding: 12px !important;
-        border-radius: 16px !important;
-      }
-      /* Allow long banners, badges & big action buttons to wrap cleanly inside mobile screen */
-      #liveMarketStatusBadge,
-      #tradeDateMarketBanner,
-      #holidayCardSelectedStatus,
-      #btnCommitDiaryAi,
-      #btnPreviewDiaryAi,
-      #btnRunSampleReconcile,
-      #btnSyncReconcileToJournal,
-      #headerRoiAndRiskBadge,
-      .mobile-wrap-ok {
-        white-space: normal !important;
-        word-break: break-word !important;
-        line-height: 1.35 !important;
-        text-align: center !important;
-        width: 100% !important;
-        justify-content: center !important;
-      }
-      #tradeDateMarketBanner, #holidayCardSelectedStatus {
-        text-align: left !important;
-      }
-      /* Make Header controls & Base Capital box fit 100% inside mobile width */
-      .mobile-full-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        width: 100% !important;
-        gap: 8px !important;
-      }
-      .mobile-full-width {
-        width: 100% !important;
-      }
-      .mobile-stack-header {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 6px !important;
-      }
-      h1 {
-        font-size: 1.15rem !important;
-        line-height: 1.4rem !important;
-      }
-      h2 {
-        font-size: 0.96rem !important;
-        line-height: 1.32rem !important;
-      }
-      /* Let Recurring Bill titles wrap onto 2 lines on mobile instead of cutting off with ... */
-      #dockRecurringList .truncate {
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-        line-height: 1.25 !important;
-      }
+    input:focus, select:focus, textarea:focus {
+      border-color: #22d3ee !important;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.85), 0 0 14px rgba(34, 211, 238, 0.35) !important;
     }
 
+    /* Toggle Switch */
+    .toggle-switch {
+      width: 48px; height: 26px; border-radius: 999px; position: relative; cursor: pointer; transition: all 0.2s ease;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.7);
+      margin: 0 auto;
+    }
+    .toggle-switch.on { background: linear-gradient(90deg, #06b6d4, #10b981); border-color: #a7f3d0; }
+    .toggle-switch.off { background: #1e293b; }
+    .toggle-knob {
+      width: 20px; height: 20px; border-radius: 50%; background: #fff; position: absolute; top: 1.5px; transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+    .toggle-switch.on .toggle-knob { left: 24px; }
+    .toggle-switch.off .toggle-knob { left: 2px; }
+
+    /* Toast Notification Pinned Top-Center */
+    #toastBanner {
+      position: fixed !important;
+      top: 14px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 99999 !important;
+      width: 92vw !important;
+      max-width: 460px !important;
+      text-align: center !important;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.90), 0 0 22px rgba(16, 185, 129, 0.55) !important;
+    }
+    .hidden { display: none !important; }
+
+    /* Self-Contained Responsive Grids */
+    .v6-container { max-width: 1180px; margin: 0 auto; padding: 10px; }
+    .v6-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .v6-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .v6-grid-4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .v6-stack-md { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 768px) {
+      .v6-container { padding: 16px; }
+      .v6-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+      .v6-stack-md { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .v6-stack-3md { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    }
+    @media (max-width: 767px) {
+      .v6-stack-3md { display: grid; grid-template-columns: 1fr; gap: 12px; }
+      .v6-mobile-1col { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
-<body ontouchstart="" class="p-2 sm:p-4 md:p-5 select-none">
+<body ontouchstart="">
 
-  <!-- Toast Notification -->
-  <div id="toastBanner" class="fixed top-4 right-4 z-50 hidden px-4 py-3 rounded-xl font-bold text-sm shadow-2xl border border-emerald-400/50 bg-slate-900/95 text-emerald-300"></div>
+  <!-- TOP-CENTER TOAST NOTIFICATION -->
+  <div id="toastBanner" class="hidden px-4 py-3 rounded-2xl font-black text-xs sm:text-sm border-2 border-emerald-400 bg-slate-950 text-emerald-300"></div>
 
   <!-- ===================================================================== -->
-  <!-- 🛡️ TRINETRA AES-256-GCM ZERO-KNOWLEDGE SECRET PIN VAULT LOCK SCREEN   -->
+  <!-- 🛡️ AES-256-GCM SECRET PIN VAULT LOCK SCREEN (CENTER-ALIGNED 3D)       -->
   <!-- ===================================================================== -->
-  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); display:flex; align-items:center; justify-content:center; padding:16px;">
-    <div class="bento-card bento-design6-hero" style="max-width:430px; width:100%; padding:24px; text-align:center; border:2px solid rgba(6,182,212,0.65); box-shadow:0 20px 60px rgba(0,0,0,0.92), 0 0 35px rgba(139,92,246,0.35);">
-      <div style="width:62px; height:62px; margin:0 auto 10px auto; border-radius:18px; background:linear-gradient(135deg,#8b5cf6,#06b6d4,#10b981); padding:2px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 24px rgba(6,182,212,0.45);">
-        <div style="width:100%; height:100%; background:#050811; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px;">🛡️</div>
+  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); display:flex; align-items:center; justify-content:center; padding:14px;">
+    <div class="bento-card bento-hero center-stack" style="max-width:410px; width:100%; padding:22px;">
+      <div style="width:58px; height:58px; border-radius:16px; background:linear-gradient(135deg,#8b5cf6,#06b6d4,#10b981); padding:2px; display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
+        <div style="width:100%; height:100%; background:#050811; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px;">🛡️</div>
       </div>
-      <div class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-300 border border-emerald-400/40 inline-block mb-1">
-        🔒 AES-256-GCM Military Encryption • PBKDF2 100K
+      <div class="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 mb-1">
+        🔒 AES-256-GCM Vault • PBKDF2 100K
       </div>
-      <h2 id="vaultLockTitle" class="text-lg font-black text-white mt-1">
+      <h2 id="vaultLockTitle" class="text-lg font-black text-white mt-1 mb-1">
         RAGHAVA ASTRA • TRINETRA VAULT
       </h2>
-      <p id="vaultLockSubtitle" class="text-xs text-slate-300 mt-1 mb-3">
-        Apna <strong>Secret Master PIN (4–8 digits)</strong> enter karein. Aapka saara Bank, Trade aur ITR-3 data aapke PIN se AES-256-GCM me encrypted rehta hai.
+      <p id="vaultLockSubtitle" class="text-xs text-slate-300 mb-3">
+        Apna <strong>Secret Master PIN (4–8 digits)</strong> dalein. Aapka saara journal data AES-256 me सुरक्षित hai.
       </p>
 
-      <!-- PIN Dots / Input Display -->
-      <div class="mb-3">
-        <input type="password" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off"
-          class="w-full text-center text-2xl font-black mono tracking-[0.55em] py-2.5 px-4 rounded-2xl bg-slate-950 border-2 border-cyan-400/60 text-cyan-200" />
-      </div>
+      <input type="password" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off"
+        style="font-size:1.45rem !important; letter-spacing:0.45em !important; margin-bottom:10px;" class="mono text-cyan-200" />
 
       <div id="vaultErrorMsg" class="text-xs font-extrabold text-rose-400 mb-2 hidden"></div>
 
-      <!-- Tactile Number Pad for iPad / Mobile / Desktop -->
-      <div class="grid grid-cols-3 gap-2 mb-3">
-        <button type="button" data-pin-key="1" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">1</button>
-        <button type="button" data-pin-key="2" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">2</button>
-        <button type="button" data-pin-key="3" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">3</button>
-        <button type="button" data-pin-key="4" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">4</button>
-        <button type="button" data-pin-key="5" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">5</button>
-        <button type="button" data-pin-key="6" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">6</button>
-        <button type="button" data-pin-key="7" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">7</button>
-        <button type="button" data-pin-key="8" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">8</button>
-        <button type="button" data-pin-key="9" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">9</button>
-        <button type="button" id="btnPinClear" class="py-2.5 rounded-xl text-xs font-extrabold bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-500/40">CLR</button>
-        <button type="button" data-pin-key="0" class="pin-pad-btn py-2.5 rounded-xl text-base font-black mono bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700">0</button>
-        <button type="button" id="btnPinBackspace" class="py-2.5 rounded-xl text-xs font-extrabold bg-amber-950/80 hover:bg-amber-900 text-amber-200 border border-amber-500/40">⌫ DEL</button>
+      <div class="v6-grid-3 w-full mb-3">
+        <button type="button" data-pin-key="1" class="pin-pad-btn mono text-base">1</button>
+        <button type="button" data-pin-key="2" class="pin-pad-btn mono text-base">2</button>
+        <button type="button" data-pin-key="3" class="pin-pad-btn mono text-base">3</button>
+        <button type="button" data-pin-key="4" class="pin-pad-btn mono text-base">4</button>
+        <button type="button" data-pin-key="5" class="pin-pad-btn mono text-base">5</button>
+        <button type="button" data-pin-key="6" class="pin-pad-btn mono text-base">6</button>
+        <button type="button" data-pin-key="7" class="pin-pad-btn mono text-base">7</button>
+        <button type="button" data-pin-key="8" class="pin-pad-btn mono text-base">8</button>
+        <button type="button" data-pin-key="9" class="pin-pad-btn mono text-base">9</button>
+        <button type="button" id="btnPinClear" class="btn-rose text-xs">CLR</button>
+        <button type="button" data-pin-key="0" class="pin-pad-btn mono text-base">0</button>
+        <button type="button" id="btnPinBackspace" class="btn-amber text-xs">⌫ DEL</button>
       </div>
 
-      <button type="button" id="btnUnlockOrSetPin" class="w-full py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 via-cyan-500 to-violet-600 text-slate-950 shadow-lg shadow-cyan-500/30">
+      <button type="button" id="btnUnlockOrSetPin" class="btn-hero-save w-full py-3 mb-2">
         🔓 UNLOCK AES-256 VAULT
       </button>
 
-      <div class="mt-3 pt-2.5 border-t border-slate-800/90 flex items-center justify-between text-[11px] text-slate-400">
-        <span>🛡️ Zero-Server Local Storage</span>
-        <button type="button" id="btnEmergencyVaultReset" class="text-rose-400 hover:underline font-bold" style="background:transparent; border:none; padding:2px 4px; font-size:11px;">
-          Forgot PIN? Wipe Local Vault
-        </button>
-      </div>
+      <button type="button" id="btnEmergencyVaultReset" class="btn-rose w-full py-1.5 text-[11px]">
+        Forgot PIN? Wipe Local Vault &amp; Reset
+      </button>
     </div>
   </div>
 
   <!-- Change PIN Modal -->
-  <div id="changePinModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bento-card bento-violet max-w-md w-full p-5">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-base font-black text-violet-300">🔑 CHANGE SECRET MASTER PIN (AES-256 RE-KEY)</h3>
-        <button type="button" id="btnCloseChangePinModal" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold">✕</button>
+  <div id="changePinModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
+    <div class="bento-card bento-violet center-stack" style="max-width:400px; width:100%;">
+      <h3 class="text-base font-black text-violet-300 mb-2">🔑 CHANGE SECRET MASTER PIN</h3>
+      <input type="password" id="newPinModalInput" inputmode="numeric" maxlength="8" placeholder="New 4–8 Digit PIN" class="mono mb-2" />
+      <input type="password" id="confirmPinModalInput" inputmode="numeric" maxlength="8" placeholder="Confirm New PIN" class="mono mb-3" />
+      <div class="v6-grid-2 w-full">
+        <button type="button" id="btnSaveNewPinModal" class="btn-emerald">🔒 Save New PIN</button>
+        <button type="button" id="btnCloseChangePinModal" class="btn-rose">✕ Cancel</button>
       </div>
-      <p class="text-xs text-slate-300 mb-3">
-        Naya 4–8 digit Secret PIN set karein. Aapka pura journal data naye PIN se AES-256-GCM me re-encrypt ho jayega:
-      </p>
-      <div class="space-y-2.5 mb-3">
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">New Secret PIN (4–8 Digits)</label>
-          <input type="password" id="newPinModalInput" inputmode="numeric" maxlength="8" placeholder="Enter new PIN" class="w-full text-center text-base font-black mono" />
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Confirm New Secret PIN</label>
-          <input type="password" id="confirmPinModalInput" inputmode="numeric" maxlength="8" placeholder="Confirm new PIN" class="w-full text-center text-base font-black mono" />
-        </div>
-      </div>
-      <button type="button" id="btnSaveNewPinModal" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950">
-        🔒 RE-ENCRYPT VAULT WITH NEW PIN
-      </button>
     </div>
   </div>
 
-  <!-- TOP BRAND HEADER (RAGHAVA ASTRA • TRINETRA AI — V4.0 CLEAN TOOLBAR) -->
-  <header class="max-w-[1600px] mx-auto mb-3 bento-card px-4 py-3 border border-slate-700/70 space-y-2.5">
-    <!-- Tier 1: Brand Identity + Live NSE/BSE Market Calendar Status + Travel Mode Switch -->
-    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2.5">
-      <div class="flex items-center gap-3">
-        <div style="width:48px; height:48px; min-width:48px; border-radius:14px; background:linear-gradient(135deg,#8b5cf6,#06b6d4,#10b981); padding:2px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 20px rgba(6,182,212,0.3);">
-          <div style="width:100%; height:100%; background:#050811; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px;">🏹</div>
-        </div>
-        <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <h1 class="text-lg sm:text-xl font-black tracking-tight bg-clip-text">
-              RAGHAVA ASTRA • TRINETRA AI
-            </h1>
-            <span class="px-2.5 py-0.5 text-[10px] font-extrabold rounded-full bg-violet-500/20 text-violet-300 border border-violet-400/40 whitespace-nowrap">
-              V4.0 MASTER DOCK
-            </span>
-          </div>
-          <p class="text-xs text-slate-400 font-medium">
-            "Trinetra Sees the Truth. Raghava Locks the Strike." • Tri-Lingual AI Diary, NSE Holiday Shield, Travel &amp; Loan Tracker
-          </p>
-        </div>
-      </div>
+  <div class="v6-container space-y-3">
 
-      <!-- Live NSE/BSE Market Status Pill + 1-Tap Travel Mode Toggle -->
-      <div class="flex items-center gap-2 flex-wrap">
-        <div id="liveMarketStatusBadge" class="px-3 py-1.5 rounded-xl text-xs font-black bg-amber-500/20 text-amber-200 border border-amber-400/50 whitespace-nowrap">
-          🏖️ SUN 15 NOV: NSE/BSE MARKET CLOSED (Weekend Rest Day)
+    <!-- =================================================================== -->
+    <!-- COMPACT CENTER-ALIGNED HEADER (ZERO CLUTTER — STRAIGHT TO THE POINT)-->
+    <!-- =================================================================== -->
+    <header class="bento-card center-stack py-3 px-3 border border-slate-700/80">
+      <div class="flex items-center justify-center gap-2 mb-1">
+        <span style="font-size:22px;">🏹</span>
+        <h1 class="text-lg sm:text-2xl font-black text-white m-0">
+          RAGHAVA ASTRA • TRINETRA AI
+        </h1>
+      </div>
+      <p class="text-[11px] sm:text-xs text-cyan-300 font-bold mb-2">
+        3D Smart Trading, Grihasthi, Loan &amp; AI-CA Journal
+      </p>
+
+      <!-- Backend Auto-Detected Market Status Pill + 1-Tap Travel Toggle -->
+      <div class="v6-grid-2 w-full" style="max-width:640px;">
+        <div id="liveMarketStatusBadge" class="px-3 py-2 rounded-xl text-[11px] font-black bg-amber-500/20 text-amber-200 border border-amber-400/50 center-stack">
+          🏖️ Sun 15 Nov • Market Closed
         </div>
-        <button id="btnToggleTravelMode" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-cyan-950/90 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/40 whitespace-nowrap" title="Toggle Vacation / Ghumna Mode (Pauses FOMO trading & protects 31-Day Habit Streak)">
+        <button id="btnToggleTravelMode" type="button" class="btn-cyan py-2 text-xs">
           ✈️ Travel Mode: OFF
         </button>
       </div>
-    </div>
+    </header>
 
-    <!-- Tier 2: Action & Vault Toolbar (100% Mobile-Contained + 3D Push Buttons) -->
-    <div class="pt-2 border-t border-slate-800/90 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-wrap">
-        <select id="activeMonthSelect" class="bg-slate-900 border border-cyan-500/40 text-cyan-200 text-xs font-bold rounded-xl px-3 py-2 mobile-full-width">
-          <option value="ALL" selected>📅 All Months (FY 2026-27)</option>
-          <option value="2026-11">📅 November 2026 (FY 2026-27)</option>
-          <option value="2026-10">📅 October 2026 (FY 2026-27)</option>
-          <option value="2026-12">📅 December 2026 (FY 2026-27)</option>
-        </select>
-        <div class="flex items-center justify-between sm:justify-start gap-1.5 bg-slate-900/95 border border-emerald-500/40 rounded-xl px-2.5 py-1.5 flex-wrap">
-          <div class="flex items-center gap-1.5">
-            <span class="text-[10px] font-extrabold text-emerald-300 uppercase whitespace-nowrap">Base Cap (₹):</span>
-            <input type="number" id="baseCapitalInput" value="0" step="10000" style="width:84px; padding:4px 7px !important;" class="text-xs font-black mono text-emerald-300" title="Active Trading Capital for ROI% and 2% Daily Loss Shield" />
-          </div>
-          <span id="headerRoiAndRiskBadge" class="text-[10px] font-black mono text-cyan-300">ROI: 0.0% • Max 2% SL: ₹0</span>
-        </div>
-        <button id="btnLogPatienceDay" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-amber-500/20 text-amber-200 border border-amber-400/50">
-          🧘‍♂️ +0-Trade Patience Day
-        </button>
-      </div>
+    <!-- =================================================================== -->
+    <!-- PURE-CSS + JS 3-TAB BAR (ONLY 3 FRONT TABS — ZERO CONFUSION!)       -->
+    <!-- =================================================================== -->
+    <input type="radio" name="v6_main_tab" id="rad-tab-journal" class="css-tab-radio" checked />
+    <input type="radio" name="v6_main_tab" id="rad-tab-statement" class="css-tab-radio" />
+    <input type="radio" name="v6_main_tab" id="rad-tab-vault" class="css-tab-radio" />
 
-      <div class="mobile-full-grid flex items-center gap-2 flex-wrap">
-        <button id="btnQuickExportITR" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r text-white border border-violet-400/40">
-          📥 ITR-3 CSV Export
-        </button>
-        <button id="btnBackupJson" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-cyan-950/90 text-cyan-200 border border-cyan-500/40">
-          💾 Backup
-        </button>
-        <button id="btnLockVaultNow" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-rose-600/30 text-rose-200 border border-rose-400/50">
-          🔒 Lock Vault
-        </button>
-        <button id="btnChangeVaultPin" type="button" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-violet-600/30 text-violet-200 border border-violet-400/50">
-          🔑 Change PIN
-        </button>
-        <button id="btnResetDemoData" type="button" style="grid-column: span 2 / span 2;" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-rose-950/90 text-rose-200 border border-rose-500/50">
-          🗑️ Reset All to ₹0
-        </button>
-      </div>
-    </div>
-  </header>
+    <nav class="v6-grid-3 w-full">
+      <label for="rad-tab-journal" data-tab="journal" class="nav-tab-btn nav-3d-tab btn-emerald">
+        ✍️ 1. Daily Journal
+      </label>
+      <label for="rad-tab-statement" data-tab="statement" class="nav-tab-btn nav-3d-tab btn-cyan">
+        🏦 2. Statement &amp; Hisab
+      </label>
+      <label for="rad-tab-vault" data-tab="vault" class="nav-tab-btn nav-3d-tab btn-violet">
+        ⚙️ 3. Bills, Loans &amp; Vault
+      </label>
+    </nav>
 
-  <!-- PURE-CSS RADIO INPUTS SO TABS SWITCH EVEN IN iPAD FILES QUICKLOOK WITHOUT JS -->
-  <input type="radio" name="main_css_tab" id="rad-tab-dock" class="css-tab-radio" checked />
-  <input type="radio" name="main_css_tab" id="rad-tab-daily" class="css-tab-radio" />
-  <input type="radio" name="main_css_tab" id="rad-tab-bandhe" class="css-tab-radio" />
-  <input type="radio" name="main_css_tab" id="rad-tab-charts" class="css-tab-radio" />
-  <input type="radio" name="main_css_tab" id="rad-tab-aica" class="css-tab-radio" />
-  <input type="radio" name="main_css_tab" id="rad-tab-rules" class="css-tab-radio" />
-  <input type="radio" name="main_css_tab" id="rad-tab-reconcile" class="css-tab-radio" />
+    <!-- =================================================================== -->
+    <!-- TAB 1 (FRONT & CENTER): ✍️ DAILY JOURNAL & TODAY'S LIVE HISAB       -->
+    <!-- =================================================================== -->
+    <main id="view-journal" class="tab-view space-y-3">
 
-  <!-- iPAD SAFARI LAUNCHER TIP BANNER -->
-  <details class="max-w-[1600px] mx-auto mb-3 bento-card px-4 py-2.5 border border-amber-400/50 text-xs">
-    <summary class="font-black text-amber-300 cursor-pointer">
-      📲 iPad Par Full Interactive Mode (Safari) Me Kaise Kholein? (Tap Here for 5-Second Trick)
-    </summary>
-    <div class="mt-2 text-slate-200 space-y-1 leading-relaxed">
-      <div><strong>Trick #1 (5-Second Split-Screen Drag &amp; Drop to Safari):</strong> iPad par <strong>Safari</strong> kholein, side me <strong>Files App (Slide Over / Split View)</strong> rakhein, aur <code>Downloads</code> se is file ko <strong>ungli se daba kar (Long-Press) seedha Safari ke top URL/Address bar par chhod dein (Drop)!</strong> Safari me khulte hi saare AI buttons, File Upload aur LocalStorage 100% kaam karenge.</div>
-      <div><strong>Trick #2 (Gemini Canvas):</strong> Is chat ke andar hi file card par tap karke <strong>Canvas Preview</strong> me chalayein — wahan saare AI buttons live chalte hain!</div>
-      <div><strong>Trick #3 (Zero-JS Tabs Working Right Now):</strong> Humne saare 7 Tabs me <strong>Pure-CSS Radio Engine</strong> jod diya hai — isliye aap abhi <code>Files</code> app ke andar bhi upar ke 7 Tab buttons par tap karke saare 7 views dekh sakte hain!</div>
-    </div>
-  </details>
+      <!-- HERO BOX: WRITE TODAY'S JOURNAL IMMEDIATELY (ZERO SCROLL!) -->
+      <div class="bento-card bento-hero center-stack space-y-2.5">
+        <span id="diaryDateMarketTag" class="px-3 py-1 rounded-full text-[11px] font-black bg-emerald-500/25 text-emerald-200 border border-emerald-400/50">
+          🌅 7–8 PM Smart AI Diary • हिन्दी / English / Hinglish
+        </span>
 
-  <!-- DESIGN #9: 5-COLOR GLOWING NAVIGATION PILL DOCK -->
-  <nav class="max-w-[1600px] mx-auto mb-4 flex items-center gap-2 overflow-x-auto pb-1.5">
-    <label for="rad-tab-dock" data-tab="dock" class="nav-tab-btn pill-tab tab-master active">⚡ 0. Master Dock (#6 + #9 All-in-One)</label>
-    <label for="rad-tab-daily" data-tab="daily" class="nav-tab-btn pill-tab tab-emerald">🎯 1. Daily Trade &amp; Rozmarra</label>
-    <label for="rad-tab-bandhe" data-tab="bandhe" class="nav-tab-btn pill-tab tab-cyan">🔄 2. Bandhe Monthly Bills (Auto-Tag)</label>
-    <label for="rad-tab-charts" data-tab="charts" class="nav-tab-btn pill-tab tab-blue">📊 3. Interactive Bar Charts</label>
-    <label for="rad-tab-aica" data-tab="aica" class="nav-tab-btn pill-tab tab-violet">🧠 4. AI-CA &amp; ITR-3 Tax Vault</label>
-    <label for="rad-tab-rules" data-tab="rules" class="nav-tab-btn pill-tab tab-amber">📅 5. 31-Day Rules &amp; Yearly Goals</label>
-    <label for="rad-tab-reconcile" data-tab="reconcile" class="nav-tab-btn pill-tab tab-emerald">🏦 6. Reconciler, NSE Holidays, Travel &amp; Loan Hub</label>
-  </nav>
+        <h2 class="text-base sm:text-xl font-black text-white m-0">
+          ✍️ AAJ KA PURA DIN, TRADE &amp; KHARCH YAHAN LIKHEIN
+        </h2>
+        <p class="text-xs text-slate-300 m-0" style="max-width:680px;">
+          Aaj kitna Profit/Loss hua, kahan kitne ₹ kharch huye, kahan ghumne gaye ya kaun si Loan EMI bhari—apni bhasha me likhein, AI apne-aap sabhi categories me jod dega:
+        </p>
 
-  <!-- TOP 4 MULTI-COLOR KPI CARDS WITH CIRCULAR RINGS (DESIGN #9 TOP ROW) -->
-  <section class="max-w-[1600px] mx-auto mb-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-    <!-- KPI 1: Emerald Trading P&L & Win Rate -->
-    <div class="bento-card bento-emerald p-3.5 flex items-center justify-between">
-      <div>
-        <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400">1. Monthly Net Trading P&amp;L</div>
-        <div id="kpiTradingPnl" class="text-2xl font-black mono text-emerald-300 mt-0.5">₹0</div>
-        <div id="kpiTradingSub" class="text-[11px] text-slate-300 mt-1">Win Rate: <span class="text-emerald-400 font-bold">0%</span> • Sec 43(5) Business</div>
-      </div>
-      <div class="w-14 h-14 rounded-full border-4 border-emerald-500/30 flex items-center justify-center relative bg-emerald-950/40">
-        <span id="kpiWinRateBadge" class="text-xs font-black mono text-emerald-300">0%</span>
-      </div>
-    </div>
-
-    <!-- KPI 2: Cyan Bandhe + Rozmarra Grihasthi Spend -->
-    <div class="bento-card bento-cyan p-3.5 flex items-center justify-between">
-      <div>
-        <div class="text-[11px] font-extrabold uppercase tracking-wider text-cyan-400">2. Ghar-Grihasthi &amp; Family</div>
-        <div id="kpiGrihasthiTotal" class="text-2xl font-black mono text-cyan-300 mt-0.5">₹0</div>
-        <div id="kpiGrihasthiSub" class="text-[11px] text-slate-300 mt-1">Bandhe Bills + Rozmarra (Budget ₹25k)</div>
-      </div>
-      <div class="w-14 h-14 rounded-full border-4 border-cyan-500/30 flex items-center justify-center relative bg-cyan-950/40">
-        <span id="kpiBudgetPct" class="text-xs font-black mono text-cyan-300">0%</span>
-      </div>
-    </div>
-
-    <!-- KPI 3: Violet Auto-Tagged ITR-3 Business + 80C/80D Tax Deductions -->
-    <div class="bento-card bento-violet p-3.5 flex items-center justify-between">
-      <div>
-        <div class="text-[11px] font-extrabold uppercase tracking-wider text-violet-400">3. Auto-Tagged ITR-3 &amp; 80C/D</div>
-        <div id="kpiTaxDeductTotal" class="text-2xl font-black mono text-violet-300 mt-0.5">₹0</div>
-        <div id="kpiTaxSub" class="text-[11px] text-slate-300 mt-1">Sec 37 Business: <span id="kpiSec37Span" class="text-violet-300 font-bold">₹0</span> + 80C/D</div>
-      </div>
-      <div class="w-14 h-14 rounded-full border-4 border-violet-500/30 flex items-center justify-center relative bg-violet-950/40">
-        <span class="text-[11px] font-black mono text-violet-300">ITR-3</span>
-      </div>
-    </div>
-
-    <!-- KPI 4: Coral/Amber Fizul Kharch + Bad SL Leakage Alert -->
-    <div class="bento-card bento-coral p-3.5 flex items-center justify-between">
-      <div>
-        <div class="text-[11px] font-extrabold uppercase tracking-wider text-rose-400">4. Fizul Kharch + Bad SL Leakage</div>
-        <div id="kpiLeakageTotal" class="text-2xl font-black mono text-rose-300 mt-0.5">₹0</div>
-        <div id="kpiLeakageSub" class="text-[11px] text-slate-300 mt-1">Fizul: <span id="kpiFizulSpan" class="text-rose-400 font-bold">₹0</span> • Bad SL: <span id="kpiBadSlSpan" class="text-amber-400 font-bold">₹0</span></div>
-      </div>
-      <div class="w-14 h-14 rounded-full border-4 border-rose-500/30 flex items-center justify-center relative bg-rose-950/40">
-        <span id="kpiGreedScoreBadge" class="text-xs font-black mono text-rose-300">0%</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- TAB 0: MASTER COMMAND DOCK (EXACT DESIGN #6 + #9 3-COLUMN FUSION)     -->
-  <!-- ===================================================================== -->
-  <main id="view-dock" class="tab-view max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
-
-    <!-- SANDHYA 7-8 PM SMART AI DIARY & AUTO-CLASSIFIER (FULL 12-COL HERO BAR) -->
-    <div class="lg:col-span-12 bento-card bento-design6-hero p-4 border-2 border-cyan-400/50">
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 mb-3">
-        <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/30 text-emerald-200 border border-emerald-400/50 mobile-wrap-ok">
-              🌅 Sandhya 7–8 PM Smart AI Diary • Tri-Lingual Router
-            </span>
-            <span id="diaryDateMarketTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500/25 text-amber-200 border border-amber-400/50 whitespace-nowrap">
-              🏖️ Sun Weekend (Market Closed)
-            </span>
-          </div>
-          <h2 class="text-base sm:text-lg font-black text-white mt-1">
-            ✍️ AAJ KA PURA DIN, TRADES, KHARCH, TRIP YA LOAN EMI LIKHEIN — AI SARE 7 TABS UPDATE KAREGA
-          </h2>
-          <p class="text-xs text-slate-300">
-            Roz shaam 7–8 baje हिन्दी (देवनागरी), English ya Hinglish me likhein (ya 🎙️ Mic se bolein)—Trades, 9-Bucket Kharch, Travel aur Loan EMI apne-aap add ho jayenge:
-          </p>
-        </div>
-        <div class="flex items-center gap-2 flex-wrap shrink-0">
-          <input type="date" id="diaryDateInput" value="2026-11-15" class="bg-slate-950 border border-cyan-500/50 rounded-xl px-3 py-1.5 text-xs font-bold text-cyan-200 mono whitespace-nowrap" />
-          <select id="voiceLangSelect" class="bg-slate-950 border border-violet-500/50 rounded-xl px-2.5 py-1.5 text-xs font-bold text-violet-200 whitespace-nowrap" title="Voice Mic Recognition Language">
+        <!-- Centered Date + Mic Language Selector -->
+        <div class="v6-grid-2 w-full" style="max-width:520px;">
+          <input type="date" id="diaryDateInput" value="2026-11-15" class="mono text-cyan-200" />
+          <select id="voiceLangSelect" class="text-violet-200">
             <option value="hi-IN" selected>🇮🇳 Mic: हिन्दी / Hinglish</option>
             <option value="en-IN">🇮🇳 Mic: English (India)</option>
           </select>
-          <button id="btnDiaryVoiceMic" type="button" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/25 hover:bg-rose-500/40 text-rose-200 border border-rose-400/50 whitespace-nowrap">
+        </div>
+
+        <!-- Big Clean Journal Textarea -->
+        <textarea id="diaryTextInput" rows="3" placeholder="यहाँ लिखें (हिन्दी / English / Hinglish):&#10;उदाहरण: आज निफ्टी 25150 कॉल में 4800 का मुनाफा हुआ, मंडी से 220 की सब्जी लाया, बाइक लोन की ईएमआई 4500 भरी और घूमने में 1500 खर्च हुए..."></textarea>
+
+        <!-- Primary 3D Mechanical Push Buttons: Mic + Save Journal -->
+        <div class="v6-grid-2 w-full">
+          <button id="btnDiaryVoiceMic" type="button" class="btn-rose py-3 text-xs sm:text-sm">
             🎙️ Bol Kar Likhein (Mic)
           </button>
-        </div>
-      </div>
-
-      <!-- Tri-Lingual Sample Buttons (Optional Test) + Clear Button -->
-      <div class="flex items-center gap-1.5 flex-wrap mb-2">
-        <span class="text-[11px] font-bold text-slate-400">🌐 Tri-Bhasha AI Test (Optional):</span>
-        <button type="button" data-diary-sample="s_hi" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-amber-200 border border-amber-500/30 whitespace-nowrap">
-          🇮🇳 1. हिन्दी (देवनागरी) उदाहरण
-        </button>
-        <button type="button" data-diary-sample="s_en" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-emerald-200 border border-emerald-500/30 whitespace-nowrap">
-          🇬🇧 2. Pure English Example
-        </button>
-        <button type="button" data-diary-sample="s_hg" class="diary-sample-btn px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-900/90 hover:bg-slate-800 text-cyan-200 border border-cyan-500/30 whitespace-nowrap">
-          ⚡ 3. Hinglish + Trip &amp; EMI Example
-        </button>
-        <button type="button" id="btnClearDiaryBox" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-rose-950/80 hover:bg-rose-900 text-rose-200 border border-rose-500/30 whitespace-nowrap">
-          ✕ Clear Box
-        </button>
-      </div>
-
-      <textarea id="diaryTextInput" rows="3" class="w-full bg-slate-950/95 border border-violet-500/50 rounded-2xl p-3 text-xs sm:text-sm text-white font-medium leading-relaxed focus:outline-none focus:border-cyan-400" placeholder="हिन्दी / English / Hinglish में लिखें — जैसे:&#10;• हिन्दी: आज निफ्टी २५१५० कॉल में ४८०० का मुनाफा बुक किया। मंडी से २२० की सब्जी, होम लोन की ईएमआई १२५०० भरी और मनाली घूमने में ३५०० खर्च हुए।&#10;• English: Booked 4800 profit in Nifty 25150 CE. Paid 8500 bike loan EMI, spent 2500 on weekend trip hotel, and 220 on groceries.&#10;• Hinglish: Aaj Nifty 25150 CE me 4800 profit hua, 220 sabzi, loan ki EMI 8500 bhari aur ghumne me 2500 kharch huye."></textarea>
-
-      <div class="mt-2.5 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
-        <div class="flex items-center gap-3 flex-wrap">
-          <button id="btnPreviewDiaryAi" type="button" class="px-3.5 py-2 rounded-xl text-xs font-black bg-cyan-600/30 hover:bg-cyan-600/45 text-cyan-200 border border-cyan-400/50 whitespace-nowrap">
-            🔍 1. AI Understand &amp; Preview Breakdown
+          <button id="btnCommitDiaryAi" type="button" class="btn-hero-save py-3 text-xs sm:text-sm">
+            🚀 SAVE TODAY'S JOURNAL
           </button>
-          <label class="flex items-center gap-1.5 text-xs text-slate-300 cursor-pointer">
-            <input type="checkbox" id="diaryDedupBandheToggle" checked class="rounded border-slate-600 text-cyan-500" />
-            <span>Smart Bandhe-Bill &amp; Loan EMI De-Duplication (Double-count rokein)</span>
-          </label>
         </div>
-        <button id="btnCommitDiaryAi" type="button" class="px-5 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r text-white shadow-lg border border-cyan-300/40 whitespace-nowrap">
-          🚀 2. AUTO-ADD TO ALL 7 TABS (TRADES + KHARCH + LOANS/TRIP + HABITS)
-        </button>
+
+        <!-- Optional Helper Row: 1-Tap Demo Test & Clear -->
+        <div class="v6-grid-4 w-full pt-1">
+          <button type="button" data-diary-sample="s_hi" class="diary-sample-btn btn-amber py-1.5 text-[11px]">🇮🇳 हिन्दी Demo</button>
+          <button type="button" data-diary-sample="s_en" class="diary-sample-btn btn-emerald py-1.5 text-[11px]">🇬🇧 English Demo</button>
+          <button type="button" data-diary-sample="s_hg" class="diary-sample-btn btn-cyan py-1.5 text-[11px]">⚡ Hinglish Demo</button>
+          <button type="button" id="btnClearDiaryBox" class="btn-rose py-1.5 text-[11px]">✕ Clear Text</button>
+        </div>
+        <input type="checkbox" id="diaryDedupBandheToggle" checked class="hidden" />
+
+        <!-- Live AI Staging Preview (4 Centered Mini-Cards) -->
+        <div id="diaryStagingPreviewBox" class="v6-grid-4 w-full pt-2 border-t border-slate-800 text-xs"></div>
       </div>
 
-      <!-- Live AI Staging Preview Grid -->
-      <div id="diaryStagingPreviewBox" class="mt-3 pt-3 border-t border-slate-800/90 grid grid-cols-1 lg:grid-cols-4 gap-2.5 text-xs">
-        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-emerald-500/30">
-          <div class="font-black text-emerald-300 mb-1.5">🎯 1. AI Detected Trades (0)</div>
-          <div class="text-slate-400 italic py-1">Aaj ka trade likhein (हिन्दी / Eng / Hinglish)...</div>
+      <!-- 4 CENTER-ALIGNED 3D KPI SCORECARDS -->
+      <section class="v6-grid-4 w-full">
+        <div class="bento-card bento-emerald center-stack py-3 px-2">
+          <div class="text-[10px] font-black uppercase text-emerald-400">1. Net Trading P&amp;L</div>
+          <div id="kpiTradingPnl" class="text-xl sm:text-2xl font-black mono text-emerald-300 kpi-3d-num my-1">₹0</div>
+          <div id="kpiTradingSub" class="text-[11px] text-slate-300">Win Rate: <span id="kpiWinRateBadge" class="text-emerald-300 font-black">0%</span></div>
         </div>
-        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-cyan-500/30">
-          <div class="font-black text-cyan-300 mb-1.5">🛒 2. AI Classified Kharch, Trip &amp; EMI (0)</div>
-          <div class="text-slate-400 italic py-1">Aaj ke ₹ kharche, Trip ya Loan EMI likhein...</div>
-        </div>
-        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-violet-500/30">
-          <div class="font-black text-violet-300 mb-1.5">📖 3. Dinacharya &amp; Life Notes (0)</div>
-          <div class="text-slate-400 italic py-1">Workout, coding, ghumna ya parivar notes likhein...</div>
-        </div>
-        <div class="p-2.5 rounded-2xl bg-slate-950/85 border border-amber-500/30">
-          <div class="font-black text-amber-300 mb-1.5">📅 4. Day D15 Auto-Habit Ticks</div>
-          <div class="text-slate-400 italic py-1">Sat/Sun, NSE Holiday &amp; Travel days par Trading Streak 100% Protected rehti hai!</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- LEFT COLUMN (4 Cols): DESIGN #6 HERO CARD — 1st-OF-MONTH AUTO-TAGGED BILLS -->
-    <div class="lg:col-span-4 bento-card bento-design6-hero p-4 flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/40 whitespace-nowrap">
-            Design #6 • Auto-Tag Engine
-          </span>
-          <span class="text-xs font-bold mono text-cyan-300 whitespace-nowrap" id="dockAutoBillCount">0 Active Auto-Tags</span>
+        <div class="bento-card bento-cyan center-stack py-3 px-2">
+          <div class="text-[10px] font-black uppercase text-cyan-400">2. Ghar + EMI + Kharch</div>
+          <div id="kpiGrihasthiTotal" class="text-xl sm:text-2xl font-black mono text-cyan-300 kpi-3d-num my-1">₹0</div>
+          <div id="kpiGrihasthiSub" class="text-[11px] text-slate-300">Budget Used: <span id="kpiBudgetPct" class="text-cyan-300 font-black">0%</span></div>
         </div>
-        <h2 class="text-base sm:text-lg font-black text-white tracking-tight">
-          1st-OF-MONTH AUTO-TAGGED BILLS
-        </h2>
-        <p class="text-xs text-slate-300 mb-3">
-          Har mahine fix aane wale Trading Business (`Sec 37 ITR-3`) aur Ghar-Grihasthi bills—toggle `ON` rakhein, AI-CA apne-aap hisab jod lega:
-        </p>
 
-        <!-- Dynamic List of Recurring Bills with ON/OFF Toggles -->
-        <div id="dockRecurringList" class="space-y-2 max-h-[430px] overflow-y-auto pr-1"></div>
-      </div>
-
-      <div class="mt-3 pt-3 border-t border-violet-500/30 flex items-center justify-between gap-2 text-xs">
-        <div>
-          <div class="text-slate-400 font-medium whitespace-nowrap">Auto-Tagged ITR-3 Sec 37:</div>
-          <div id="dockSec37Total" class="text-base font-black mono text-violet-300 whitespace-nowrap">₹0 / mo</div>
+        <div class="bento-card bento-violet center-stack py-3 px-2">
+          <div class="text-[10px] font-black uppercase text-violet-400">3. ITR-3 &amp; 80C Tax Shield</div>
+          <div id="kpiTaxDeductTotal" class="text-xl sm:text-2xl font-black mono text-violet-300 kpi-3d-num my-1">₹0</div>
+          <div class="text-[11px] text-slate-300">Sec 37 Business: <span id="kpiSec37Span" class="text-violet-300 font-black">₹0</span></div>
         </div>
-        <button id="btnGoToBandheTab" type="button" class="px-3 py-2 rounded-xl font-extrabold bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-400/40 whitespace-nowrap">
-          ✏️ Edit Bills &amp; Amounts
-        </button>
-      </div>
-    </div>
 
-    <!-- CENTER COLUMN (4 Cols): AI-CA LIVE BRAIN AUDITOR & FIZUL KHARCH RADAR -->
-    <div class="lg:col-span-4 bento-card bento-emerald p-4 flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-300 border border-emerald-400/40 whitespace-nowrap">
-            🧠 Trinetra AI-CA Cortex • Live
-          </span>
-          <span class="text-[11px] font-bold text-emerald-400 whitespace-nowrap">● Audit Ready</span>
+        <div class="bento-card bento-coral center-stack py-3 px-2">
+          <div class="text-[10px] font-black uppercase text-rose-400">4. Fizul + Bad SL Leak</div>
+          <div id="kpiLeakageTotal" class="text-xl sm:text-2xl font-black mono text-rose-300 kpi-3d-num my-1">₹0</div>
+          <div class="text-[11px] text-slate-300">Fizul: <span id="kpiFizulSpan" class="text-rose-300 font-bold">₹0</span> • Bad SL: <span id="kpiBadSlSpan" class="text-amber-300 font-bold">₹0</span></div>
+          <span id="kpiGreedScoreBadge" class="hidden">0%</span>
         </div>
-        <h2 class="text-base sm:text-lg font-black text-white">
-          AI-CA LIVE BRAIN &amp; FIZUL KHARCH RADAR
-        </h2>
-        <p class="text-xs text-slate-400 mb-3">
-          Aapke Trades, Ghar Kharch, Running Loan EMI aur Income Tax (`ITR-3 Schedule BP`) ka real-time CA diagnosis:
-        </p>
+      </section>
 
-        <!-- AI Brain Visual Header (Strictly Horizontal Flex Row) -->
-        <div class="p-3 rounded-2xl bg-slate-950/90 border border-violet-500/40 mb-3" style="display:flex; flex-direction:row; align-items:center; gap:12px; text-align:left;">
-          <div style="width:46px; height:46px; min-width:46px; border-radius:14px; background:linear-gradient(135deg,#7c3aed,#06b6d4,#10b981); display:flex; align-items:center; justify-content:center; font-size:22px;">
-            🧠
+      <!-- 1-TAP QUICK ENTRY + OPTIONAL MANUAL FORM DRAWER -->
+      <div class="bento-card bento-amber center-stack space-y-2.5">
+        <span id="dockGreedStatusPill" class="px-3 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/50">
+          ⚡ 1-TAP INSTANT ENTRY • GREED: CONTROLLED (0%)
+        </span>
+        <h3 class="text-sm sm:text-base font-black text-amber-300 m-0">
+          BINA TYPE KIYE 1-TAP ME TRADE YA KHARCH JODEIN
+        </h3>
+
+        <div class="v6-grid-3 w-full">
+          <button id="btnQuickSniperWin" type="button" class="btn-emerald py-2.5 text-xs">✅ +Sniper Win (+₹4,500)</button>
+          <button id="btnQuickGoodSl" type="button" class="btn-cyan py-2.5 text-xs">🛡️ +Good SL (-₹1,200)</button>
+          <button id="btnQuickBadSl" type="button" class="btn-rose py-2.5 text-xs">⚠️ +Bad SL (-₹2,200)</button>
+          <button type="button" data-qcat="Rozmarra Essential" data-qtitle="Taaza Sabzi & Phal" data-qamt="180" class="quick-exp-btn btn-cyan py-2 text-xs">🥦 +Sabzi ₹180</button>
+          <button type="button" data-qcat="Rozmarra Essential" data-qtitle="Petrol / Fuel" data-qamt="300" class="quick-exp-btn btn-cyan py-2 text-xs">⛽ +Petrol ₹300</button>
+          <button type="button" data-qcat="Travel & Ghumna" data-qtitle="Trip / Outing Spend" data-qamt="1500" class="quick-exp-btn btn-violet py-2 text-xs">✈️ +Trip/Ghumna ₹1,500</button>
+          <button type="button" data-qcat="Loan EMI & Debt" data-qtitle="Monthly Loan EMI" data-qamt="5000" class="quick-exp-btn btn-amber py-2 text-xs">🏦 +Loan EMI ₹5,000</button>
+          <button type="button" data-qcat="Parivar Seva" data-qtitle="Mata-Pita & Home Seva" data-qamt="2000" class="quick-exp-btn btn-emerald py-2 text-xs">🙏 +Parivar Seva ₹2,000</button>
+          <button type="button" data-qcat="Fizul Kharch" data-qtitle="Zomato / Impulse Spend" data-qamt="350" class="quick-exp-btn btn-rose py-2 text-xs">🍔 +Fizul Food ₹350</button>
+        </div>
+
+        <!-- Collapsible Manual Trade & Expense Form (Clean & Out of the Way Unless Needed) -->
+        <details class="w-full pt-2 border-t border-slate-800">
+          <summary class="cursor-pointer text-xs font-black text-cyan-300 py-1">
+            ➕ Custom Strike ya Custom Kharch Form Kholein (Optional Manual Entry)
+          </summary>
+          <div class="v6-stack-md w-full mt-3 text-center">
+            <!-- Manual Trade Box -->
+            <div class="p-3 rounded-2xl bg-slate-950/90 border border-emerald-500/40 center-stack space-y-2">
+              <h4 class="text-xs font-black text-emerald-300 m-0">🎯 Manual Trade Entry</h4>
+              <div id="tradeDateMarketBanner" class="w-full p-2 rounded-xl bg-amber-500/15 border border-amber-400/40 text-[11px] text-amber-200 font-bold">
+                🏖️ Market Status Auto-Checked by Backend
+              </div>
+              <input type="date" id="tradeDateInput" value="2026-11-15" class="mono" />
+              <input type="text" id="tradeStrikeInput" value="" placeholder="Strike (e.g. NIFTY 25150 CE)" />
+              <input type="number" id="tradePnlInput" value="" placeholder="Net P&L ₹ (e.g. 4800 or -1200)" class="mono text-emerald-300" />
+              <select id="tradeWhySelect">
+                <option value="3-Lock + 7-EMA Root">✅ 3-Lock + 7-EMA Root (Sniper)</option>
+                <option value="Wyckoff Spring Reclaim">🟢 Wyckoff Spring Reclaim</option>
+                <option value="Running Candle FOMO">⚡ Running Candle FOMO</option>
+                <option value="Sideways Mid-Box Guess">🪤 Sideways Mid-Box Guess</option>
+                <option value="Revenge Trade">🔄 Revenge Trade</option>
+              </select>
+              <select id="tradeSlSelect">
+                <option value="Target Hit (T1/T2/T3)">🏆 Target Hit (T1/T2/T3)</option>
+                <option value="Good System SL">🛡️ Good System SL (Rule Followed)</option>
+                <option value="Bad Mistake SL">❌ Bad Mistake SL (Rule Broken)</option>
+              </select>
+              <select id="tradeGreedSelect">
+                <option value="Disciplined Trail (Zero Greed)">🧘‍♂️ Disciplined Trail (Zero Greed)</option>
+                <option value="Target Greed (Didn't Trail)">🔥 Target Greed (Didn't Trail)</option>
+                <option value="Quota Greed (Overtraded)">⚠️ Quota Greed (Overtraded)</option>
+              </select>
+              <input type="text" id="tradeNoteInput" value="" placeholder="1-Line Lesson (Optional)" />
+              <button id="btnAddTradeLog" type="button" class="btn-emerald w-full py-2.5">🏹 Save Manual Trade</button>
+            </div>
+
+            <!-- Manual Expense Box -->
+            <div class="p-3 rounded-2xl bg-slate-950/90 border border-cyan-500/40 center-stack space-y-2">
+              <h4 class="text-xs font-black text-cyan-300 m-0">🛒 Manual Kharch / Trip / EMI Entry</h4>
+              <input type="date" id="expDateInput" value="2026-11-15" class="mono" />
+              <input type="text" id="expTitleInput" value="" placeholder="Kharch Naam (e.g. Sabzi, Hotel, Loan EMI)" />
+              <input type="number" id="expAmtInput" value="" placeholder="Amount (₹)" class="mono text-cyan-300" />
+              <select id="expCatSelect">
+                <option value="Rozmarra Essential">🔵 Rozmarra Grihasthi (Sabzi, Doodh, Petrol)</option>
+                <option value="Travel & Ghumna">✈️ Travel &amp; Ghumna-Phirna (Trip, Hotel, Ticket)</option>
+                <option value="Loan EMI & Debt">🏦 Loan EMI &amp; Debt Payoff (Home/Bike/Personal EMI)</option>
+                <option value="Parivar Seva">🙏 Parivar Seva (Papa/Mummy &amp; Home Support)</option>
+                <option value="ITR-3 Business Deduct">🟣 ITR-3 Sec 37 Trading Expense (Wi-Fi, Data, Device)</option>
+                <option value="SIP & 80C/80D Wealth">🟢 SIP / 80C / Mediclaim Wealth</option>
+                <option value="Personal Shauk">👕 Personal Shauk &amp; Lifestyle</option>
+                <option value="Chillar Micro-UPI">☕ Chillar Micro-UPI (&lt;₹100 Chai/Snacks)</option>
+                <option value="Tyohar & Emergency">🟠 Tyohar, Shagun &amp; Emergency</option>
+                <option value="Fizul Kharch">🔴 Fizul Kharch (Junk Food / Impulse Order)</option>
+              </select>
+              <button id="btnAddExpenseLog" type="button" class="btn-cyan w-full py-2.5">💳 Save Manual Kharch</button>
+            </div>
           </div>
-          <div class="text-xs" style="text-align:left;">
-            <div class="font-extrabold text-cyan-300">CA Trinetra Verdict (FY 2026-27):</div>
-            <div id="dockCaHeadline" class="text-slate-200 mt-0.5 leading-snug">
-              Auto-tagged ₹0/mo in Sec 37 trading deductions—toggle ON your Bandhe Bills to reduce taxable F&amp;O income!
+        </details>
+      </div>
+
+      <!-- TODAY'S & RECENT LOGS TIMELINE (3 CLEAN CENTERED COLUMNS) -->
+      <div class="v6-stack-3md w-full">
+        <div class="bento-card bento-violet center-stack">
+          <h3 class="text-sm font-black text-violet-300 mb-2">🌅 RECENT DAILY JOURNAL LOGS</h3>
+          <div id="dailyDiaryLogsTable" class="space-y-2 w-full max-h-72 overflow-y-auto"></div>
+        </div>
+        <div class="bento-card bento-emerald center-stack">
+          <h3 class="text-sm font-black text-emerald-300 mb-2">📜 LOGGED TRADES</h3>
+          <div id="dailyTradesTable" class="space-y-2 w-full max-h-72 overflow-y-auto"></div>
+        </div>
+        <div class="bento-card bento-cyan center-stack">
+          <h3 class="text-sm font-black text-cyan-300 mb-2">🧾 LOGGED KHARCH, TRIP &amp; EMI</h3>
+          <div id="dailyExpensesTable" class="space-y-2 w-full max-h-72 overflow-y-auto"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2 (FRONT SECOND): 🏦 MONTHLY STATEMENT UPLOAD & P&L HISAB       -->
+    <!-- =================================================================== -->
+    <section id="view-statement" class="tab-view space-y-3">
+
+      <!-- TOP HERO: MONTHLY BANK + BROKER STATEMENT UPLOAD -->
+      <div class="bento-card bento-hero center-stack space-y-3">
+        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-200 border border-emerald-400/50">
+          🏦 CA-Level 3-Way Monthly Reconciler
+        </span>
+        <h2 class="text-base sm:text-xl font-black text-white m-0">
+          🔍 MONTHLY BROKER P&amp;L &amp; BANK STATEMENT HISAB
+        </h2>
+        <p class="text-xs text-slate-300 m-0" style="max-width:660px;">
+          Har mahine apne Trading App (`Angel One / Zerodha / Dhan`) ka P&amp;L CSV aur Bank Statement (`SBI / HDFC / ICICI`) upload karein—AI aapka asli Net Profit, Charges aur Chillar UPI mila kar dikhayega:
+        </p>
+
+        <!-- Month Filter + Base Capital Centered Row -->
+        <div class="v6-grid-2 w-full" style="max-width:600px;">
+          <select id="activeMonthSelect" class="text-cyan-200">
+            <option value="ALL" selected>📅 All Months (FY 2026-27)</option>
+            <option value="2026-11">📅 November 2026 (FY 2026-27)</option>
+            <option value="2026-10">📅 October 2026 (FY 2026-27)</option>
+            <option value="2026-12">📅 December 2026 (FY 2026-27)</option>
+          </select>
+          <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/40 center-stack">
+            <span class="text-[10px] font-extrabold text-emerald-300 uppercase">Base Capital (₹) &amp; 2% SL</span>
+            <input type="number" id="baseCapitalInput" value="0" step="10000" class="mono text-emerald-300 my-1" />
+            <span id="headerRoiAndRiskBadge" class="text-[10px] font-black mono text-cyan-300">ROI: 0.0% • Max 2% SL: ₹0</span>
+          </div>
+        </div>
+
+        <!-- 2 Upload Cards -->
+        <div class="v6-stack-md w-full">
+          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40 center-stack space-y-1.5">
+            <div class="text-xs font-black text-emerald-300">📈 1. Upload Trading App P&amp;L CSV (.csv / .txt)</div>
+            <div id="brokerFileStatusBadge" class="text-[11px] font-bold text-emerald-400 mono">Ready (Angel One / Zerodha / Dhan)</div>
+            <input type="file" id="brokerCsvFileInput" accept=".csv,.txt" class="text-xs" />
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40 center-stack space-y-1.5">
+            <div class="text-xs font-black text-cyan-300">🏦 2. Upload Monthly Bank Statement (.csv / .txt)</div>
+            <div id="bankFileStatusBadge" class="text-[11px] font-bold text-cyan-400 mono">Ready (SBI / HDFC / ICICI / Axis)</div>
+            <input type="file" id="bankCsvFileInput" accept=".csv,.txt" class="text-xs" />
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="v6-grid-2 w-full">
+          <button id="btnRunSampleReconcile" type="button" class="btn-emerald py-2.5 text-xs">
+            ⚡ 1-Tap Test: Sample P&amp;L + Bank Statement
+          </button>
+          <button id="btnSyncReconcileToJournal" type="button" class="btn-violet py-2.5 text-xs">
+            🔄 Sync Broker Charges &amp; UPI to Journal
+          </button>
+        </div>
+
+        <!-- 4 Center-Aligned Reconciliation Verdict Cards -->
+        <div id="reconcileVerdictGrid" class="v6-grid-4 w-full"></div>
+      </div>
+
+      <!-- HORIZONTAL 3D BAR CHARTS (ZERO LABEL OVERLAP ON MOBILE!) -->
+      <div class="v6-stack-md w-full">
+        <div class="bento-card bento-blue center-stack">
+          <h3 class="text-sm sm:text-base font-black text-cyan-300 mb-1">📊 1. MONTHLY CASHFLOW, EMI &amp; ITR-3 BREAKDOWN (₹)</h3>
+          <p class="text-[11px] text-slate-400 mb-2">Horizontal Bars — Mobile screen par ek bhi naam overlap nahi hoga</p>
+          <div class="relative w-full" style="height:260px;">
+            <canvas id="dockMainBarChart"></canvas>
+          </div>
+          <div class="hidden"><canvas id="tabChartCashflow"></canvas></div>
+        </div>
+
+        <div class="bento-card bento-emerald center-stack">
+          <h3 class="text-sm sm:text-base font-black text-emerald-300 mb-1">📈 2. TRADING PSYCHOLOGY: WINS vs GOOD/BAD SL (₹)</h3>
+          <p class="text-[11px] text-slate-400 mb-2">3-Lock Sniper Wins vs Good System SL vs Bad Mistake SL</p>
+          <div class="relative w-full" style="height:260px;">
+            <canvas id="tabChartPsychology"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI-CA LIVE BRAIN & ITR-3 SCHEDULE BP SUMMARY -->
+      <div class="v6-stack-md w-full">
+        <div class="bento-card bento-violet center-stack space-y-2.5">
+          <span class="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/50">
+            🧠 Trinetra AI-CA • Section 43(5) &amp; 44AB
+          </span>
+          <h3 class="text-base font-black text-white m-0">📄 LIVE ITR-3 SCHEDULE BP TAX SUMMARY</h3>
+          <div id="dockCaHeadline" class="text-xs text-cyan-300 font-bold"></div>
+          <div id="itrScheduleBpTable" class="space-y-2 w-full text-xs"></div>
+          <div class="v6-grid-2 w-full pt-1">
+            <button id="btnQuickExportITR" type="button" class="btn-emerald py-2.5 text-xs">📥 Download CA-Ready ITR-3 CSV</button>
+            <button id="btnOpenItrModal" type="button" class="btn-violet py-2.5 text-xs">🔍 Full Schedule BP View</button>
+          </div>
+          <button id="btnExportItrFromVault" type="button" class="hidden">Export</button>
+          <button id="btnJumpToDailyLog" type="button" class="hidden">Jump</button>
+        </div>
+
+        <div class="bento-card bento-cyan center-stack space-y-2.5">
+          <span class="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-cyan-500/25 text-cyan-200 border border-cyan-400/50">
+            💬 Instant AI-CA Tax Advisor
+          </span>
+          <h3 class="text-base font-black text-cyan-300 m-0">ASK TRINETRA AI-CA</h3>
+          <div id="dockCaDiagnostics" class="space-y-2 w-full text-xs"></div>
+          <div class="v6-grid-2 w-full">
+            <button type="button" data-caq="itr3" class="ca-prompt-btn btn-violet text-xs">📄 Net Taxable Profit?</button>
+            <button type="button" data-caq="audit" class="ca-prompt-btn btn-cyan text-xs">🔍 Sec 44AB Audit Check?</button>
+            <button type="button" data-caq="fizul" class="ca-prompt-btn btn-rose text-xs">🚨 Fizul + Bad SL Impact?</button>
+            <button type="button" data-caq="deprec" class="ca-prompt-btn btn-emerald text-xs">💻 iPad &amp; Wi-Fi Tax Save?</button>
+          </div>
+          <div id="caInteractiveAnswerBox" class="p-3 rounded-2xl bg-slate-950 border border-cyan-500/40 text-xs text-slate-200 w-full"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3 (CLEAN SETUP VAULT): ⚙️ LOANS, TRIPS, FIXED BILLS & VAULT     -->
+    <!-- =================================================================== -->
+    <section id="view-vault" class="tab-view space-y-3">
+
+      <!-- ROW 1: RUNNING LOANS & EMI + TRAVEL/TRIP TRACKER + UDHAARI & PAYOUT -->
+      <div class="v6-stack-3md w-full">
+
+        <!-- 🏦 RUNNING LOAN & EMI TRACKER -->
+        <div class="bento-card bento-emerald center-stack space-y-2">
+          <span id="loanTotalEmiBadge" class="px-3 py-0.5 rounded-full text-[10px] font-black bg-amber-500/25 text-amber-200 border border-amber-400/50">
+            🏦 Monthly EMI: ₹0/mo
+          </span>
+          <h3 class="text-base font-black text-white m-0">🏦 JO LOAN CHAL RAHA HAI (EMI TRACKER)</h3>
+          <div id="loanSummaryAdvisorBanner" class="p-2.5 rounded-xl bg-slate-950 border border-emerald-500/30 text-[11px] text-slate-300 w-full"></div>
+          <input type="text" id="loanNameInput" placeholder="Loan Naam (e.g. Home / Bike / iPad EMI)" value="" />
+          <div class="v6-grid-2 w-full">
+            <input type="number" id="loanPrincipalInput" placeholder="Balance Left (₹)" value="" class="mono" />
+            <input type="number" id="loanEmiInput" placeholder="Monthly EMI (₹)" value="" class="mono" />
+            <input type="number" id="loanRateInput" placeholder="ROI % (e.g. 9.5)" value="" step="0.1" class="mono" />
+            <input type="number" id="loanMonthsInput" placeholder="Months Left" value="" class="mono" />
+          </div>
+          <button id="btnAddLoanRecord" type="button" class="btn-emerald w-full py-2">➕ Add Running Loan</button>
+          <div id="loanListContainer" class="space-y-2 w-full max-h-48 overflow-y-auto text-xs"></div>
+        </div>
+
+        <!-- ✈️ TRAVEL / VACATION TRACKER -->
+        <div class="bento-card bento-cyan center-stack space-y-2">
+          <span id="travelTotalSpendBadge" class="px-3 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/25 text-cyan-200 border border-cyan-400/50">
+            ✈️ Trip Spend: ₹0
+          </span>
+          <h3 class="text-base font-black text-white m-0">✈️ KAHI GHUMNE JAYE (TRIP TRACKER)</h3>
+          <div id="travelModeSubText" class="text-[11px] text-slate-300">Vacation Mode pauses FOMO trading &amp; protects habit streak</div>
+          <button id="btnCardToggleTravelMode" type="button" class="btn-cyan w-full py-2">✈️ Toggle Travel Mode ON/OFF</button>
+          <input type="text" id="tripPlaceInput" placeholder="Kahan Gaye? (e.g. Manali / Goa / Puri)" value="" />
+          <input type="number" id="tripSpendInput" placeholder="₹ Trip Kharch (Hotel/Ticket)" value="" class="mono" />
+          <div class="v6-grid-2 w-full">
+            <input type="date" id="tripStartInput" value="2026-11-15" class="mono" />
+            <input type="date" id="tripEndInput" value="2026-11-17" class="mono" />
+          </div>
+          <button id="btnAddTripRecord" type="button" class="btn-cyan w-full py-2">➕ Save Trip Record</button>
+          <div id="tripListContainer" class="space-y-2 w-full max-h-48 overflow-y-auto text-xs"></div>
+        </div>
+
+        <!-- 🤝 DOSTO KI UDHAARI & FRIDAY PROFIT PAYOUT -->
+        <div class="bento-card bento-amber center-stack space-y-2">
+          <span id="udhaariNetBadge" class="px-3 py-0.5 rounded-full text-[10px] font-black bg-amber-500/25 text-amber-200 border border-amber-400/50">
+            🤝 Vasooli Pending: ₹0
+          </span>
+          <h3 class="text-base font-black text-white m-0">🤝 UDHAARI &amp; 🏧 BANK PAYOUT LOCK</h3>
+          <div class="v6-grid-2 w-full">
+            <input type="text" id="udhaariPersonInput" placeholder="Dost Naam (Rahul)" value="" />
+            <input type="number" id="udhaariAmtInput" placeholder="₹ Amount" value="" class="mono" />
+          </div>
+          <select id="udhaariTypeSelect">
+            <option value="vasooli">🟢 Vasoolna Hai (Lent)</option>
+            <option value="dena">🔴 Wapas Dena Hai (Borrowed)</option>
+          </select>
+          <button id="btnAddUdhaari" type="button" class="btn-amber w-full py-2">➕ Add Udhaari Record</button>
+          <div id="udhaariListContainer" class="space-y-1.5 w-full max-h-36 overflow-y-auto text-xs"></div>
+
+          <div class="w-full pt-2 border-t border-slate-800 center-stack space-y-1.5">
+            <span id="payoutLockRatioBadge" class="text-[11px] font-black text-emerald-300 mono">Bank Locked: 0%</span>
+            <div id="payoutAndTaxSummaryBox" class="w-full space-y-1.5 text-xs"></div>
+            <div class="v6-grid-2 w-full">
+              <input type="number" id="newPayoutAmtInput" value="" placeholder="₹ Payout" step="1000" class="mono" />
+              <button id="btnLogBankPayout" type="button" class="btn-emerald py-2 text-xs">🏦 +Lock Profit</button>
             </div>
           </div>
         </div>
 
-        <!-- Dynamic AI-CA Diagnostic Cards -->
-        <div id="dockCaDiagnostics" class="space-y-2.5 text-left"></div>
       </div>
 
-      <!-- Bottom Quick Action Buttons -->
-      <div class="mt-4 pt-3 border-t border-slate-800 grid grid-cols-2 gap-2">
-        <button id="btnOpenItrModal" type="button" class="py-2.5 px-2.5 rounded-xl font-extrabold text-xs bg-emerald-600 text-white whitespace-nowrap">
-          📄 View ITR-3 Summary
-        </button>
-        <button id="btnJumpToDailyLog" type="button" class="py-2.5 px-2.5 rounded-xl font-extrabold text-xs bg-violet-600/30 hover:bg-violet-600/45 text-violet-200 border border-violet-400/40 whitespace-nowrap">
-          ➕ Log Trade / Kharch
-        </button>
-      </div>
-    </div>
-
-    <!-- RIGHT COLUMN (4 Cols): MULTI-COLOR BAR CHART + 10-SECOND QUICK-LOGGER -->
-    <div class="lg:col-span-4 flex flex-col gap-4">
-      <!-- Top Right Card: Interactive Multi-Color Monthly Expense vs Tax-Deductible Bar Chart -->
-      <div class="bento-card bento-blue p-4">
-        <div class="mb-2">
-          <h3 class="text-sm font-black text-white">5-COLOR MONTHLY CASHFLOW &amp; ITR-3 BAR CHART (₹)</h3>
-          <p class="text-[11px] text-slate-400">Cyan=Grihasthi • Violet=ITR-3 • Green=SIP/80C • Amber=Trip/Loan • Red=Fizul/SL</p>
-        </div>
-        <div class="relative h-56 w-full">
-          <canvas id="dockMainBarChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Bottom Right Card: Quick 1-Tap Trade Psychology & Greed Dial -->
-      <div class="bento-card bento-amber p-4 flex-1 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <h3 class="text-xs sm:text-sm font-black text-amber-300">⚡ 10-SECOND QUICK-LOGGER</h3>
-            <span id="dockGreedStatusPill" class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 whitespace-nowrap">
-              GREED: CONTROLLED (0%)
-            </span>
+      <!-- ROW 2: 12 FIXED MONTHLY BILLS (1st-OF-MONTH AUTO-TAG ENGINE) -->
+      <div class="bento-card bento-violet center-stack space-y-3">
+        <span id="dockAutoBillCount" class="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/50">
+          0 Active Auto-Tags
+        </span>
+        <h3 class="text-base sm:text-lg font-black text-white m-0">
+          🔄 FIXED MONTHLY BILLS (1st-OF-MONTH AUTO-TAGGED BILLS)
+        </h3>
+        <div class="v6-grid-3 w-full">
+          <div class="p-2.5 rounded-xl bg-violet-950/70 border border-violet-400/40 center-stack">
+            <div class="text-[10px] font-bold text-violet-300 uppercase">ITR-3 Sec 37 Auto</div>
+            <div id="bandheSec37Sum" class="text-base font-black mono text-violet-200">₹0</div>
           </div>
-
-          <!-- Quick Rozmarra / Trip / EMI 1-Tap Expense Buttons -->
-          <div class="text-[11px] font-bold text-cyan-300 mb-1.5">Aaj Ka Rozmarra / Trip / Fizul (1-Tap Quick Add):</div>
-          <div class="grid grid-cols-3 gap-1.5 mb-2.5">
-            <button type="button" data-qcat="Rozmarra Essential" data-qtitle="Sabzi & Fruits" data-qamt="150" class="quick-exp-btn py-1.5 px-2 rounded-lg text-[11px] font-bold bg-cyan-950/80 text-cyan-200 border border-cyan-500/40 whitespace-nowrap">🥦 Sabzi ₹150</button>
-            <button type="button" data-qcat="Rozmarra Essential" data-qtitle="Petrol / Fuel" data-qamt="250" class="quick-exp-btn py-1.5 px-2 rounded-lg text-[11px] font-bold bg-blue-950/80 text-blue-200 border border-blue-500/40 whitespace-nowrap">⛽ Petrol ₹250</button>
-            <button type="button" data-qcat="Fizul Kharch" data-qtitle="Zomato / Impulse Snack" data-qamt="350" class="quick-exp-btn py-1.5 px-2 rounded-lg text-[11px] font-bold bg-rose-950/80 text-rose-200 border border-rose-500/40 whitespace-nowrap">🍔 Fizul ₹350</button>
+          <div class="p-2.5 rounded-xl bg-cyan-950/70 border border-cyan-400/40 center-stack">
+            <div class="text-[10px] font-bold text-cyan-300 uppercase">Ghar + 80C SIP</div>
+            <div id="bandheGharSipSum" class="text-base font-black mono text-cyan-200">₹0</div>
           </div>
-
-          <!-- Quick 1-Tap Trade Entry Audit (3 Clean Buttons Fitting Inside Card) -->
-          <div class="text-[11px] font-bold text-emerald-300 mb-1.5">Quick Trade Psychology Log:</div>
-          <div class="grid grid-cols-3 gap-1.5">
-            <button id="btnQuickSniperWin" type="button" class="py-2 px-1.5 rounded-xl text-[11px] font-extrabold bg-emerald-600/25 text-emerald-200 border border-emerald-400/50 whitespace-nowrap">
-              ✅ Win (+₹4.5k)
-            </button>
-            <button id="btnQuickGoodSl" type="button" class="py-2 px-1.5 rounded-xl text-[11px] font-extrabold bg-cyan-600/25 text-cyan-200 border border-cyan-400/50 whitespace-nowrap">
-              🛡️ Good SL (-₹1.2k)
-            </button>
-            <button id="btnQuickBadSl" type="button" class="py-2 px-1.5 rounded-xl text-[11px] font-extrabold bg-rose-600/25 text-rose-200 border border-rose-400/50 whitespace-nowrap">
-              ⚠️ Bad SL (-₹2.2k)
-            </button>
+          <div class="p-2.5 rounded-xl bg-amber-950/70 border border-amber-400/40 center-stack">
+            <div class="text-[10px] font-bold text-amber-300 uppercase">Running Loan EMIs</div>
+            <div id="bandheLoanEmiSum" class="text-base font-black mono text-amber-200">₹0</div>
           </div>
         </div>
-      </div>
-    </div>
-  </main>
+        <div id="dockSec37Total" class="hidden">₹0 / mo</div>
+        <div id="dockRecurringList" class="hidden"></div>
+        <button id="btnGoToBandheTab" type="button" class="hidden">Edit</button>
 
-  <!-- ===================================================================== -->
-  <!-- TAB 1: DAILY TRADE PSYCHOLOGY & ROZMARRA KHARCH LOGGER                -->
-  <!-- ===================================================================== -->
-  <section id="view-daily" class="tab-view hidden max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
-    <!-- Left 6 Cols: Trade Psychology Logger -->
-    <div class="lg:col-span-6 bento-card bento-emerald p-4">
-      <div class="flex items-center justify-between mobile-stack-header mb-3">
-        <h2 class="text-base sm:text-lg font-black text-emerald-300">🎯 DAILY TRADE PSYCHOLOGY LOGGER (3-STAGE AUDIT)</h2>
-        <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-emerald-500/30 text-[11px] font-bold text-emerald-300 whitespace-nowrap">Nifty 50 / Sensex / Options</span>
-      </div>
+        <div id="bandheFullGrid" class="v6-stack-3md w-full"></div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-3">
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Date</label>
-          <input type="date" id="tradeDateInput" value="2026-11-15" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Strike / Instrument</label>
-          <input type="text" id="tradeStrikeInput" value="" placeholder="e.g. NIFTY 25150 CE" placeholder="e.g. NIFTY 25150 CE" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Net P&amp;L (₹) (+Win / -Loss)</label>
-          <input type="number" id="tradePnlInput" value="" placeholder="e.g. 4800 or -1200" class="w-full bg-slate-900 border border-emerald-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-emerald-300" />
-        </div>
-      </div>
-
-      <!-- Question 1: Why I Took This Trade -->
-      <div class="mb-3">
-        <label class="text-xs font-extrabold text-cyan-300 block mb-1.5">1. Aaj Maine Yeh Trade Kyo Liya? (Entry Reason):</label>
-        <select id="tradeWhySelect" class="w-full bg-slate-900 border border-cyan-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
-          <option value="3-Lock + 7-EMA Root">✅ 3-Lock Confirmed + Option 7-EMA / SRB Root (A+ Sniper)</option>
-          <option value="Wyckoff Spring Reclaim">🟢 SMI Wyckoff Spring / Purple Box Reclaim</option>
-          <option value="Running Candle FOMO">⚡ Running Candle Top-Chase (FOMO Mistake)</option>
-          <option value="Sideways Mid-Box Guess">🪤 Sideways Purple Box Mid-Range Guess (Mistake)</option>
-          <option value="Revenge Trade">🔄 SL ke Turant Baad Revenge Trade (Mistake)</option>
-        </select>
-      </div>
-
-      <!-- Question 2: Stop-Loss Classification -->
-      <div class="mb-3">
-        <label class="text-xs font-extrabold text-amber-300 block mb-1.5">2. Outcome &amp; SL Audit (Agar SL Gaya To Kya Galti Thi?):</label>
-        <select id="tradeSlSelect" class="w-full bg-slate-900 border border-amber-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
-          <option value="Target Hit (T1/T2/T3)">🏆 Target Hit (T1 / T2 / T3 Trail Locked)</option>
-          <option value="Good System SL">🛡️ Good System SL (100% Rule Follow Kiya — Normal Business Cost)</option>
-          <option value="Bad Mistake SL">❌ Bad Mistake SL (Rule Toda: Box Mid-Entry / Top Chase / SL Hataya)</option>
-        </select>
-      </div>
-
-      <!-- Question 3: Profit Greed Check -->
-      <div class="mb-3">
-        <label class="text-xs font-extrabold text-violet-300 block mb-1.5">3. Profit &amp; Lalach Check (Greed Audit):</label>
-        <select id="tradeGreedSelect" class="w-full bg-slate-900 border border-violet-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
-          <option value="Disciplined Trail (Zero Greed)">🧘‍♂️ Disciplined Trail (T1 ke baad CTC, T2 ke baad T1 Lock — Zero Greed)</option>
-          <option value="Target Greed (Didn't Trail)">🔥 Target Greed (T1/T2 aaya par SL trail nahi kiya, wapas loss me kटा)</option>
-          <option value="Quota Greed (Overtraded)">⚠️ Quota Greed (Subah profit ke baad dopahar me overtrading ki)</option>
-        </select>
-      </div>
-
-      <div class="mb-3">
-        <label class="text-xs font-bold text-slate-300 block mb-1">Aaj Ki 1-Line Trading Seekh (Lesson):</label>
-        <input type="text" id="tradeNoteInput" value="" placeholder="1-line lesson (optional)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200" />
-      </div>
-
-      <div id="tradeDateMarketBanner" class="mb-2.5 p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-xs text-amber-200 font-bold">
-        🏖️ Sunday (15 Nov 2026): NSE &amp; BSE Market Closed! Aaj Weekend Rest / Backtest Review Day hai.
-      </div>
-      <button id="btnAddTradeLog" type="button" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r text-white shadow-lg">
-        🏹 SAVE TRADE &amp; UPDATE AI-CA AUDIT
-      </button>
-    </div>
-
-    <!-- Right 6 Cols: Daily Rozmarra & Custom Expense Logger -->
-    <div class="lg:col-span-6 bento-card bento-cyan p-4 flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between mobile-stack-header mb-3">
-          <h2 class="text-base sm:text-lg font-black text-cyan-300">🛒 DAILY ROZMARRA &amp; KHARCH LOGGER (INDIAN GRIHASTHI)</h2>
-          <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-violet-500/30 text-[11px] font-bold text-violet-300 whitespace-nowrap">ITR-3 Auto-Classifier</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-3">
-          <div>
-            <label class="text-[11px] font-bold text-slate-300 block mb-1">Date</label>
-            <input type="date" id="expDateInput" value="2026-11-15" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
-          </div>
-          <div>
-            <label class="text-[11px] font-bold text-slate-300 block mb-1">Kharch Ka Naam (Item)</label>
-            <input type="text" id="expTitleInput" placeholder="e.g. सब्जी / Sabzi, Trip Hotel, Loan EMI" value="" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
-          </div>
-          <div>
-            <label class="text-[11px] font-bold text-slate-300 block mb-1">Amount (₹)</label>
-            <input type="number" id="expAmtInput" value="" placeholder="₹ Amount" class="w-full bg-slate-900 border border-cyan-500/50 rounded-xl px-3 py-2 text-xs font-black mono text-cyan-300" />
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="text-xs font-extrabold text-cyan-300 block mb-1.5">5-Color Indian Cashflow &amp; Tax Bucket:</label>
-          <select id="expCatSelect" class="w-full bg-slate-900 border border-cyan-500/40 rounded-xl px-3 py-2 text-xs font-bold text-white">
-            <option value="Rozmarra Essential">🔵 Rozmarra Grihasthi (Sabzi, Doodh, Petrol, Dawai, Ghar Need)</option>
-            <option value="Parivar Seva">🙏 Parivar Seva (Papa/Mummy Transfer, Home Duty, Family Pride)</option>
-            <option value="Personal Shauk">👕 Personal Shauk &amp; Lifestyle (Clothes, Cafe, Gadgets, Outing)</option>
-            <option value="Chillar Micro-UPI">☕ Chillar Micro-UPI (&lt;₹100 Tapri Chai, Cold Drink, Snacks)</option>
-            <option value="ITR-3 Business Deduct">🟣 ITR-3 Sec 37 Trading Business Expense (Wi-Fi, Mobile, Brokerage, Data, Device)</option>
-            <option value="SIP & 80C/80D Wealth">🟢 SIP / 80C / Sukanya / 80D Mediclaim (Wealth + Tax Saving)</option>
-            <option value="Travel & Ghumna">✈️ Travel &amp; Ghumna-Phirna (Family Trip, Yatra, Hotel, Train/Flight, Outing)</option>
-            <option value="Loan EMI & Debt">🏦 Loan EMI &amp; Debt Payoff (Home Loan, Car/Bike EMI, Personal/Card EMI)</option>
-            <option value="Tyohar & Emergency">🟠 Tyohar, Shagun &amp; Emergency Sinking Fund</option>
-            <option value="Fizul Kharch">🔴 Fizul Kharch (Impulse Online Order, Junk Food, Wasteful Spend)</option>
+        <!-- Add Custom Fixed Bill -->
+        <div class="v6-grid-4 w-full pt-2 border-t border-slate-800">
+          <input type="text" id="newBandhaTitle" placeholder="Naya Bill Naam (e.g. Water Bill)" />
+          <input type="number" id="newBandhaAmt" value="500" class="mono text-cyan-300" />
+          <select id="newBandhaCat">
+            <option value="ITR-3 Business Deduct">🟣 ITR-3 Sec 37 Business</option>
+            <option value="Bandhe Ghar Fixed">🔵 Bandhe Ghar Fixed</option>
+            <option value="SIP & 80C/80D Wealth">🟢 80C SIP / Insurance</option>
           </select>
-        </div>
-
-        <button id="btnAddExpenseLog" class="w-full py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-lg shadow-cyan-600/25 mb-4">
-          💳 SAVE EXPENSE &amp; RUN AI-CA CHECK
-        </button>
-
-        <!-- Instant 1-Tap Indian Rozmarra Preset Buttons -->
-        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-          <div class="text-xs font-extrabold text-slate-300 mb-2">⚡ 1-Tap Indian Rozmarra Presets (Turant Add Karein):</div>
-          <div class="flex flex-wrap gap-1.5">
-            <button data-qcat="Rozmarra Essential" data-qtitle="Sabzi & Fruits" data-qamt="180" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-950 text-cyan-200 border border-cyan-500/40">🥦 Sabzi ₹180</button>
-            <button data-qcat="Rozmarra Essential" data-qtitle="Petrol / Scooter-Car Fuel" data-qamt="300" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-blue-950 text-blue-200 border border-blue-500/40">⛽ Petrol ₹300</button>
-            <button data-qcat="Rozmarra Essential" data-qtitle="Family Medical / Pharmacy" data-qamt="450" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-teal-950 text-teal-200 border border-teal-500/40">💊 Dawai ₹450</button>
-            <button data-qcat="Tyohar & Emergency" data-qtitle="Shagun / Parivar Gift" data-qamt="501" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-950 text-amber-200 border border-amber-500/40">🎁 Shagun ₹501</button>
-            <button type="button" data-qcat="Travel & Ghumna" data-qtitle="Trip / Outing / Travel Spend" data-qamt="1500" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-950 text-cyan-200 border border-cyan-500/40">✈️ Ghumna/Trip ₹1,500</button>
-            <button type="button" data-qcat="Loan EMI & Debt" data-qtitle="Monthly Loan EMI Payment" data-qamt="5000" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-violet-950 text-violet-200 border border-violet-500/40">🏦 Loan EMI ₹5,000</button>
-            <button type="button" data-qcat="Fizul Kharch" data-qtitle="Unplanned Junk Food / Swiggy" data-qamt="420" class="quick-exp-btn px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-950 text-rose-200 border border-rose-500/40">🍕 Fizul Food ₹420</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom 12 Cols: Live Trade, Expense & Sandhya Diary History Ledger -->
-    <div class="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="bento-card p-4 border border-slate-800">
-        <h3 class="text-sm font-black text-emerald-300 mb-2">📜 RECENT TRADE PSYCHOLOGY LOGS</h3>
-        <div id="dailyTradesTable" class="space-y-2 max-h-72 overflow-y-auto"></div>
-      </div>
-      <div class="bento-card p-4 border border-slate-800">
-        <h3 class="text-sm font-black text-cyan-300 mb-2">🧾 RECENT ROZMARRA &amp; FIZUL KHARCH LOGS</h3>
-        <div id="dailyExpensesTable" class="space-y-2 max-h-72 overflow-y-auto"></div>
-      </div>
-      <div class="bento-card p-4 border border-violet-500/40">
-        <h3 class="text-sm font-black text-violet-300 mb-2">🌅 SANDHYA 7–8 PM DIARY &amp; DINACHARYA TIMELINE</h3>
-        <div id="dailyDiaryLogsTable" class="space-y-2 max-h-72 overflow-y-auto"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- TAB 2: BANDHE MONTHLY BILLS (DESIGN #6 AUTO-TAGGED RECURRING VAULT)   -->
-  <!-- ===================================================================== -->
-  <section id="view-bandhe" class="tab-view hidden max-w-[1600px] mx-auto space-y-4">
-    <div class="bento-card bento-design6-hero p-5">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
-        <div>
-          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/50">
-            Design #6 Full Manager • 1st-of-Month Auto-Debit &amp; ITR-3 Tagging
-          </span>
-          <h2 class="text-xl font-black text-white mt-1">
-            🔄 BANDHE HUE MAASIK KHARCHE (FIXED MONTHLY AUTO-TAGGED BILLS)
-          </h2>
-          <p class="text-xs text-slate-300">
-            Jo kharche har mahine fix hote hain (`Wi-Fi, Mobile, Brokerage/STT, TradingView, iPad Depreciation, Ration, Doodh, Bijli, SIP`), unka toggle `ON` rakhein aur apni asli ₹ rakam set kar dein—yeh har mahine apne-aap jud jayenge!
-          </p>
-        </div>
-        <div class="grid grid-cols-3 gap-2.5 shrink-0">
-          <div class="p-3 rounded-xl bg-violet-950/70 border border-violet-400/40 text-right">
-            <div class="text-[10px] font-bold text-violet-300 uppercase whitespace-nowrap">ITR-3 Sec 37 Auto</div>
-            <div id="bandheSec37Sum" class="text-base sm:text-lg font-black mono text-violet-200 whitespace-nowrap">₹0</div>
-          </div>
-          <div class="p-3 rounded-xl bg-cyan-950/70 border border-cyan-400/40 text-right">
-            <div class="text-[10px] font-bold text-cyan-300 uppercase whitespace-nowrap">Ghar + 80C SIP</div>
-            <div id="bandheGharSipSum" class="text-base sm:text-lg font-black mono text-cyan-200 whitespace-nowrap">₹0</div>
-          </div>
-          <div class="p-3 rounded-xl bg-amber-950/70 border border-amber-400/40 text-right">
-            <div class="text-[10px] font-bold text-amber-300 uppercase whitespace-nowrap">Running Loan EMIs</div>
-            <div id="bandheLoanEmiSum" class="text-base sm:text-lg font-black mono text-amber-200 whitespace-nowrap">₹0</div>
-          </div>
+          <button id="btnAddNewBandha" type="button" class="btn-violet">➕ Add Fixed Bill</button>
         </div>
       </div>
 
-      <!-- Full Editable Grid of Recurring Monthly Bills -->
-      <div id="bandheFullGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 mb-4"></div>
-
-      <!-- Add New Custom Bandha Kharcha -->
-      <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40 grid grid-cols-1 sm:grid-cols-4 gap-2.5 items-end">
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Naya Bandha Bill Naam</label>
-          <input type="text" id="newBandhaTitle" placeholder="e.g. Newspaper / Water Bill" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white" />
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Monthly Amount (₹)</label>
-          <input type="number" id="newBandhaAmt" value="500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold mono text-cyan-300" />
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 block mb-1">Category &amp; ITR Tag</label>
-          <select id="newBandhaCat" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs font-bold text-white">
-            <option value="ITR-3 Business Deduct">🟣 ITR-3 Sec 37 Trading Business Expense</option>
-            <option value="Bandhe Ghar Fixed">🔵 Bandhe Ghar-Grihasthi (Essential)</option>
-            <option value="SIP & 80C/80D Wealth">🟢 80C SIP / Sukanya / 80D Mediclaim</option>
-          </select>
-        </div>
-        <button id="btnAddNewBandha" class="py-2 px-4 rounded-xl font-black text-xs bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white">
-          ➕ Add Auto-Tagged Bill
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- TAB 3: INTERACTIVE MULTI-COLOR BAR CHARTS                             -->
-  <!-- ===================================================================== -->
-  <section id="view-charts" class="tab-view hidden max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <div class="bento-card bento-blue p-4">
-      <h3 class="text-base font-black text-cyan-300 mb-1">📊 1. 5-COLOR INDIAN MONTHLY CASHFLOW &amp; ITR-3 BREAKDOWN (₹)</h3>
-      <p class="text-xs text-slate-400 mb-3">Bandhe Ghar Bills vs Rozmarra vs Auto-Tagged ITR-3 Business Deductions vs 80C SIP vs Fizul Kharch</p>
-      <div class="relative h-72 w-full">
-        <canvas id="tabChartCashflow"></canvas>
-      </div>
-    </div>
-
-    <div class="bento-card bento-emerald p-4">
-      <h3 class="text-base font-black text-emerald-300 mb-1">📈 2. TRADING PSYCHOLOGY AUDIT: SNIPER WINS vs GOOD SL vs BAD SL &amp; GREED (₹)</h3>
-      <p class="text-xs text-slate-400 mb-3">Dekhiye 3-Lock Setup se kitna aaya aur Bad Mistake SL ya Fizul Kharch me kitna leak hua</p>
-      <div class="relative h-72 w-full">
-        <canvas id="tabChartPsychology"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- TAB 4: AI-CA & ITR-3 TAX VAULT (SEC 43(5), 44AB, SCHEDULE BP)         -->
-  <!-- ===================================================================== -->
-  <section id="view-aica" class="tab-view hidden max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
-    <div class="lg:col-span-7 bento-card bento-violet p-5">
-      <div class="flex items-center justify-between mb-3">
-        <div>
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/50">
-            Indian Income Tax Act • Section 43(5) &amp; Section 44AB
-          </span>
-          <h2 class="text-xl font-black text-white mt-1">
-            🧠 TRINETRA AI-CA — LIVE ITR-3 SCHEDULE BP &amp; TAX CALCULATOR
-          </h2>
-        </div>
-        <button id="btnExportItrFromVault" type="button" class="px-3.5 py-2 rounded-xl font-black text-xs bg-emerald-600 hover:bg-emerald-500 text-white whitespace-nowrap shrink-0">
-          📥 Download CA-Ready ITR-3 CSV
-        </button>
-      </div>
-
-      <div id="itrScheduleBpTable" class="space-y-2.5 text-xs"></div>
-    </div>
-
-    <div class="lg:col-span-5 bento-card bento-cyan p-5 flex flex-col justify-between">
-      <div>
-        <h3 class="text-base font-black text-cyan-300 mb-2">💬 ASK TRINETRA AI-CA (INSTANT TAX &amp; FINANCE ADVISOR)</h3>
-        <p class="text-xs text-slate-300 mb-3">
-          Niche kisi bhi sawal par tap karein aur AI-CA aapke live journal data ke hisab se jawab dega:
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-          <button type="button" data-caq="itr3" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-violet-950/90 hover:bg-violet-900 text-violet-200 border border-violet-500/40">📄 Mera Net Taxable F&amp;O Profit kitna hai?</button>
-          <button data-caq="audit" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-950/90 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/40">🔍 Kya mujhe Sec 44AB Tax Audit chahiye?</button>
-          <button data-caq="fizul" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/40">🚨 Fizul Kharch + Bad SL kaise rokein?</button>
-          <button data-caq="deprec" class="ca-prompt-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-950/90 hover:bg-emerald-900 text-emerald-200 border border-emerald-500/40">💻 iPad &amp; Wi-Fi se Tax kaise bachega?</button>
-        </div>
-
-        <div id="caInteractiveAnswerBox" class="p-4 rounded-2xl bg-slate-950 border border-cyan-500/40 text-xs text-slate-200 leading-relaxed min-h-[210px]"></div>
-      </div>
-
-      <div class="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200">
-        <strong>📌 Legal Compliance Note:</strong> Exchange-traded F&amp;O is Non-Speculative Business Income under <strong>Section 43(5)</strong> (ITR-3 Code <strong>13018</strong>). Digital F&amp;O traders enjoy the enhanced <strong>₹10 Crore Section 44AB Audit Threshold</strong> when cash transactions stay under 5%.
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- TAB 5: 31-DAY TRADING & FINANCE RULE MATRIX + YEARLY WHAT-WHY-HOW     -->
-  <!-- ===================================================================== -->
-  <section id="view-rules" class="tab-view hidden max-w-[1600px] mx-auto space-y-4">
-    <!-- 31-Day Habit Matrix with Automatic Sat/Sun, NSE Holiday & Travel Shield -->
-    <div class="bento-card bento-amber p-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-        <div>
-          <h2 class="text-lg font-black text-amber-300">📅 31-DAY TRADING DISCIPLINE &amp; GRIHASTHI HABIT MATRIX (MARKET-HOLIDAY AWARE)</h2>
-          <p class="text-xs text-slate-300">
-            Kisi bhi box par tap karke `✓ Followed`, `✕ Broken` ya `🏖️ Market Off / Trip` toggle karein (Sat/Sun &amp; NSE Holidays auto-protected!):
-          </p>
-        </div>
-        <div id="habitStreakScore" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-xs font-black text-emerald-300 whitespace-nowrap">
+      <!-- ROW 3: 31-DAY DISCIPLINE MATRIX, GOALS & VAULT SECURITY SETTINGS -->
+      <div class="bento-card bento-amber center-stack space-y-3">
+        <div id="habitStreakScore" class="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-xs font-black text-emerald-300">
           Monthly Discipline Score: 100%
         </div>
-      </div>
-      <div class="overflow-x-auto pb-1">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr id="habitMatrixHeaderRow" class="border-b border-slate-800 text-[10px] font-bold text-slate-400"></tr>
-          </thead>
-          <tbody id="habitMatrixBody" class="divide-y divide-slate-800/70 text-xs"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Yearly What-Why-How Blueprint (Zero Dummy Text — Clean Placeholders + Auto-Save) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bento-card bento-emerald p-4">
-        <div class="text-xs font-black uppercase text-emerald-400 mb-1">🎯 1. WHAT IS MY GOAL (FY 2026-27)</div>
-        <textarea id="goalWhatInput" rows="3" placeholder="Apna FY 2026-27 ka Trading & Wealth target likhein (e.g. 1% Sniper Rule, Zero Mid-Box Trade)..." class="w-full bg-slate-950/80 border border-emerald-500/30 rounded-xl p-2.5 text-xs text-slate-200"></textarea>
-      </div>
-      <div class="bento-card bento-cyan p-4">
-        <div class="text-xs font-black uppercase text-cyan-400 mb-1">🛡️ 2. WHY IT MATTERS (PARIVAR &amp; FREEDOM)</div>
-        <textarea id="goalWhyInput" rows="3" placeholder="Yeh goal aapke aur parivar ke liye kyo zaroori hai (e.g. Loan-free life, Mata-Pita seva)..." class="w-full bg-slate-950/80 border border-cyan-500/30 rounded-xl p-2.5 text-xs text-slate-200"></textarea>
-      </div>
-      <div class="bento-card bento-violet p-4">
-        <div class="text-xs font-black uppercase text-violet-400 mb-1">⚙️ 3. HOW I WILL ACHIEVE IT (DAILY SYSTEM)</div>
-        <textarea id="goalHowInput" rows="3" placeholder="Aapka rozana ka trading discipline rule (e.g. Sirf 3-Lock + 7-EMA setup, Max 2 SL/day)..." class="w-full bg-slate-950/80 border border-violet-500/30 rounded-xl p-2.5 text-xs text-slate-200"></textarea>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===================================================================== -->
-  <!-- TAB 6: RECONCILER + NSE/BSE HOLIDAYS + TRAVEL TRACKER + LOAN/EMI HUB  -->
-  <!-- ===================================================================== -->
-  <section id="view-reconcile" class="tab-view hidden max-w-[1600px] mx-auto space-y-4">
-
-    <!-- ROW 1 (NEW!): NSE/BSE HOLIDAY & WEEKEND RADAR + ✈️ TRAVEL/VACATION TRACKER + 🏦 RUNNING LOAN/EMI HUB -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-      <!-- NEW CARD A: 🏛️ NSE / BSE OFFICIAL HOLIDAYS (2026-27) & SAT/SUN MARKET GUARD -->
-      <div class="bento-card bento-violet p-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-violet-500/30 text-violet-200 border border-violet-400/40 whitespace-nowrap">
-              🏛️ NSE / BSE Calendar Engine
-            </span>
-            <span id="marketCalendarCountBadge" class="text-xs font-black mono text-cyan-300 whitespace-nowrap">Sat/Sun + 19 Holidays</span>
-          </div>
-          <h3 class="text-base font-black text-white">🏛️ NSE &amp; BSE MARKET HOLIDAYS + SAT/SUN GUARD</h3>
-          <p class="text-xs text-slate-300 mb-2.5">
-            Shanivar, Ravivar aur NSE/BSE छुट्टियों par market band rehta hai—un dino aapki Trading Habit Streak automatically <strong>100% Safe (`🏖️ OFF`)</strong> rehti hai:
-          </p>
-
-          <!-- Selected Date Live Check -->
-          <div id="holidayCardSelectedStatus" class="p-2.5 rounded-xl bg-slate-950/90 border border-amber-500/40 text-xs text-amber-200 font-bold mb-2.5">
-            🏖️ Sun, 15 Nov 2026: Weekend Market Closed (No-Trade Rest Day)
-          </div>
-
-          <!-- Add Custom Off-Day / Local Holiday -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 mb-2.5">
-            <input type="date" id="customHolidayDateInput" value="2026-11-24" class="text-xs mono" />
-            <input type="text" id="customHolidayNameInput" placeholder="Reason (e.g. Shadi / Break)" value="" class="text-xs" />
-            <button id="btnAddCustomHoliday" type="button" class="py-1.5 px-2 rounded-xl text-xs font-black bg-violet-600/35 text-violet-200 border border-violet-400/50 whitespace-nowrap">
-              ➕ Mark Off-Day
-            </button>
-          </div>
-
-          <!-- Upcoming & Full NSE/BSE Holiday List -->
-          <div class="text-[11px] font-bold text-violet-300 mb-1">📅 Official NSE / BSE Holidays &amp; Custom Off-Days:</div>
-          <div id="nseHolidayListContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 text-xs"></div>
+        <h3 class="text-base font-black text-amber-300 m-0">
+          📅 31-DAY DISCIPLINE MATRIX (BACKEND NSE HOLIDAY &amp; WEEKEND PROTECTED)
+        </h3>
+        <div class="overflow-x-auto w-full pb-1">
+          <table class="w-full text-center border-collapse">
+            <thead>
+              <tr id="habitMatrixHeaderRow" class="border-b border-slate-800 text-[10px] font-bold text-slate-400"></tr>
+            </thead>
+            <tbody id="habitMatrixBody" class="divide-y divide-slate-800/70 text-xs"></tbody>
+          </table>
         </div>
-      </div>
 
-      <!-- NEW CARD B: ✈️ KAHI GHUMNE JAYE — TRAVEL / VACATION TRACKER & TRADING PAUSE -->
-      <div class="bento-card bento-cyan p-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 whitespace-nowrap">
-              ✈️ Travel &amp; Yatra Shield
-            </span>
-            <span id="travelTotalSpendBadge" class="text-xs font-black mono text-cyan-300 whitespace-nowrap">Trip Spend: ₹0</span>
+        <!-- Yearly Goals -->
+        <div class="v6-stack-3md w-full pt-2">
+          <div class="p-3 rounded-xl bg-slate-950 border border-emerald-500/30 center-stack">
+            <div class="text-xs font-black text-emerald-400 mb-1">🎯 1. WHAT IS MY GOAL</div>
+            <textarea id="goalWhatInput" rows="2" placeholder="FY 2026-27 Target..."></textarea>
           </div>
-          <h3 class="text-base font-black text-white">✈️ KAHI GHUMNE JAYE (TRIP &amp; VACATION TRACKER)</h3>
-          <p class="text-xs text-slate-300 mb-2.5">
-            Jab family ya dosto ke saath ghumne jayein, <strong>Travel Mode ON</strong> karein taaki raaste me mobile par galat FOMO trade na ho aur trip ka pura kharch alag dikhe:
-          </p>
+          <div class="p-3 rounded-xl bg-slate-950 border border-cyan-500/30 center-stack">
+            <div class="text-xs font-black text-cyan-400 mb-1">🛡️ 2. WHY IT MATTERS</div>
+            <textarea id="goalWhyInput" rows="2" placeholder="Parivar & Freedom Reason..."></textarea>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-violet-500/30 center-stack">
+            <div class="text-xs font-black text-violet-400 mb-1">⚙️ 3. DAILY SYSTEM</div>
+            <textarea id="goalHowInput" rows="2" placeholder="3-Lock + Max 2 SL Rule..."></textarea>
+          </div>
+        </div>
 
-          <!-- 1-Tap Travel Mode Master Banner -->
-          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-cyan-500/40 info-row-inline mb-2.5">
-            <div>
-              <div class="text-xs font-black text-cyan-200">✈️ Active Vacation / No-Trade Shield</div>
-              <div id="travelModeSubText" class="text-[10px] text-slate-400">Currently OFF — Regular Market Mode</div>
+        <!-- Backend NSE/BSE Holiday Engine Drawer (Hidden in Backend Drawer Unless Tapped) -->
+        <details class="w-full pt-2 border-t border-slate-800">
+          <summary class="cursor-pointer text-xs font-bold text-violet-300 py-1">
+            🏛️ Backend NSE/BSE Holiday &amp; Weekend Auto-Engine Details (<span id="marketCalendarCountBadge">Sat/Sun + 21 Holidays</span>)
+          </summary>
+          <div class="mt-2 space-y-2 center-stack">
+            <div id="holidayCardSelectedStatus" class="p-2 rounded-xl bg-slate-950 border border-amber-500/40 text-xs text-amber-200 font-bold w-full"></div>
+            <div class="v6-grid-3 w-full">
+              <input type="date" id="customHolidayDateInput" value="2026-11-24" class="mono" />
+              <input type="text" id="customHolidayNameInput" placeholder="Custom Off-Day Reason" value="" />
+              <button id="btnAddCustomHoliday" type="button" class="btn-violet">➕ Add Off-Day</button>
             </div>
-            <button id="btnCardToggleTravelMode" type="button" class="px-3 py-1.5 rounded-xl text-xs font-black bg-cyan-600/30 text-cyan-200 border border-cyan-400/50 whitespace-nowrap">
-              Toggle Travel Mode
-            </button>
+            <div id="nseHolidayListContainer" class="space-y-1.5 w-full max-h-40 overflow-y-auto text-xs"></div>
           </div>
+        </details>
 
-          <!-- Add New Trip / Ghumna Entry -->
-          <div class="grid grid-cols-2 gap-1.5 mb-1.5">
-            <input type="text" id="tripPlaceInput" placeholder="Kahan Gaye? (e.g. Manali / Goa / Puri)" value="" class="text-xs" />
-            <input type="number" id="tripSpendInput" placeholder="₹ Trip Kharch (Hotel/Ticket)" value="" class="text-xs mono" />
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 mb-2.5">
-            <input type="date" id="tripStartInput" value="2026-11-15" class="text-xs mono" title="Trip Start Date" />
-            <input type="date" id="tripEndInput" value="2026-11-17" class="text-xs mono" title="Trip End Date" />
-            <button id="btnAddTripRecord" type="button" class="py-1.5 px-2 rounded-xl text-xs font-black bg-cyan-600/35 text-cyan-200 border border-cyan-400/50 whitespace-nowrap">
-              ➕ Save Trip
-            </button>
-          </div>
+        <div id="indianLifeMirrorBox" class="w-full v6-grid-4 text-xs pt-1"></div>
+        <span id="patienceDaysBadge" class="hidden">0</span>
 
-          <div id="tripListContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 text-xs"></div>
+        <!-- Vault Security, Backup, Patience & Reset Controls -->
+        <div class="v6-grid-4 w-full pt-2 border-t border-slate-800">
+          <button id="btnLogPatienceDay" type="button" class="btn-amber py-2.5 text-xs">🧘‍♂️ +0-Trade Patience Day</button>
+          <button id="btnBackupJson" type="button" class="btn-cyan py-2.5 text-xs">💾 Backup Journal (.json)</button>
+          <button id="btnLockVaultNow" type="button" class="btn-rose py-2.5 text-xs">🔒 Lock AES-256 Vault</button>
+          <button id="btnChangeVaultPin" type="button" class="btn-violet py-2.5 text-xs">🔑 Change Secret PIN</button>
         </div>
+        <button id="btnResetDemoData" type="button" class="btn-rose w-full py-2.5 text-xs">
+          🗑️ Reset All Journal Data to ₹0 (Clean Slate)
+        </button>
       </div>
 
-      <!-- NEW CARD C: 🏦 JO LOAN CHAL RAHA HAI — RUNNING LOANS, EMI & PREPAYMENT TRACKER -->
-      <div class="bento-card bento-emerald p-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-200 border border-emerald-400/40 whitespace-nowrap">
-              🏦 Debt-Freedom &amp; EMI Engine
-            </span>
-            <span id="loanTotalEmiBadge" class="text-xs font-black mono text-amber-300 whitespace-nowrap">Monthly EMI: ₹0/mo</span>
-          </div>
-          <h3 class="text-base font-black text-white">🏦 JO LOAN CHAL RAHA HAI (LOAN &amp; EMI TRACKER)</h3>
-          <p class="text-xs text-slate-300 mb-2.5">
-            Apna Home Loan, Bike/Car Loan, Personal Loan ya iPad EMI yahan dalein—AI batayega ki trading profit se prepay karne par kitna byaaj bachega:
-          </p>
+    </section>
 
-          <!-- Add Running Loan Form -->
-          <div class="grid grid-cols-2 gap-1.5 mb-1.5">
-            <input type="text" id="loanNameInput" placeholder="Loan Naam (e.g. Home / Bike / iPad EMI)" value="" class="text-xs" />
-            <input type="number" id="loanPrincipalInput" placeholder="Remaining Balance (₹)" value="" class="text-xs mono" />
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2.5">
-            <input type="number" id="loanEmiInput" placeholder="EMI (₹/mo)" value="" class="text-xs mono" />
-            <input type="number" id="loanRateInput" placeholder="ROI % (e.g. 9.5)" value="" step="0.1" class="text-xs mono" />
-            <input type="number" id="loanMonthsInput" placeholder="Months Left" value="" class="text-xs mono" />
-            <button id="btnAddLoanRecord" type="button" class="py-1.5 px-2 rounded-xl text-xs font-black bg-emerald-600/35 text-emerald-200 border border-emerald-400/50 whitespace-nowrap">
-              ➕ Add Loan
-            </button>
-          </div>
-
-          <div id="loanSummaryAdvisorBanner" class="p-2 rounded-xl bg-slate-950/90 border border-emerald-500/30 text-[11px] text-slate-300 mb-2">
-            🎉 Zero Active Loans (₹0 Debt) — Aap 100% Debt-Free hain! Agar koi loan/EMI chal raha hai to upar add karein.
-          </div>
-
-          <div id="loanListContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-1 text-xs"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ROW 2: MONTHLY BANK STATEMENT + BROKER TAX P&L UPLOAD & 3-WAY RECONCILER -->
-    <div class="bento-card bento-design6-hero p-5">
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-        <div>
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/30 text-emerald-200 border border-emerald-400/50 whitespace-nowrap">
-            🏦 CA-Level 3-Way Truth Engine • Broker P&amp;L + Bank Statement + 7–8 PM Diary
-          </span>
-          <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-            🔍 MONTHLY BANK STATEMENT &amp; BROKER P&amp;L AUTO-RECONCILER
-          </h2>
-          <p class="text-xs text-slate-300">
-            Har mahine apne Trading App (`Angel One / Zerodha / Dhan / Groww`) ka P&amp;L CSV aur Bank Statement (`SBI / HDFC / ICICI`) CSV upload karein:
-          </p>
-        </div>
-        <div class="flex items-center gap-2 flex-wrap shrink-0">
-          <button id="btnRunSampleReconcile" type="button" class="px-3.5 py-2 rounded-xl text-xs font-black bg-gradient-to-r text-white shadow-lg whitespace-nowrap">
-            ⚡ 1-Tap Test: Sample P&amp;L + Bank CSV
-          </button>
-          <button id="btnSyncReconcileToJournal" type="button" class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-violet-600/35 hover:bg-violet-600/50 text-violet-200 border border-violet-400/50 whitespace-nowrap">
-            🔄 Auto-Sync Charges &amp; UPI to Journal
-          </button>
-        </div>
-      </div>
-
-      <!-- Dual Upload Boxes: Broker P&L CSV + Bank Statement CSV -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40">
-          <div class="flex items-center justify-between gap-2 mb-1.5">
-            <span class="text-xs font-black text-emerald-300">📈 1. Upload Trading App P&amp;L Statement (.csv / .txt)</span>
-            <span id="brokerFileStatusBadge" class="text-[10px] font-bold text-emerald-400 mono whitespace-nowrap">Ready (Angel / Zerodha / Dhan)</span>
-          </div>
-          <input type="file" id="brokerCsvFileInput" accept=".csv,.txt" class="w-full text-xs" />
-          <p class="text-[11px] text-slate-400 mt-1">
-            Auto-extracts: <strong>Gross P&amp;L, Brokerage, STT, Exchange Fees, 18% GST, Stamp Duty, Net Realized P&amp;L &amp; Unlogged Trades</strong>.
-          </p>
-        </div>
-
-        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40">
-          <div class="flex items-center justify-between gap-2 mb-1.5">
-            <span class="text-xs font-black text-cyan-300">🏦 2. Upload Monthly Bank Statement (.csv / .txt)</span>
-            <span id="bankFileStatusBadge" class="text-[10px] font-bold text-cyan-400 mono whitespace-nowrap">Ready (SBI / HDFC / ICICI)</span>
-          </div>
-          <input type="file" id="bankCsvFileInput" accept=".csv,.txt" class="w-full text-xs" />
-          <p class="text-[11px] text-slate-400 mt-1">
-            Auto-extracts: <strong>All UPI Debits, Chillar Micro-Spends (&lt;₹100), Loan EMIs, Broker Payout Credits &amp; Unlogged Leaks</strong>.
-          </p>
-        </div>
-      </div>
-
-      <!-- 4-Card Reconciliation Verdict Strip -->
-      <div id="reconcileVerdictGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3"></div>
-    </div>
-
-    <!-- ROW 3: DOSTO KI UDHAARI + FRIDAY BANK PAYOUT LOCK + PARIVAR SEVA vs SHAUK vs CHILLAR -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-      <!-- UPGRADE CARD 1: DOSTO KI UDHAARI & SPLIT-BILL VASOOLI TRACKER -->
-      <div class="bento-card bento-amber p-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-amber-500/25 text-amber-200 border border-amber-400/40 whitespace-nowrap">
-              🤝 Indian Youth Blind Spot
-            </span>
-            <span id="udhaariNetBadge" class="text-xs font-black mono text-amber-300 whitespace-nowrap">Vasooli Pending: ₹0</span>
-          </div>
-          <h3 class="text-base font-black text-white">🤝 DOSTO KI UDHAARI &amp; BILL-SPLIT VASOOLI</h3>
-          <p class="text-xs text-slate-400 mb-3">
-            "Bhai abhi tu GPay kar de, mai baad me bhejta hu" — Yeh kharch nahi hai, par wapas na aaye to chuna hai!
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 mb-2">
-            <input type="text" id="udhaariPersonInput" placeholder="Dost Naam (Rahul)" value="" class="text-xs" />
-            <input type="number" id="udhaariAmtInput" placeholder="₹ Amount" value="" class="text-xs mono" />
-            <select id="udhaariTypeSelect" class="text-xs">
-              <option value="vasooli">🟢 Vasoolna Hai</option>
-              <option value="dena">🔴 Dena Hai</option>
-            </select>
-          </div>
-          <button id="btnAddUdhaari" type="button" class="w-full py-2 rounded-xl text-xs font-black bg-amber-500/25 hover:bg-amber-500/40 text-amber-200 border border-amber-400/50 mb-3">
-            ➕ Add Udhaari / Split Record
-          </button>
-
-          <div id="udhaariListContainer" class="space-y-1.5 max-h-48 overflow-y-auto"></div>
-        </div>
-      </div>
-
-      <!-- UPGRADE CARD 2: FRIDAY BANK PAYOUT LOCK & ADVANCE TAX GULLAK -->
-      <div class="bento-card bento-emerald p-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-200 border border-emerald-400/40 whitespace-nowrap">
-              🏧 Payout &amp; Tax Gullak
-            </span>
-            <span id="payoutLockRatioBadge" class="text-xs font-black mono text-emerald-300 whitespace-nowrap">Bank Locked: 0%</span>
-          </div>
-          <h3 class="text-base font-black text-white">🏧 FRIDAY PROFIT PAYOUT &amp; ADVANCE TAX GULLAK</h3>
-          <p class="text-xs text-slate-400 mb-3">
-            Screen profit tabhi asli hai jab wo Broker Wallet se nikal kar Bank aur Tax Gullak me lock ho jaye:
-          </p>
-
-          <div id="payoutAndTaxSummaryBox" class="space-y-2 mb-3 text-xs"></div>
-
-          <div class="grid grid-cols-2 gap-2">
-            <input type="number" id="newPayoutAmtInput" value="" placeholder="₹ Payout Amount" step="1000" class="w-full text-xs mono" />
-            <button id="btnLogBankPayout" type="button" class="w-full py-2 rounded-xl text-xs font-black bg-emerald-600/35 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-400/50 whitespace-nowrap">
-              🏦 +Lock Profit to Bank
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- UPGRADE CARD 3: PARIVAR SEVA vs PERSONAL SHAUK vs CHILLAR MICRO-UPI -->
-      <div class="bento-card bento-cyan p-4 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 whitespace-nowrap">
-              🙏 Indian Life Mirror
-            </span>
-            <span id="patienceDaysBadge" class="text-xs font-black mono text-cyan-300 whitespace-nowrap">🧘‍♂️ 0 Patience Days</span>
-          </div>
-          <h3 class="text-base font-black text-white">🙏 PARIVAR SEVA vs 👕 SHAUK vs ☕ CHILLAR</h3>
-          <p class="text-xs text-slate-400 mb-3">
-            Dekhiye is mahine Papa/Mummy Seva, Travel aur Loan EMI me kitna laga vs khud ke Shauk aur Chillar UPI me:
-          </p>
-
-          <div id="indianLifeMirrorBox" class="space-y-2 mb-3 text-xs"></div>
-
-          <div class="grid grid-cols-2 gap-2">
-            <button type="button" data-qcat="Parivar Seva" data-qtitle="Papa/Mummy & Home Seva" data-qamt="2000" class="quick-exp-btn py-2 px-2 rounded-xl text-xs font-extrabold bg-emerald-950/90 text-emerald-200 border border-emerald-500/40 whitespace-nowrap">
-              🙏 +Parivar Seva ₹2,000
-            </button>
-            <button type="button" data-qcat="Chillar Micro-UPI" data-qtitle="Tapri Chai / Cold Drink / Snack" data-qamt="40" class="quick-exp-btn py-2 px-2 rounded-xl text-xs font-extrabold bg-amber-950/90 text-amber-200 border border-amber-500/40 whitespace-nowrap">
-              ☕ +Chillar UPI ₹40
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
+  </div>
 
   <!-- ITR-3 Schedule BP Modal -->
-  <div id="itrModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bento-card bento-violet max-w-2xl w-full p-5 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-lg font-black text-violet-300">📄 CA-READY ITR-3 SCHEDULE BP SUMMARY (AY 2027-28)</h3>
-        <button id="btnCloseItrModal" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold">✕ Close</button>
-      </div>
-      <div id="itrModalBody" class="space-y-2 text-xs"></div>
+  <div id="itrModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4">
+    <div class="bento-card bento-violet max-w-2xl w-full p-5 max-h-[90vh] overflow-y-auto center-stack space-y-3">
+      <h3 class="text-lg font-black text-violet-300 m-0">📄 CA-READY ITR-3 SCHEDULE BP SUMMARY (AY 2027-28)</h3>
+      <div id="itrModalBody" class="space-y-2 w-full text-xs"></div>
+      <button id="btnCloseItrModal" type="button" class="btn-rose px-6 py-2">✕ Close Window</button>
     </div>
   </div>
 
@@ -2607,19 +1800,19 @@
         `Auto-tagged ${formatINR(m.totalSec37)}/mo in Sec 37 trading deductions—reducing your taxable F&O income from ${formatINR(m.netTradingPnl)} down to ${formatINR(m.netTaxableFoIncome)}!`;
 
       document.getElementById('dockCaDiagnostics').innerHTML = `
-        <div class="p-3 rounded-xl bg-violet-950/45 border border-violet-500/40 text-xs text-left">
+        <div class="p-3 rounded-xl bg-violet-950/45 border border-violet-500/40 text-xs center-stack">
           <div class="font-extrabold text-violet-300">🟣 1. Auto-Tagged ITR-3 Business Expense Shield:</div>
           <div class="text-slate-300 mt-0.5">
             Wi-Fi, Mobile, TradingView, Brokerage/STT &amp; iPad Depreciation (<span class="mono font-bold text-white">${formatINR(m.totalSec37)}/mo</span>) claimed under <strong>Section 37 &amp; 32</strong>. Estimated annual tax saved: <span class="text-emerald-300 font-bold mono">${formatINR(m.totalSec37 * 12 * 0.25)}/yr</span>.
           </div>
         </div>
-        <div class="p-3 rounded-xl bg-rose-950/45 border border-rose-500/40 text-xs text-left">
+        <div class="p-3 rounded-xl bg-rose-950/45 border border-rose-500/40 text-xs center-stack">
           <div class="font-extrabold text-rose-300">🔴 2. Fizul Kharch + Bad SL Psychological Shock Audit:</div>
           <div class="text-slate-300 mt-0.5">
             Is mahine <strong>Bad Mistake SL (${formatINR(m.badSlLoss)})</strong> + <strong>Fizul Spend (${formatINR(m.fizul)})</strong> = <span class="mono font-bold text-rose-300">${formatINR(m.totalLeakage)}</span> (${ratiDaysEquiv} din ke Ghar Ration &amp; Doodh ke barabar).
           </div>
         </div>
-        <div class="p-3 rounded-xl bg-cyan-950/45 border border-cyan-500/40 text-xs text-left">
+        <div class="p-3 rounded-xl bg-cyan-950/45 border border-cyan-500/40 text-xs center-stack">
           <div class="font-extrabold text-cyan-300">🔵 3. Loan EMI, Travel &amp; Sec 44AB Audit Radar:</div>
           <div class="text-slate-300 mt-0.5">
             Running Loan EMIs: <span class="mono font-bold text-amber-300">${formatINR(m.totalLoanMonthlyEmi)}/mo</span> • Travel Spend: <span class="mono font-bold text-cyan-200">${formatINR(m.travelSpend)}</span> • ICAI F&amp;O Turnover: <span class="mono font-bold text-emerald-300">${formatINR(m.monthlyTurnover)}/mo</span> (Zero Tax Audit required under ₹10 Cr limit!).
@@ -2679,19 +1872,15 @@
       document.getElementById('bandheFullGrid').innerHTML = state.recurringBills.map(b => {
         const cardBorder = b.category === 'ITR-3 Business Deduct' ? 'border-violet-500/45 bg-violet-950/25' : (b.category === 'Bandhe Ghar Fixed' ? 'border-cyan-500/45 bg-cyan-950/25' : 'border-emerald-500/45 bg-emerald-950/25');
         return `
-          <div class="p-3.5 rounded-2xl border ${cardBorder} flex flex-col justify-between gap-2">
-            <div class="info-row-inline">
-              <div>
-                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">${b.category} (${b.code})</span>
-                <div class="text-sm font-extrabold text-white mt-1.5">${b.title}</div>
-              </div>
-              <div data-bill-id="${b.id}" class="bill-toggle-btn toggle-switch ${b.active ? 'on' : 'off'} shrink-0">
-                <div class="toggle-knob"></div>
-              </div>
+          <div class="p-3.5 rounded-2xl border ${cardBorder} center-stack space-y-2">
+            <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-slate-700">${b.category} (${b.code})</span>
+            <div class="text-sm font-extrabold text-white">${b.title}</div>
+            <div data-bill-id="${b.id}" class="bill-toggle-btn toggle-switch ${b.active ? 'on' : 'off'}" title="Toggle Auto-Tag ON/OFF">
+              <div class="toggle-knob"></div>
             </div>
-            <div class="info-row-inline pt-2 border-t border-slate-800/80">
+            <div class="w-full pt-2 border-t border-slate-800/80 center-stack space-y-1">
               <span class="text-[11px] text-slate-400">Monthly Auto-Amount (₹):</span>
-              <input type="number" data-bill-amt-id="${b.id}" value="${b.amount}" class="bill-amt-input w-28 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-black mono text-right text-white" />
+              <input type="number" data-bill-amt-id="${b.id}" value="${b.amount}" class="bill-amt-input mono text-white" style="max-width:140px;" />
             </div>
           </div>
         `;
@@ -2821,276 +2010,46 @@
         parent.appendChild(svgWrap);
       }
       const maxVal = Math.max(1000, ...values.map(v => Math.abs(Number(v) || 0)));
-      const barW = Math.floor(510 / Math.max(1, labels.length));
-      const barsSvg = labels.map((lbl, i) => {
+      const rowsSvg = labels.map((lbl, i) => {
         const val = Math.abs(Number(values[i]) || 0);
-        const h = Math.max(6, Math.round((val / maxVal) * 125));
-        const x = 28 + i * (barW + 10);
-        const y = 152 - h;
+        const w = Math.max(8, Math.round((val / maxVal) * 320));
+        const y = 18 + i * 36;
         const col = colors[i % colors.length];
         return `
-          <rect x="${x}" y="${y}" width="${barW - 8}" height="${h}" rx="7" fill="${col}" />
-          <text x="${x + (barW - 8)/2}" y="${y - 6}" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="800">₹${Math.round(val).toLocaleString('en-IN')}</text>
-          <text x="${x + (barW - 8)/2}" y="172" text-anchor="middle" fill="#cbd5e1" font-size="9.5" font-weight="700">${lbl}</text>
+          <text x="125" y="${y + 16}" text-anchor="end" fill="#e2e8f0" font-size="11" font-weight="800">${lbl}</text>
+          <rect x="135" y="${y}" width="${w}" height="22" rx="6" fill="${col}" />
+          <text x="${142 + w}" y="${y + 16}" text-anchor="start" fill="#f8fafc" font-size="11" font-weight="800">₹${Math.round(val).toLocaleString('en-IN')}</text>
         `;
       }).join('');
-      svgWrap.innerHTML = `<svg viewBox="0 0 600 185" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <line x1="20" y1="152" x2="585" y2="152" stroke="#334155" stroke-width="1.5"/>
-        ${barsSvg}
-      </svg>`;
-    }
-
-    function renderReconcileAndUpgrades(m) {
-      const baseInp = document.getElementById('baseCapitalInput');
-      if (baseInp && document.activeElement !== baseInp) baseInp.value = m.baseCap;
-      const roiBadge = document.getElementById('headerRoiAndRiskBadge');
-      if (roiBadge) {
-        roiBadge.textContent = `ROI: ${Number(m.roiPct) > 0 ? '+' : ''}${m.roiPct}% • Max 2% SL: ${formatINR(m.maxDailyRisk)}`;
-      }
-
-      // 1. Render NSE/BSE Holiday & Weekend Card
-      const diaryDateVal = (document.getElementById('diaryDateInput') && document.getElementById('diaryDateInput').value) || '2026-11-15';
-      const selStatus = getMarketDayStatus(diaryDateVal);
-      const holSelBox = document.getElementById('holidayCardSelectedStatus');
-      if (holSelBox) {
-        holSelBox.textContent = selStatus.badgeText;
-        holSelBox.className = `p-2.5 rounded-xl text-xs font-bold mb-2.5 ${selStatus.badgeClass}`;
-      }
-      const holListEl = document.getElementById('nseHolidayListContainer');
-      if (holListEl) {
-        const customHols = Array.isArray(state.customHolidays) ? state.customHolidays : [];
-        const allHols = [...customHols.map(h => ({ ...h, isCustom: true })), ...OFFICIAL_NSE_BSE_HOLIDAYS];
-        const calBadge = document.getElementById('marketCalendarCountBadge');
-        if (calBadge) calBadge.textContent = `Sat/Sun + ${allHols.length} Holidays`;
-        holListEl.innerHTML = allHols.map((h) => {
-          const isUpcomingNov = h.date.startsWith('2026-11') || h.date.startsWith('2026-12');
-          const rowBorder = isUpcomingNov ? 'border-amber-400/50 bg-amber-950/30' : 'border-slate-800 bg-slate-950/80';
-          return `
-            <div class="p-2 rounded-xl border ${rowBorder} info-row-inline">
-              <div class="min-w-0">
-                <div class="text-xs font-bold text-white truncate">${h.title}</div>
-                <div class="text-[10px] text-violet-300 mono">${h.date} • ${h.type || 'Custom Off-Day'}</div>
-              </div>
-              ${h.isCustom ? `<button type="button" data-del-hol="${h.date}" class="del-hol-btn text-xs text-rose-400 px-1.5">✕</button>` : `<span class="px-2 py-0.5 rounded text-[10px] font-black bg-violet-500/20 text-violet-200 whitespace-nowrap">🏛️ Closed</span>`}
-            </div>
-          `;
-        }).join('');
-      }
-
-      // 2. Render ✈️ Travel / Vacation Mode & Trip Tracker Card
-      const tripBadge = document.getElementById('travelTotalSpendBadge');
-      if (tripBadge) tripBadge.textContent = `Trip Spend: ${formatINR(m.travelSpend)}`;
-      const tSub = document.getElementById('travelModeSubText');
-      if (tSub) {
-        tSub.textContent = state.travelModeActive
-          ? '🟢 ACTIVE: Mobile FOMO Trading Paused & 31-Day Streak Protected!'
-          : 'Currently OFF — Tap to activate when going on a trip/outing';
-      }
-      const tripCont = document.getElementById('tripListContainer');
-      if (tripCont) {
-        if (!Array.isArray(state.tripsList)) state.tripsList = [];
-        tripCont.innerHTML = state.tripsList.length === 0
-          ? `<div class="text-slate-400 italic py-1.5">Abhi koi Trip / Yatra darj nahi hai (₹0). Kahi ghumne jayein to upar add karein ya 7–8 PM Diary me likhein!</div>`
-          : state.tripsList.slice().reverse().map(tr => `
-            <div class="p-2 rounded-xl bg-slate-950/85 border border-cyan-500/40 info-row-inline">
-              <div>
-                <div class="text-xs font-bold text-white">✈️ ${tr.place}</div>
-                <div class="text-[10px] text-cyan-300 mono">${tr.startDate} to ${tr.endDate} • Streak Protected</div>
-              </div>
-              <div class="flex items-center gap-1.5 shrink-0">
-                <span class="text-xs font-black mono text-cyan-200 whitespace-nowrap">${formatINR(tr.amount)}</span>
-                <button type="button" data-del-trip="${tr.id}" class="del-trip-btn text-slate-500 hover:text-rose-400 text-xs px-1.5">✕</button>
-              </div>
-            </div>
-          `).join('');
-      }
-
-      // 3. Render 🏦 Running Loans, EMI & Prepayment Freedom Tracker Card
-      const loanBadge = document.getElementById('loanTotalEmiBadge');
-      if (loanBadge) loanBadge.textContent = `Monthly EMI: ${formatINR(m.totalLoanMonthlyEmi)}/mo`;
-      const loanAdv = document.getElementById('loanSummaryAdvisorBanner');
-      const loanCont = document.getElementById('loanListContainer');
-      if (!Array.isArray(state.loansList)) state.loansList = [];
-      if (loanAdv) {
-        if (state.loansList.length === 0) {
-          loanAdv.innerHTML = `🎉 <strong>Zero Running Loans (₹0 Debt):</strong> Agar aapka Home, Bike/Car ya Personal Loan chal raha hai to upar add karein.`;
-        } else {
-          const avgRate = state.loansList.reduce((a, l) => a + (Number(l.rate) || 10), 0) / state.loansList.length;
-          const avgMonths = state.loansList.reduce((a, l) => a + (Number(l.monthsLeft) || 24), 0) / state.loansList.length;
-          const estInterestSaved = Math.round(m.totalLoanMonthlyEmi * (avgRate / 100) * (avgMonths / 12) * 1.4);
-          loanAdv.innerHTML = `💡 <strong>AI Debt-Freedom Tip:</strong> Total Principal Left: <strong class="text-white mono">${formatINR(m.totalLoanPrincipal)}</strong>. Agar aap trading profit se har mahine 1 extra EMI prepay karein, toh ~<strong class="text-emerald-300 mono">${formatINR(estInterestSaved)}</strong> byaaj bachega!`;
-        }
-      }
-      if (loanCont) {
-        loanCont.innerHTML = state.loansList.map(ln => `
-          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 space-y-1.5">
-            <div class="info-row-inline">
-              <div>
-                <div class="text-xs font-black text-white">🏦 ${ln.name}</div>
-                <div class="text-[10px] text-slate-400 mono">Bal: <strong class="text-amber-300">${formatINR(ln.principal)}</strong> • ROI: ${ln.rate}% • ${ln.monthsLeft} mo left</div>
-              </div>
-              <div class="flex items-center gap-1.5 shrink-0">
-                <span class="text-xs font-black mono text-emerald-300 whitespace-nowrap">EMI: ${formatINR(ln.emi)}</span>
-                <button type="button" data-del-loan="${ln.id}" class="del-loan-btn text-slate-500 hover:text-rose-400 text-xs px-1">✕</button>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-1.5 pt-1 border-t border-slate-800/80">
-              <button type="button" data-pay-emi="${ln.id}" class="pay-loan-emi-btn py-1 px-2 rounded-lg text-[10px] font-black bg-violet-600/30 text-violet-200 border border-violet-400/40 whitespace-nowrap">
-                💳 Pay EMI (${formatINR(ln.emi)})
-              </button>
-              <button type="button" data-prepay-loan="${ln.id}" class="prepay-loan-btn py-1 px-2 rounded-lg text-[10px] font-black bg-emerald-600/30 text-emerald-200 border border-emerald-400/40 whitespace-nowrap">
-                ⚡ Prepay ₹5,000 Principal
-              </button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      if (!state.reconcileData) {
-        state.reconcileData = getDefaultState().reconcileData;
-      }
-      const rc = state.reconcileData;
-      const loggedSpend = m.totalGrihasthi + m.tyohar + m.fizul;
-      const unloggedUpiGap = Math.max(0, rc.bankTotalUpiDebits - loggedSpend);
-      const unloggedTrades = Math.max(0, rc.brokerTradeCount - state.trades.length);
-
-      const recGrid = document.getElementById('reconcileVerdictGrid');
-      if (recGrid) {
-        recGrid.innerHTML = `
-          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40 text-left">
-            <div class="text-[10px] font-black uppercase text-emerald-400">1. Broker Gross vs Hidden Charges</div>
-            <div class="text-lg font-black mono text-emerald-300 mt-0.5">Gross: ${formatSignedINR(rc.brokerGrossPnl)}</div>
-            <div class="text-xs text-rose-300 font-bold mt-0.5">STT + Brok + GST: ${rc.brokerCharges > 0 ? '-' : ''}${formatINR(rc.brokerCharges)}</div>
-            <div class="text-[11px] text-slate-300 mt-1">Net Realized: <strong class="text-white mono">${formatSignedINR(rc.brokerNetPnl)}</strong> (ITR-3 Sec 37 Deductible)</div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-rose-500/40 text-left">
-            <div class="text-[10px] font-black uppercase text-rose-400">2. Bank vs Diary UPI Leakage Gap</div>
-            <div class="text-lg font-black mono text-rose-300 mt-0.5">Gap: ${formatINR(unloggedUpiGap)}</div>
-            <div class="text-xs text-amber-300 font-bold mt-0.5">Bank UPI: ${formatINR(rc.bankTotalUpiDebits)} vs Logged: ${formatINR(loggedSpend)}</div>
-            <div class="text-[11px] text-slate-300 mt-1">Chillar UPI (&lt;₹100): <strong>${rc.bankChillarUpiCount} scans (${formatINR(rc.bankChillarUpiAmount)})</strong></div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-violet-500/40 text-left">
-            <div class="text-[10px] font-black uppercase text-violet-400">3. Unlogged Trades Radar</div>
-            <div class="text-lg font-black mono text-violet-300 mt-0.5">${unloggedTrades} Missing Trades</div>
-            <div class="text-xs text-cyan-300 font-bold mt-0.5">Broker CSV: ${rc.brokerTradeCount} Trades vs Diary: ${state.trades.length}</div>
-            <div class="text-[11px] text-slate-300 mt-1">${unloggedTrades > 0 ? 'Tap Auto-Sync above to import missing trades.' : '100% Synced — Every broker trade is in your journal!'}</div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-cyan-500/40 text-left">
-            <div class="text-[10px] font-black uppercase text-cyan-400">4. Real Bank Payout vs Screen P&amp;L</div>
-            <div class="text-lg font-black mono text-cyan-300 mt-0.5">${formatINR(m.bankPayoutLocked)} In Bank</div>
-            <div class="text-xs text-emerald-300 font-bold mt-0.5">${m.payoutRatioPct}% of Net Profit Withdrawn</div>
-            <div class="text-[11px] text-slate-300 mt-1">Remaining <strong>${formatINR(Math.max(0, m.netTradingPnl - m.bankPayoutLocked))}</strong> in Broker Wallet.</div>
-          </div>
-        `;
-      }
-
-      // Render Udhaari List
-      const udhBadge = document.getElementById('udhaariNetBadge');
-      if (udhBadge) {
-        udhBadge.textContent = `Vasooli Pending: ${formatINR(m.udhaariPending)}`;
-      }
-      const udhCont = document.getElementById('udhaariListContainer');
-      if (udhCont) {
-        if (!Array.isArray(state.udhaariList)) state.udhaariList = [];
-        udhCont.innerHTML = state.udhaariList.length === 0
-          ? `<div class="text-xs text-slate-400 italic py-1.5">Koi pending udhaari nahi hai (₹0).</div>`
-          : state.udhaariList.map(u => `
-          <div class="p-2 rounded-xl bg-slate-950/85 border border-slate-800 info-row-inline">
-            <div>
-              <div class="text-xs font-bold ${u.settled ? 'line-through text-slate-500' : 'text-white'}">${u.person}</div>
-              <div class="text-[10px] text-slate-400">${u.date} • ${u.type === 'vasooli' ? '🟢 Vasoolna Hai' : '🔴 Dena Hai'}</div>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <span class="text-xs font-black mono whitespace-nowrap ${u.type === 'vasooli' ? 'text-amber-300' : 'text-rose-300'}">${formatINR(u.amount)}</span>
-              <button type="button" data-udh-id="${u.id}" class="udh-settle-btn px-2 py-1 rounded-lg text-[10px] font-black whitespace-nowrap ${u.settled ? 'bg-slate-800 text-slate-400' : 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40'}">
-                ${u.settled ? '✓ Settled' : 'Mark Vasool'}
-              </button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      // Render Friday Payout Lock & Quarterly Advance Tax Gullak
-      const payBadge = document.getElementById('payoutLockRatioBadge');
-      if (payBadge) payBadge.textContent = `Bank Locked: ${m.payoutRatioPct}%`;
-      const payBox = document.getElementById('payoutAndTaxSummaryBox');
-      if (payBox) {
-        const idealSafeBank = Math.round(Math.max(0, m.netTradingPnl) * 0.40);
-        const idealParivar = Math.round(Math.max(0, m.netTradingPnl) * 0.20);
-        const idealCompound = Math.round(Math.max(0, m.netTradingPnl) * 0.25);
-        payBox.innerHTML = `
-          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/30">
-            <div class="info-row-inline">
-              <span>🏦 Withdrawn to Safe Bank Account:</span>
-              <span class="mono font-black text-emerald-300 whitespace-nowrap">${formatINR(m.bankPayoutLocked)} (${m.payoutRatioPct}%)</span>
-            </div>
-            <div style="width:100%; height:6px; background:#1e293b; border-radius:999px; margin-top:6px; overflow:hidden;">
-              <div style="width:${Math.min(100, m.payoutRatioPct)}%; height:100%; background:linear-gradient(90deg,#10b981,#06b6d4); border-radius:999px;"></div>
-            </div>
-          </div>
-          <div class="p-2.5 rounded-xl bg-violet-950/40 border border-violet-500/40 info-row-inline">
-            <span>🛡️ Advance Tax Gullak (15% Reserve):</span>
-            <span class="mono font-black text-violet-300 whitespace-nowrap">${formatINR(m.advanceTaxReserve)}</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 text-[11px] text-slate-300 text-left">
-            <strong>Smart Profit Split:</strong> Bank FD (40% = <strong>${formatINR(idealSafeBank)}</strong>) • Tax (15% = <strong>${formatINR(m.advanceTaxReserve)}</strong>) • Parivar/Loan (20% = <strong>${formatINR(idealParivar)}</strong>) • Capital Boost (25% = <strong>${formatINR(idealCompound)}</strong>)
-          </div>
-        `;
-      }
-
-      // Render Parivar Seva vs Personal Shauk vs Chillar Micro-UPI
-      const patBadge = document.getElementById('patienceDaysBadge');
-      if (patBadge) patBadge.textContent = `🧘‍♂️ ${state.patienceDays || 0} Patience Days`;
-      const mirrorBox = document.getElementById('indianLifeMirrorBox');
-      if (mirrorBox) {
-        mirrorBox.innerHTML = `
-          <div class="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 info-row-inline">
-            <span>🙏 Mata-Pita &amp; Parivar Seva:</span>
-            <span class="mono font-black text-emerald-300 whitespace-nowrap">${formatINR(m.parivarSeva)}</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-500/40 info-row-inline">
-            <span>👕 Personal Shauk &amp; Lifestyle:</span>
-            <span class="mono font-black text-cyan-300 whitespace-nowrap">${formatINR(m.personalShauk)}</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/40 info-row-inline">
-            <span>☕ Chillar Micro-UPI (&lt;₹100 Chai/Auto):</span>
-            <span class="mono font-black text-amber-300 whitespace-nowrap">${formatINR(m.chillarUpi + rc.bankChillarUpiAmount)}</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 info-row-inline">
-            <span>🧘‍♂️ Zero-Trade Sniper Patience:</span>
-            <span class="mono font-black text-emerald-400 whitespace-nowrap">${state.patienceDays || 0} Days</span>
-          </div>
-        `;
-      }
+      svgWrap.innerHTML = `<svg viewBox="0 0 560 235" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">${rowsSvg}</svg>`;
     }
 
     function updateCharts(m) {
-      // Use 2-line array labels for Chart.js so even on a 350px mobile screen all 6 bars have crisp, non-overlapping horizontal labels!
-      const labels = [['Bandhe', '+EMI'], ['Rozmarra', 'Ghar'], ['ITR-3', 'Sec 37'], ['80C', 'SIP'], ['Trip &', 'Tyohar'], ['Fizul +', 'Bad SL']];
-      const flatLabels = ['Bandhe+EMI', 'Rozmarra', 'ITR-3', '80C SIP', 'Trip/Fest', 'Fizul+SL'];
+      const flatLabels = ['Bandhe + EMI', 'Rozmarra Ghar', 'ITR-3 Sec 37', '80C SIP/Save', 'Trip & Tyohar', 'Fizul + Bad SL'];
       const values = [m.bandheGhar + m.totalLoanMonthlyEmi, m.rozmarra, m.totalSec37, m.totalSip80c, m.tyohar, m.totalLeakage];
       const colors = ['#06b6d4', '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e'];
 
-      const commonChartOptions = {
+      const horizontalChartOptions = {
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
-        layout: { padding: { top: 14, bottom: 8, left: 4, right: 6 } },
+        layout: { padding: { top: 8, bottom: 8, left: 6, right: 16 } },
         plugins: { legend: { display: false } },
         scales: {
           x: {
-            ticks: { color: '#e2e8f0', font: { size: 9.5, weight: 'bold' }, maxRotation: 0, minRotation: 0, autoSkip: false },
-            grid: { display: false }
-          },
-          y: {
             beginAtZero: true,
             min: 0,
             suggestedMax: 10000,
             ticks: {
               color: '#94a3b8',
-              font: { size: 10 },
+              font: { size: 10, weight: 'bold' },
               callback: function(v) { return '₹' + Number(v).toLocaleString('en-IN'); }
             },
             grid: { color: 'rgba(148,163,184,0.12)' }
+          },
+          y: {
+            ticks: { color: '#f8fafc', font: { size: 11, weight: '800' }, autoSkip: false },
+            grid: { display: false }
           }
         }
       };
@@ -3101,44 +2060,25 @@
         dockChartInstance = new Chart(ctxDock, {
           type: 'bar',
           data: {
-            labels: labels,
+            labels: flatLabels,
             datasets: [{
-              label: 'Monthly Amount (₹)',
+              label: 'Amount (₹)',
               data: values,
               backgroundColor: colors,
-              borderRadius: 7
+              borderRadius: 7,
+              barThickness: 20
             }]
           },
-          options: commonChartOptions
+          options: horizontalChartOptions
         });
       }
 
-      const ctxTab1 = document.getElementById('tabChartCashflow');
-      if (ctxTab1 && window.Chart) {
-        if (tabChartCashflowInstance) tabChartCashflowInstance.destroy();
-        tabChartCashflowInstance = new Chart(ctxTab1, {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Monthly Outflow & Deductions (₹)',
-              data: values,
-              backgroundColor: colors,
-              borderRadius: 8
-            }]
-          },
-          options: commonChartOptions
-        });
-      }
-
-      const psychLabels = [['3-Lock', 'Win'], ['Good', 'SL'], ['Bad', 'SL'], ['Fizul', 'Spend'], ['Net', 'P&L']];
-      const flatPsychLabels = ['3-Lock Win', 'Good SL', 'Bad SL', 'Fizul', 'Net P&L'];
+      const psychLabels = ['3-Lock Win', 'Good System SL', 'Bad Mistake SL', 'Fizul Spend', 'Net P&L'];
       const psychVals = [m.grossWin, m.goodSlLoss, m.badSlLoss, m.fizul, Math.max(0, m.netTradingPnl)];
       const psychCols = ['#10b981', '#06b6d4', '#f43f5e', '#fb7185', '#8b5cf6'];
 
       renderNativeSvgBarChart(ctxDock, flatLabels, values, colors);
-      renderNativeSvgBarChart(ctxTab1, flatLabels, values, colors);
-      renderNativeSvgBarChart(document.getElementById('tabChartPsychology'), flatPsychLabels, psychVals, psychCols);
+      renderNativeSvgBarChart(document.getElementById('tabChartPsychology'), psychLabels, psychVals, psychCols);
 
       const ctxTab2 = document.getElementById('tabChartPsychology');
       if (ctxTab2 && window.Chart) {
@@ -3151,10 +2091,11 @@
               label: 'Amount (₹)',
               data: psychVals,
               backgroundColor: psychCols,
-              borderRadius: 8
+              borderRadius: 7,
+              barThickness: 22
             }]
           },
-          options: commonChartOptions
+          options: horizontalChartOptions
         });
       }
     }
@@ -3163,17 +2104,11 @@
     // EVENT HANDLERS & INTERACTIVITY
     // =========================================================================
     function switchTab(tabId) {
-      const rad = document.getElementById('rad-tab-' + tabId);
+      const mapTab = { dock: 'journal', daily: 'journal', journal: 'journal', charts: 'statement', aica: 'statement', reconcile: 'statement', statement: 'statement', bandhe: 'vault', rules: 'vault', vault: 'vault' };
+      const resolved = mapTab[tabId] || 'journal';
+      const rad = document.getElementById('rad-tab-' + resolved);
       if (rad) rad.checked = true;
       try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
-      document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
-      const target = document.getElementById('view-' + tabId);
-      if (target) target.classList.remove('hidden');
-
-      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
-        if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
-        else btn.classList.remove('active');
-      });
       renderAll();
     }
 
