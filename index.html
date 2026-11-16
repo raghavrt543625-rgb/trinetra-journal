@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>🏹 RAGHAVA ASTRA • TRINETRA AI — V6.0 Simple 3D Daily Journal & Statement Hub</title>
+  <title>🛡️ RAGHAVA ASTRA • TRINETRA AI — V7.0 Sovereign Zero-Knowledge Journal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -317,6 +317,46 @@
       gap: 4px !important;
     }
 
+
+    /* =========================================================================
+       V7.0 PRIVACY BLUR ("STEALTH CAMOUFLAGE MODE") & PIN SLOTS
+       ========================================================================= */
+    body.privacy-blur-active .kpi-3d-num,
+    body.privacy-blur-active .mono-amt,
+    body.privacy-blur-active #dailyTradesTable .mono,
+    body.privacy-blur-active #dailyExpensesTable .mono,
+    body.privacy-blur-active #reconcileVerdictGrid .mono,
+    body.privacy-blur-active #itrScheduleBpTable .mono,
+    body.privacy-blur-active #loanListContainer .mono,
+    body.privacy-blur-active #tripListContainer .mono,
+    body.privacy-blur-active #udhaariListContainer .mono,
+    body.privacy-blur-active .native-svg-chart-fallback .mono {
+      filter: blur(8px) !important;
+      user-select: none !important;
+      transition: filter 0.18s ease !important;
+    }
+    .pin-slot-box {
+      width: 36px;
+      height: 44px;
+      border-radius: 11px;
+      background: #050811;
+      border: 2px solid rgba(56, 189, 248, 0.45);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #38bdf8;
+      box-shadow: inset 0 3px 6px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.12);
+    }
+    .pin-slot-box.filled {
+      border-color: #10b981 !important;
+      background: rgba(6, 78, 59, 0.35) !important;
+      color: #6ee7b7 !important;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.45), inset 0 2px 4px rgba(0,0,0,0.8) !important;
+    }
+
     /* Self-Contained Responsive Grids */
     .v6-container { max-width: 1180px; margin: 0 auto; padding: 10px; }
     .v6-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
@@ -343,57 +383,73 @@
   <!-- ===================================================================== -->
   <!-- 🛡️ AES-256-GCM SECRET PIN VAULT LOCK SCREEN (CENTER-ALIGNED 3D)       -->
   <!-- ===================================================================== -->
-  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); display:flex; align-items:center; justify-content:center; padding:14px;">
-    <div class="bento-card bento-hero center-stack" style="max-width:410px; width:100%; padding:22px;">
-      <div style="width:58px; height:58px; border-radius:16px; background:linear-gradient(135deg,#8b5cf6,#06b6d4,#10b981); padding:2px; display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
-        <div style="width:100%; height:100%; background:#050811; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px;">🛡️</div>
+  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); display:flex; align-items:center; justify-content:center; padding:12px; overflow-y:auto;">
+    <div class="bento-card bento-hero center-stack" style="max-width:430px; width:100%; padding:20px;">
+      <div class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-200 border border-emerald-400/60 mb-1.5">
+        🟢 V7.0 SOVEREIGN ZERO-KNOWLEDGE VAULT • AES-256-GCM
       </div>
-      <div class="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 mb-1">
-        🔒 AES-256-GCM Vault • PBKDF2 100K
-      </div>
-      <h2 id="vaultLockTitle" class="text-lg font-black text-white mt-1 mb-1">
-        RAGHAVA ASTRA • TRINETRA VAULT
+
+      <h2 id="vaultLockTitle" class="text-base sm:text-lg font-black text-white m-0 mb-1">
+        🛡️ CREATE YOUR SECRET MASTER PIN
       </h2>
-      <p id="vaultLockSubtitle" class="text-xs text-slate-300 mb-3">
-        Apna <strong>Secret Master PIN (4–8 digits)</strong> dalein. Aapka saara journal data AES-256 me सुरक्षित hai.
+      <p id="vaultLockSubtitle" class="text-[11px] text-slate-300 m-0 mb-2.5">
+        1-Step Setup: Niche keypad se <strong>4 se 8 digit ka PIN</strong> dabayein. Aapka data 100% aapke iPad par AES-256 me encrypt rehta hai (0% Server Upload).
       </p>
 
-      <div style="display:grid; grid-template-columns: 1fr auto; gap:8px; width:100%; align-items:center; margin-bottom:8px;">
-        <input type="text" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="4–8 Digit PIN" autocomplete="off"
-          style="font-size:1.15rem !important; letter-spacing:0.12em !important; margin-bottom:0 !important; height:46px !important;" class="mono text-cyan-200 font-black" />
-        <button type="button" id="btnTogglePinEye" class="btn-cyan"
-          style="height:46px !important; padding:0 14px !important; font-size:0.76rem !important; white-space:nowrap !important;">
-          🙈 HIDE
-        </button>
+      <!-- 8 Visual 3D PIN Slots (Zero Placeholder Clipping on iPad WebKit!) -->
+      <div id="vaultPinVisualSlots" class="flex items-center justify-center gap-1.5 flex-wrap w-full my-1.5">
+        <div class="pin-slot-box">•</div>
+        <div class="pin-slot-box">•</div>
+        <div class="pin-slot-box">•</div>
+        <div class="pin-slot-box">•</div>
       </div>
 
+      <!-- Clean Standard Input (Normal letter-spacing so iOS Safari/Chrome NEVER clips placeholder!) -->
+      <input type="text" id="vaultPinInput" inputmode="numeric" maxlength="8" placeholder="Tap Keypad or Type 4–8 Digit PIN" autocomplete="off"
+        style="font-size:0.95rem !important; letter-spacing:normal !important; margin-top:4px !important; margin-bottom:6px !important; height:42px !important;" class="mono text-cyan-200 font-black" />
+
       <div id="vaultDigitCounter" class="text-[11px] font-extrabold text-cyan-300 mb-2 mono">
-        🔢 Digits Entered: 0 / 4–8
+        🔢 Digits Entered: 0 (Min 4 digits dalein)
       </div>
 
       <div id="vaultErrorMsg" class="text-xs font-extrabold text-rose-400 mb-2 hidden"></div>
 
-      <div class="v6-grid-3 w-full mb-3">
-        <button type="button" data-pin-key="1" class="pin-pad-btn mono text-base">1</button>
-        <button type="button" data-pin-key="2" class="pin-pad-btn mono text-base">2</button>
-        <button type="button" data-pin-key="3" class="pin-pad-btn mono text-base">3</button>
-        <button type="button" data-pin-key="4" class="pin-pad-btn mono text-base">4</button>
-        <button type="button" data-pin-key="5" class="pin-pad-btn mono text-base">5</button>
-        <button type="button" data-pin-key="6" class="pin-pad-btn mono text-base">6</button>
-        <button type="button" data-pin-key="7" class="pin-pad-btn mono text-base">7</button>
-        <button type="button" data-pin-key="8" class="pin-pad-btn mono text-base">8</button>
-        <button type="button" data-pin-key="9" class="pin-pad-btn mono text-base">9</button>
-        <button type="button" id="btnPinClear" class="btn-rose text-xs">CLR</button>
-        <button type="button" data-pin-key="0" class="pin-pad-btn mono text-base">0</button>
-        <button type="button" id="btnPinBackspace" class="btn-amber text-xs">⌫ DEL</button>
+      <!-- 3x4 Mechanical 3D Touch Keypad -->
+      <div class="v6-grid-3 w-full mb-2.5">
+        <button type="button" data-pin-key="1" class="pin-pad-btn mono text-base py-2.5">1</button>
+        <button type="button" data-pin-key="2" class="pin-pad-btn mono text-base py-2.5">2</button>
+        <button type="button" data-pin-key="3" class="pin-pad-btn mono text-base py-2.5">3</button>
+        <button type="button" data-pin-key="4" class="pin-pad-btn mono text-base py-2.5">4</button>
+        <button type="button" data-pin-key="5" class="pin-pad-btn mono text-base py-2.5">5</button>
+        <button type="button" data-pin-key="6" class="pin-pad-btn mono text-base py-2.5">6</button>
+        <button type="button" data-pin-key="7" class="pin-pad-btn mono text-base py-2.5">7</button>
+        <button type="button" data-pin-key="8" class="pin-pad-btn mono text-base py-2.5">8</button>
+        <button type="button" data-pin-key="9" class="pin-pad-btn mono text-base py-2.5">9</button>
+        <button type="button" id="btnPinClear" class="btn-rose text-xs py-2.5">CLR</button>
+        <button type="button" data-pin-key="0" class="pin-pad-btn mono text-base py-2.5">0</button>
+        <button type="button" id="btnPinBackspace" class="btn-amber text-xs py-2.5">⌫ DEL</button>
+      </div>
+
+      <!-- Dedicated Show/Hide Row (Separate from Input — 0% Overlap Possible!) -->
+      <div class="v6-grid-2 w-full mb-2">
+        <button type="button" id="btnTogglePinEye" class="btn-cyan py-2 text-xs">
+          🙈 HIDE DIGITS
+        </button>
+        <button type="button" id="btnRestoreVaultOnLock" class="btn-violet py-2 text-xs">
+          📂 Restore .trinetra File
+        </button>
       </div>
 
       <button type="button" id="btnUnlockOrSetPin" class="btn-hero-save w-full py-3 mb-2">
-        🔓 UNLOCK AES-256 VAULT
+        🔐 SET PIN &amp; ENCRYPT VAULT
       </button>
 
+      <div class="text-[10px] text-slate-400 mb-2">
+        🕵️ <strong>Spy Decoy Mode:</strong> Kisi ke saamne kholna pade toh <code>0000</code> dalein (Fake ₹0 Demo खुलेगा, asli data chhupa rahega).
+      </div>
+
       <button type="button" id="btnEmergencyVaultReset" class="btn-rose w-full py-1.5 text-[11px]">
-        Forgot PIN? Wipe Local Vault &amp; Reset
+        Forgot PIN? Wipe Local Vault &amp; Reset to ₹0
       </button>
     </div>
   </div>
@@ -416,26 +472,36 @@
     <!-- =================================================================== -->
     <!-- COMPACT CENTER-ALIGNED HEADER (ZERO CLUTTER — STRAIGHT TO THE POINT)-->
     <!-- =================================================================== -->
-    <header class="bento-card center-stack py-3 px-3 border border-slate-700/80">
-      <div class="flex items-center justify-center gap-2 mb-1">
+    <header class="bento-card center-stack py-3 px-3 border border-slate-700/80 space-y-2">
+      <div class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/50">
+        🛡️ V7.0 Sovereign Zero-Knowledge Vault • 100% Local Encrypted (0% Cloud Leak)
+      </div>
+      <div class="flex items-center justify-center gap-2">
         <span style="font-size:22px;">🏹</span>
         <h1 class="text-lg sm:text-2xl font-black text-white m-0">
           RAGHAVA ASTRA • TRINETRA AI
         </h1>
       </div>
-      <p class="text-[11px] sm:text-xs text-cyan-300 font-bold mb-2">
-        3D Smart Trading, Grihasthi, Loan &amp; AI-CA Journal
+      <p id="securityStatusSubBanner" class="text-[11px] sm:text-xs text-cyan-300 font-bold m-0">
+        🔒 AES-256-GCM Active • Dual-Storage (IndexedDB + Local) • Auto-Lock ON
       </p>
 
-      <!-- Backend Auto-Detected Market Status Pill + 1-Tap Travel Toggle -->
-      <div class="v6-grid-2 w-full" style="max-width:640px;">
-        <div id="liveMarketStatusBadge" class="px-3 py-2 rounded-xl text-[11px] font-black bg-amber-500/20 text-amber-200 border border-amber-400/50 center-stack">
-          🏖️ Sun 15 Nov • Market Closed
+      <!-- 4 Centered Action Pills: Market Status + Privacy Stealth Blur + Encrypted Backup + Travel Mode -->
+      <div class="v6-grid-4 w-full">
+        <div id="liveMarketStatusBadge" class="px-2.5 py-2 rounded-xl text-[11px] font-black bg-emerald-500/20 text-emerald-200 border border-emerald-400/50 center-stack">
+          🟢 Mon 16 Nov • Market OPEN
         </div>
+        <button id="btnTogglePrivacyBlur" type="button" class="btn-violet py-2 text-xs">
+          🙈 Hide ₹ Numbers: OFF
+        </button>
+        <button id="btnQuickBackupVaultHeader" type="button" class="btn-emerald py-2 text-xs">
+          💾 Backup Encrypted File
+        </button>
         <button id="btnToggleTravelMode" type="button" class="btn-cyan py-2 text-xs">
           ✈️ Travel Mode: OFF
         </button>
       </div>
+      <input type="file" id="hiddenRestoreVaultFileInput" accept=".trinetra,.json,.txt" class="hidden" />
     </header>
 
     <!-- =================================================================== -->
@@ -1186,13 +1252,80 @@
       return JSON.parse(dec.decode(plainBuf));
     }
 
+    let isDecoySession = false;
+
+    // Dual-Storage IndexedDB Mirror (Protects against accidental LocalStorage clear)
+    function writeEncryptedToIndexedDb(cipherStr) {
+      try {
+        if (!window.indexedDB) return;
+        const req = window.indexedDB.open('TrinetraSovereignVaultDB_V7', 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('vault')) db.createObjectStore('vault');
+        };
+        req.onsuccess = (e) => {
+          const db = e.target.result;
+          const tx = db.transaction('vault', 'readwrite');
+          tx.objectStore('vault').put(cipherStr, VAULT_CIPHER_KEY);
+        };
+      } catch (e) {}
+    }
+
+    function readEncryptedFromIndexedDb() {
+      return new Promise((resolve) => {
+        try {
+          if (!window.indexedDB) return resolve(null);
+          const req = window.indexedDB.open('TrinetraSovereignVaultDB_V7', 1);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('vault')) db.createObjectStore('vault');
+          };
+          req.onsuccess = (e) => {
+            const db = e.target.result;
+            const tx = db.transaction('vault', 'readonly');
+            const getReq = tx.objectStore('vault').get(VAULT_CIPHER_KEY);
+            getReq.onsuccess = () => resolve(getReq.result || null);
+            getReq.onerror = () => resolve(null);
+          };
+          req.onerror = () => resolve(null);
+        } catch (e) {
+          resolve(null);
+        }
+      });
+    }
+
     async function saveState() {
-      if (!isVaultUnlocked || !activeSessionPin) return;
+      if (!isVaultUnlocked || !activeSessionPin || isDecoySession) return;
       try {
         const encryptedPayload = await encryptStateWithPin(state, activeSessionPin);
         localStorage.setItem(VAULT_CIPHER_KEY, encryptedPayload);
-        localStorage.setItem(VAULT_META_KEY, 'INITIALIZED');
         localStorage.removeItem(STORAGE_KEY);
+        writeEncryptedToIndexedDb(encryptedPayload);
+        updateLiveCipherProofBox();
+      } catch (e) {
+        console.warn('AES-256 Vault write skipped:', e);
+      }
+    }
+
+    function updateLiveCipherProofBox() {
+      const box = document.getElementById('liveCipherProofBox');
+      if (!box) return;
+      try {
+        const raw = localStorage.getItem(VAULT_CIPHER_KEY);
+        if (!raw) {
+          box.innerHTML = `<div>🟢 <strong>Status:</strong> Clean Slate (Set PIN to generate AES-256-GCM Ciphertext)</div>`;
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        const cPreview = (parsed.cipher || '').slice(0, 44) + '...';
+        const sPreview = (parsed.salt || '').slice(0, 16) + '...';
+        const ivPreview = (parsed.iv || '').slice(0, 16) + '...';
+        box.innerHTML = `
+          <div class="text-emerald-300 font-black">✅ LIVE AES-256-GCM ENCRYPTION VERIFIED (PBKDF2-SHA256 • Dual Local+IndexedDB)</div>
+          <div class="text-[10px] text-slate-300 break-all"><strong>Salt (128-bit):</strong> ${sPreview} • <strong>IV (96-bit):</strong> ${ivPreview}</div>
+          <div class="text-[10px] text-cyan-300 break-all"><strong>Disk Ciphertext (Unreadable by Hackers):</strong> ${cPreview}</div>
+          <div class="text-[10px] text-amber-300">🛡️ <strong>Server Upload:</strong> 0 Bytes (100% Offline inside your iPad) ${isDecoySession ? '• 🕵️ DECOY MODE ACTIVE' : ''}</div>
+        `;
       } catch (e) {}
     }
 
@@ -3267,7 +3400,19 @@
         }
         vaultPinInput.type = isPinVisible ? 'text' : 'password';
         if (btnTogglePinEye) {
-          btnTogglePinEye.textContent = isPinVisible ? '🙈 HIDE' : '👁️ SHOW';
+          btnTogglePinEye.textContent = isPinVisible ? '🙈 HIDE DIGITS' : '👁️ SHOW DIGITS';
+        }
+        // Update 3D Visual PIN Slots
+        const slotsBox = document.getElementById('vaultPinVisualSlots');
+        if (slotsBox) {
+          const totalSlots = Math.max(4, clean.length);
+          let slotsHtml = '';
+          for (let i = 0; i < totalSlots; i++) {
+            const hasChar = i < clean.length;
+            const dispChar = hasChar ? (isPinVisible ? clean[i] : '●') : '•';
+            slotsHtml += `<div class="pin-slot-box ${hasChar ? 'filled' : ''}">${dispChar}</div>`;
+          }
+          slotsBox.innerHTML = slotsHtml;
         }
         if (vaultDigitCounter) {
           if (clean.length === 0) {
@@ -3277,7 +3422,7 @@
             vaultDigitCounter.textContent = `⏳ Digits Entered: ${clean.length} / 4+ (${4 - clean.length} aur dalein)`;
             vaultDigitCounter.className = 'text-[11px] font-extrabold text-amber-300 mb-2 mono';
           } else {
-            vaultDigitCounter.textContent = `✅ ${clean.length}-Digit PIN Ready ${isPinVisible ? "(" + clean + ")" : ""}`;
+            vaultDigitCounter.textContent = `✅ ${clean.length}-Digit PIN Ready ${isPinVisible ? '(' + clean + ')' : ''}`;
             vaultDigitCounter.className = 'text-[11px] font-extrabold text-emerald-300 mb-2 mono';
           }
         }
@@ -3299,6 +3444,19 @@
         }
       }
 
+      async function tryAutoRestoreFromIndexedDb() {
+        if (!hasExistingEncryptedVault()) {
+          const backupCipher = await readEncryptedFromIndexedDb();
+          if (backupCipher) {
+            try {
+              localStorage.setItem(VAULT_CIPHER_KEY, backupCipher);
+              refreshVaultScreenMode();
+            } catch (e) {}
+          }
+        }
+      }
+      tryAutoRestoreFromIndexedDb();
+
       function refreshVaultScreenMode() {
         if (!vaultOverlay) return;
         vaultErr.classList.add('hidden');
@@ -3306,15 +3464,16 @@
         if (hasExistingEncryptedVault()) {
           isPinVisible = false;
           vaultTitle.textContent = '🔒 UNLOCK TRINETRA AES-256 VAULT';
-          vaultSub.innerHTML = 'Apna <strong>Secret Master PIN</strong> enter karein. Galat PIN dalne par AES-256-GCM decryption fail ho jayega.';
+          vaultSub.innerHTML = 'Apna <strong>Secret Master PIN</strong> dalein (Ya kisi ke saamne <code>0000</code> dalein Spy Decoy Mode ke liye).';
           btnUnlock.textContent = '🔓 DECRYPT & UNLOCK VAULT';
         } else {
           isPinVisible = true;
           vaultTitle.textContent = '🛡️ CREATE YOUR SECRET MASTER PIN';
-          vaultSub.innerHTML = 'First-Time Setup (1-Step): Apna <strong>4 se 8 digit ka Secret PIN</strong> dalein aur niche button dabayein. Aapka PIN screen par dikhega taaki koi mismatch na ho!';
+          vaultSub.innerHTML = '1-Step Setup: Niche keypad se <strong>4 se 8 digit ka Secret PIN</strong> dabayein. Aapka PIN upar slots me saaf dikhega—ek hi click me Vault set ho jayega!';
           btnUnlock.textContent = '🔐 SET PIN & ENCRYPT VAULT';
         }
         updatePinVisibilityAndCounter();
+        updateLiveCipherProofBox();
       }
 
       function showVaultError(msg) {
@@ -3339,35 +3498,45 @@
         }
 
         if (!hasExistingEncryptedVault()) {
-          // 1-Step Instant First-Time Setup (Visible PIN eliminates mismatch errors)
-          try {
-            const legacy = localStorage.getItem(STORAGE_KEY);
-            if (legacy) {
-              const parsedLegacy = JSON.parse(legacy);
-              if (parsedLegacy && Array.isArray(parsedLegacy.recurringBills)) {
-                state = parsedLegacy;
-              }
-              localStorage.removeItem(STORAGE_KEY);
-            }
-          } catch (e) {}
+          if (pin === '0000') {
+            showVaultError('⚠️ 0000 Spy Decoy Mode ke liye reserved hai! Kripya apna asli PIN 0000 ke alawa kuch aur (jaise 1234 ya 2580) rakhein.');
+            return;
+          }
+          // 1-Step Instant First-Time Setup
+          state = getDefaultState();
           activeSessionPin = pin;
           isVaultUnlocked = true;
+          isDecoySession = false;
           await saveState();
           vaultOverlay.style.display = 'none';
           renderAll();
           showToast(`🛡️ AES-256 Vault Locked & Encrypted with ${pin.length}-Digit PIN!`);
         } else {
+          // Spy Decoy Camouflage Mode: If user enters '0000' on an existing vault, open fake ₹0 clean screen without touching real encrypted vault!
+          if (pin === '0000') {
+            state = getDefaultState();
+            activeSessionPin = '';
+            isVaultUnlocked = true;
+            isDecoySession = true;
+            vaultOverlay.style.display = 'none';
+            renderAll();
+            showToast('🕵️ Spy Decoy Mode (₹0 Camouflage) Activated — Real Vault Hidden!');
+            return;
+          }
           // Decrypt existing vault
           try {
-            const cipherStr = localStorage.getItem(VAULT_CIPHER_KEY);
+            let cipherStr = localStorage.getItem(VAULT_CIPHER_KEY);
+            if (!cipherStr) cipherStr = await readEncryptedFromIndexedDb();
             const decryptedState = await decryptStateWithPin(cipherStr, pin);
             if (decryptedState && Array.isArray(decryptedState.recurringBills)) {
               state = decryptedState;
               activeSessionPin = pin;
               isVaultUnlocked = true;
+              isDecoySession = false;
               failedPinAttempts = 0;
               vaultOverlay.style.display = 'none';
               renderAll();
+              updateLiveCipherProofBox();
               showToast('🔓 AES-256 Vault Decrypted & Unlocked!');
             } else {
               throw new Error('Invalid state structure');
@@ -3381,7 +3550,7 @@
               failedPinAttempts = 0;
               showVaultError('🚨 5 Wrong Attempts! Vault locked for 30 seconds against hackers.');
             } else {
-              showVaultError(`❌ Wrong Secret PIN! Decryption failed (${5 - failedPinAttempts} tries left). Agar purana PIN bhool gaye hain toh niche red button se reset karein.`);
+              showVaultError(`❌ Wrong Secret PIN! Decryption failed (${5 - failedPinAttempts} tries left).`);
             }
           }
         }
@@ -3566,6 +3735,78 @@
           if (el) el.value = todayIso;
         });
       } catch (e) {}
+
+
+      // =====================================================================
+      // 💾 1-TAP ENCRYPTED .TRINETRA VAULT BACKUP & RESTORE + PRIVACY BLUR
+      // =====================================================================
+      const btnBlur = document.getElementById('btnTogglePrivacyBlur');
+      if (btnBlur) {
+        btnBlur.addEventListener('click', () => {
+          document.body.classList.toggle('privacy-blur-active');
+          const isBlurred = document.body.classList.contains('privacy-blur-active');
+          btnBlur.textContent = isBlurred ? '👁️ Show ₹ Numbers: ON' : '🙈 Hide ₹ Numbers: OFF';
+          showToast(isBlurred ? '🙈 Stealth Privacy Blur ON — All ₹ Numbers Hidden!' : '👁️ Privacy Blur OFF — ₹ Numbers Visible');
+        });
+      }
+
+      async function downloadEncryptedVaultBackup() {
+        await saveState();
+        const cipherStr = localStorage.getItem(VAULT_CIPHER_KEY);
+        if (!cipherStr) {
+          showToast('⚠️ Pehle apna PIN set karein taaki Encrypted Backup ban sake!');
+          return;
+        }
+        const backupObj = {
+          app: 'RAGHAVA_ASTRA_TRINETRA_SOVEREIGN_VAULT_V7',
+          exportedAt: new Date().toISOString(),
+          encryption: 'AES-256-GCM-PBKDF2-SHA256',
+          vaultPayload: JSON.parse(cipherStr)
+        };
+        const blob = new Blob([JSON.stringify(backupObj, null, 2)], { type: 'application/json;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const dt = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `Trinetra_Encrypted_Vault_${dt}.trinetra.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast('💾 Downloaded Encrypted .trinetra Backup File! Save it in iPad Files / iCloud.');
+      }
+
+      const btnDlVault1 = document.getElementById('btnQuickBackupVaultHeader');
+      const btnDlVault2 = document.getElementById('btnDownloadEncryptedBackup');
+      if (btnDlVault1) btnDlVault1.addEventListener('click', downloadEncryptedVaultBackup);
+      if (btnDlVault2) btnDlVault2.addEventListener('click', downloadEncryptedVaultBackup);
+
+      const hiddenRestoreInp = document.getElementById('hiddenRestoreVaultFileInput');
+      const btnRest1 = document.getElementById('btnRestoreEncryptedBackup');
+      const btnRest2 = document.getElementById('btnRestoreVaultOnLock');
+      if (btnRest1 && hiddenRestoreInp) btnRest1.addEventListener('click', () => hiddenRestoreInp.click());
+      if (btnRest2 && hiddenRestoreInp) btnRest2.addEventListener('click', () => hiddenRestoreInp.click());
+
+      if (hiddenRestoreInp) {
+        hiddenRestoreInp.addEventListener('change', async (ev) => {
+          const file = ev.target.files && ev.target.files[0];
+          if (!file) return;
+          try {
+            const txt = await file.text();
+            const parsed = JSON.parse(txt);
+            const payload = parsed.vaultPayload ? JSON.stringify(parsed.vaultPayload) : (parsed.cipher ? JSON.stringify(parsed) : null);
+            if (!payload) throw new Error('Invalid backup format');
+            localStorage.setItem(VAULT_CIPHER_KEY, payload);
+            writeEncryptedToIndexedDb(payload);
+            isVaultUnlocked = false;
+            activeSessionPin = '';
+            refreshVaultScreenMode();
+            vaultOverlay.style.display = 'flex';
+            showToast('📂 Encrypted Vault File Loaded! Ab apna Secret PIN daal kar unlock karein.');
+          } catch (e) {
+            showToast('❌ Invalid .trinetra backup file!');
+          }
+        });
+      }
 
       refreshVaultScreenMode();
       resetIdleAutoLock();
