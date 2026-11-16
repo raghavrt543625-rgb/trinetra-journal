@@ -359,28 +359,14 @@
 
 
     /* =========================================================================
-       STRICT ZERO-OVERFLOW BOX CONTAINMENT (NO TEXT CAN EVER LEAVE ITS BOX!)
+       PRECISION BOX CONTAINMENT & CENTERED VAULT CARD (NO FULL-WIDTH STRETCH!)
        ========================================================================= */
-    .bento-card,
-    .bento-card > *,
-    .v6-grid-2 > *,
-    .v6-grid-3 > *,
-    .v6-grid-4 > *,
-    .v6-stack-md > *,
-    .v6-stack-3md > *,
-    #diaryStagingPreviewBox > *,
-    #reconcileVerdictGrid > *,
-    #bandheFullGrid > *,
-    button,
-    label.nav-3d-tab,
-    p, span, div {
-      min-width: 0 !important;
-      max-width: 100% !important;
-      word-break: break-word !important;
-      overflow-wrap: anywhere !important;
-      white-space: normal !important;
+    .vault-lock-card {
+      width: 100% !important;
+      max-width: 400px !important;
+      margin: 0 auto !important;
+      padding: 22px !important;
     }
-    .bento-card > *,
     .v6-grid-2 > *,
     .v6-grid-3 > *,
     .v6-grid-4 > *,
@@ -389,10 +375,11 @@
     #diaryStagingPreviewBox > *,
     #reconcileVerdictGrid > *,
     #bandheFullGrid > * {
-      overflow: hidden !important;
+      min-width: 0 !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+      white-space: normal !important;
     }
-    .overflow-x-auto { overflow-x: auto !important; }
-    .overflow-y-auto { overflow-y: auto !important; }
     input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
     select {
       min-height: 42px !important;
@@ -433,8 +420,8 @@
   <!-- ===================================================================== -->
   <!-- 🛡️ AES-256-GCM SECRET PIN VAULT LOCK SCREEN (CENTER-ALIGNED 3D)       -->
   <!-- ===================================================================== -->
-  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); display:flex; align-items:center; justify-content:center; padding:12px; overflow-y:auto;">
-    <div class="bento-card bento-hero center-stack" style="max-width:430px; width:100%; padding:20px;">
+  <div id="aesVaultOverlay" style="position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at 50% 15%, rgba(139,92,246,0.28) 0%, rgba(6,182,212,0.16) 40%, #03060d 85%); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); display:flex; align-items:center; justify-content:center; padding:14px; overflow-y:auto;">
+    <div class="bento-card bento-hero center-stack vault-lock-card">
       <div class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-500/25 text-emerald-200 border border-emerald-400/60 mb-1.5">
         🟢 V7.0 SOVEREIGN ZERO-KNOWLEDGE VAULT • AES-256-GCM
       </div>
