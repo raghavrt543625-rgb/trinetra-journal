@@ -357,6 +357,56 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.45), inset 0 2px 4px rgba(0,0,0,0.8) !important;
     }
 
+
+    /* =========================================================================
+       STRICT ZERO-OVERFLOW BOX CONTAINMENT (NO TEXT CAN EVER LEAVE ITS BOX!)
+       ========================================================================= */
+    .bento-card,
+    .bento-card > *,
+    .v6-grid-2 > *,
+    .v6-grid-3 > *,
+    .v6-grid-4 > *,
+    .v6-stack-md > *,
+    .v6-stack-3md > *,
+    #diaryStagingPreviewBox > *,
+    #reconcileVerdictGrid > *,
+    #bandheFullGrid > *,
+    button,
+    label.nav-3d-tab,
+    p, span, div {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+      white-space: normal !important;
+    }
+    .bento-card > *,
+    .v6-grid-2 > *,
+    .v6-grid-3 > *,
+    .v6-grid-4 > *,
+    .v6-stack-md > *,
+    .v6-stack-3md > *,
+    #diaryStagingPreviewBox > *,
+    #reconcileVerdictGrid > *,
+    #bandheFullGrid > * {
+      overflow: hidden !important;
+    }
+    .overflow-x-auto { overflow-x: auto !important; }
+    .overflow-y-auto { overflow-y: auto !important; }
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    select {
+      min-height: 42px !important;
+    }
+    #diaryStagingPreviewBox > div {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      min-height: 82px !important;
+      padding: 12px !important;
+    }
+
     /* Self-Contained Responsive Grids */
     .v6-container { max-width: 1180px; margin: 0 auto; padding: 10px; }
     .v6-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
@@ -486,11 +536,13 @@
         🔒 AES-256-GCM Active • Dual-Storage (IndexedDB + Local) • Auto-Lock ON
       </p>
 
-      <!-- 4 Centered Action Pills: Market Status + Privacy Stealth Blur + Encrypted Backup + Travel Mode -->
-      <div class="v6-grid-4 w-full">
-        <div id="liveMarketStatusBadge" class="px-2.5 py-2 rounded-xl text-[11px] font-black bg-emerald-500/20 text-emerald-200 border border-emerald-400/50 center-stack">
-          🟢 Mon 16 Nov • Market OPEN
-        </div>
+      <!-- Full-Width Centered Market Status Banner (Never Collides With Buttons!) -->
+      <div id="liveMarketStatusBadge" class="w-full py-2 px-3 rounded-xl text-xs font-black bg-emerald-500/20 text-emerald-200 border border-emerald-400/50 center-stack">
+        🟢 Monday (सोमवार) (2026-11-16): NSE/BSE MARKET OPEN (09:15 AM – 03:30 PM IST)
+      </div>
+
+      <!-- 3 Symmetric Centered Action Buttons Below Market Banner -->
+      <div class="v6-grid-3 w-full">
         <button id="btnTogglePrivacyBlur" type="button" class="btn-violet py-2 text-xs">
           🙈 Hide ₹ Numbers: OFF
         </button>
@@ -1830,7 +1882,7 @@
       const tagEl = document.getElementById('diaryDateMarketTag');
       if (tagEl) {
         tagEl.textContent = mkt.shortLabel;
-        tagEl.className = `px-2.5 py-0.5 rounded-full text-[10px] font-black whitespace-nowrap ${mkt.badgeClass}`;
+        tagEl.className = `px-2.5 py-0.5 rounded-full text-[10px] font-black  ${mkt.badgeClass}`;
       }
 
       const dedup = dedupEl ? dedupEl.checked : true;
@@ -1843,7 +1895,7 @@
             const isWin = t.pnl >= 0;
             const col = isWin ? 'text-emerald-300 border-emerald-500/40 bg-emerald-950/40' : (t.slType === 'Bad Mistake SL' ? 'text-rose-300 border-rose-500/40 bg-rose-950/40' : 'text-cyan-300 border-cyan-500/40 bg-cyan-950/40');
             return `<div class="p-2 rounded-xl border ${col} mb-1.5">
-              <div class="info-row-inline font-black"><span>${t.strike}</span><span class="mono whitespace-nowrap">${formatSignedINR(t.pnl)}</span></div>
+              <div class="info-row-inline font-black"><span>${t.strike}</span><span class="mono ">${formatSignedINR(t.pnl)}</span></div>
               <div class="text-[10px] text-slate-300 mt-0.5">${t.why} • <strong>${t.slType}</strong></div>
             </div>`;
           }).join('');
@@ -1856,10 +1908,10 @@
               ? 'border-rose-500/40 bg-rose-950/40 text-rose-200'
               : (e.category === 'ITR-3 Business Deduct' || e.category === 'Loan EMI & Debt' ? 'border-violet-500/40 bg-violet-950/40 text-violet-200' : 'border-cyan-500/40 bg-cyan-950/40 text-cyan-200');
             return `<div class="p-2 rounded-xl border ${col} mb-1.5">
-              <div class="info-row-inline font-bold"><span class="truncate">${e.title}</span><span class="mono font-black whitespace-nowrap">${formatINR(e.amount)}</span></div>
+              <div class="info-row-inline font-bold"><span class="">${e.title}</span><span class="mono font-black ">${formatINR(e.amount)}</span></div>
               <div class="text-[10px] mt-1 info-row-inline">
                 <span>${e.category}</span>
-                ${isDedup ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-200 font-black whitespace-nowrap">🔄 Sync</span>` : ''}
+                ${isDedup ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-200 font-black ">🔄 Sync</span>` : ''}
               </div>
             </div>`;
           }).join('');
@@ -2074,15 +2126,13 @@
       const hdrMktEl = document.getElementById('liveMarketStatusBadge');
       if (hdrMktEl) {
         hdrMktEl.textContent = headerMkt.badgeText;
-        hdrMktEl.className = `px-3 py-1.5 rounded-xl text-xs font-black whitespace-nowrap ${headerMkt.badgeClass}`;
+        hdrMktEl.className = `w-full py-2 px-3 rounded-xl text-xs font-black center-stack ${headerMkt.badgeClass}`;
       }
 
       const travelBtn = document.getElementById('btnToggleTravelMode');
       if (travelBtn) {
-        travelBtn.textContent = state.travelModeActive ? '✈️ Travel Mode: ON (Trading Paused)' : '✈️ Travel Mode: OFF';
-        travelBtn.className = state.travelModeActive
-          ? 'px-3 py-1.5 rounded-xl text-xs font-black bg-cyan-500/30 text-cyan-200 border border-cyan-400/60 whitespace-nowrap'
-          : 'px-3 py-1.5 rounded-xl text-xs font-extrabold bg-cyan-950/90 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/40 whitespace-nowrap';
+        travelBtn.textContent = state.travelModeActive ? '✈️ Travel Mode: ON' : '✈️ Travel Mode: OFF';
+        travelBtn.className = state.travelModeActive ? 'btn-emerald py-2 text-xs' : 'btn-cyan py-2 text-xs';
       }
 
       const tradeDateVal = (document.getElementById('tradeDateInput') && document.getElementById('tradeDateInput').value) || '2026-11-15';
@@ -2123,10 +2173,10 @@
       const greedPill = document.getElementById('dockGreedStatusPill');
       if (m.greedPct <= 20) {
         greedPill.textContent = `GREED: CONTROLLED (${m.greedPct}%)`;
-        greedPill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 whitespace-nowrap';
+        greedPill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 ';
       } else {
         greedPill.textContent = `GREED ALERT: HIGH (${m.greedPct}%)`;
-        greedPill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/25 text-rose-300 border border-rose-400/50 whitespace-nowrap';
+        greedPill.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500/25 text-rose-300 border border-rose-400/50 ';
       }
 
       // Render Design #6 Left Column (Dock Recurring Auto-Tagged Bills)
@@ -2141,10 +2191,10 @@
         return `
           <div class="p-2.5 rounded-xl bg-slate-950/75 border border-slate-800 info-row-inline">
             <div class="min-w-0">
-              <div class="text-xs font-bold text-white truncate">${b.title}</div>
+              <div class="text-xs font-bold text-white ">${b.title}</div>
               <div class="flex items-center gap-1.5 mt-0.5">
-                <span class="px-1.5 py-0.2 rounded text-[10px] font-bold border ${badgeColor} whitespace-nowrap">${b.code}</span>
-                <span class="text-xs font-extrabold mono text-slate-300 whitespace-nowrap">${formatINR(b.amount)}</span>
+                <span class="px-1.5 py-0.2 rounded text-[10px] font-bold border ${badgeColor} ">${b.code}</span>
+                <span class="text-xs font-extrabold mono text-slate-300 ">${formatINR(b.amount)}</span>
               </div>
             </div>
             <div data-bill-id="${b.id}" class="bill-toggle-btn toggle-switch ${b.active ? 'on' : 'off'} shrink-0" title="Toggle 1st-of-Month Auto-Tag">
@@ -2195,7 +2245,7 @@
               <div class="text-[11px] text-slate-300 mt-0.5">Why: <strong>${t.why}</strong> • Greed: ${t.greed}</div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <span class="text-sm font-black mono whitespace-nowrap ${isWin ? 'text-emerald-400' : 'text-rose-400'}">${formatSignedINR(t.pnl)}</span>
+              <span class="text-sm font-black mono  ${isWin ? 'text-emerald-400' : 'text-rose-400'}">${formatSignedINR(t.pnl)}</span>
               <button type="button" data-del-trade="${t.id}" class="del-trade-btn text-slate-500 hover:text-rose-400 text-xs px-1.5">✕</button>
             </div>
           </div>
@@ -2216,7 +2266,7 @@
               </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <span class="text-sm font-black mono whitespace-nowrap ${isFizul ? 'text-rose-400' : 'text-cyan-300'}">${formatINR(e.amount)}</span>
+              <span class="text-sm font-black mono  ${isFizul ? 'text-rose-400' : 'text-cyan-300'}">${formatINR(e.amount)}</span>
               <button type="button" data-del-exp="${e.id}" class="del-exp-btn text-slate-500 hover:text-rose-400 text-xs px-1.5">✕</button>
             </div>
           </div>
@@ -2250,23 +2300,23 @@
       const scheduleHtml = `
         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 info-row-inline">
           <span>1. Gross Non-Speculative F&amp;O Business Profit (Sec 43(5) • Code 13018)</span>
-          <span class="mono font-black text-emerald-400 whitespace-nowrap">${formatSignedINR(m.netTradingPnl)}</span>
+          <span class="mono font-black text-emerald-400 ">${formatSignedINR(m.netTradingPnl)}</span>
         </div>
         <div class="p-3 rounded-xl bg-violet-950/40 border border-violet-500/40 info-row-inline">
           <span>2. Less: Section 37 &amp; 32 Auto-Tagged Trading Business Expenses (Wi-Fi, Mobile, Brokerage/STT, Data, iPad Deprec.)</span>
-          <span class="mono font-black text-violet-300 whitespace-nowrap">- ${formatINR(m.totalSec37)}</span>
+          <span class="mono font-black text-violet-300 ">- ${formatINR(m.totalSec37)}</span>
         </div>
         <div class="p-3.5 rounded-xl bg-emerald-950/50 border-2 border-emerald-500/50 info-row-inline text-sm">
           <span class="font-black text-white">3. Net Taxable F&amp;O Business Income (ITR-3 Schedule BP)</span>
-          <span class="mono font-black text-emerald-300 whitespace-nowrap">${formatINR(m.netTaxableFoIncome)}</span>
+          <span class="mono font-black text-emerald-300 ">${formatINR(m.netTaxableFoIncome)}</span>
         </div>
         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 info-row-inline">
           <span>4. Chapter VI-A Deductions Tracked (Sec 80C SIP/Sukanya + Sec 80D Mediclaim)</span>
-          <span class="mono font-black text-cyan-300 whitespace-nowrap">${formatINR(m.totalSip80c)} / mo</span>
+          <span class="mono font-black text-cyan-300 ">${formatINR(m.totalSip80c)} / mo</span>
         </div>
         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 info-row-inline">
           <span>5. ICAI Section 44AB Turnover (100% Digital Bank-Broker • Threshold ₹10 Cr)</span>
-          <span class="mono font-black text-amber-300 whitespace-nowrap">${formatINR(m.monthlyTurnover)} / mo (Audit: NOT Required)</span>
+          <span class="mono font-black text-amber-300 ">${formatINR(m.monthlyTurnover)} / mo (Audit: NOT Required)</span>
         </div>
       `;
       document.getElementById('itrScheduleBpTable').innerHTML = scheduleHtml;
@@ -2293,7 +2343,7 @@
           <div class="p-2.5 rounded-xl bg-slate-900/90 border border-violet-500/30 flex flex-col gap-1 text-left">
             <div class="info-row-inline">
               <span class="text-[11px] font-black text-violet-300 mono">📅 ${d.date}</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 whitespace-nowrap">${d.summaryBadge || 'AI Logged'}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 ">${d.summaryBadge || 'AI Logged'}</span>
             </div>
             <div class="text-xs text-slate-200 leading-snug">${d.rawText}</div>
             ${Array.isArray(d.activities) && d.activities.length > 0 ? `<div class="text-[11px] text-cyan-300 font-semibold">${d.activities.join(' • ')}</div>` : ''}
@@ -2326,7 +2376,7 @@
       let passedChecks = 0;
       const tbody = document.getElementById('habitMatrixBody');
       tbody.innerHTML = state.habits.map((h, rIdx) => {
-        let cells = `<td class="py-2 pr-3 font-bold text-slate-200 whitespace-nowrap">${h.rule}</td>`;
+        let cells = `<td class="py-2 pr-3 font-bold text-slate-200 ">${h.rule}</td>`;
         for (let dIdx = 0; dIdx < 15; dIdx++) {
           const ds = `${monthPrefix}-${String(dIdx + 1).padStart(2, '0')}`;
           const st = getMarketDayStatus(ds);
